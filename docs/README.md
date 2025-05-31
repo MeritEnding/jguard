@@ -34,33 +34,3 @@ LLM(Language Model)을 활용한 자연어 처리 기술과, 프론트/백엔드
 | 인프라 (선택) | Docker, Nginx, GitHub Actions (CI/CD) |
 | 배포 (선택) | AWS EC2, S3, RDS 등 |
 
----
-
-## 프로젝트 구조
-
-JGuard/
-│
-├── frontend/ # React 기반 사용자 인터페이스
-│ ├── public/
-│ ├── src/
-│ │ ├── components/
-│ │ ├── pages/
-│ │ ├── api/ # 백엔드와 통신
-│ │ └── ...
-│ └── package.json
-│
-├── backend/ # Spring Boot 기반 REST API 서버
-│ ├── src/
-│ │ └── main/java/com/example/chatbot/
-│ │ ├── controller/
-│ │ ├── service/
-│ │ ├── dto/
-│ │ └── ...
-│ ├── application.yml
-│ └── build.gradle
-│
-├── docs/ # 기획 문서, 시나리오, API 명세 등
-│ └── chatbot-scenarios.md
-│
-├── README.md
-└── docker-compose.yml (선택)
