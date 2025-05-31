@@ -34,3 +34,15 @@ LLM(Language Model)을 활용한 자연어 처리 기술과, 프론트/백엔드
 | 인프라 (선택) | Docker, Nginx, GitHub Actions (CI/CD) |
 | 배포 (선택) | AWS EC2, S3, RDS 등 |
 
+---
+[사용자 (브라우저)]
+      ⬇︎
+[프론트엔드 (React.js)]
+      ⬇︎ HTTP 요청 (REST API)
+[백엔드 (Spring Boot)]
+      ⬇︎ 내부 Python 호출 or HTTP 요청
+[에이전트 (Python LLM Agent)]
+      ⬇︎ GPT API 요청
+[OpenAI 응답 → 파싱]
+      ⬆︎
+→ 결과를 백엔드가 받아서 다시 프론트에 전달
