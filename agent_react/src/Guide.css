@@ -1,0 +1,299 @@
+/* Guide.css - Professionally Styled with #4f46e5 Accent */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
+
+/* --- CSS Variables for Consistency --- */
+/* (Ideally, these would be in a central theme file like App.css for app-wide consistency) */
+:root {
+  --primary-color: #4f46e5;       /* Your chosen vibrant blue-violet */
+  --primary-dark-hover: #4338ca;  /* Darker shade for hover effects */
+  --secondary-bg-light: #e6f0fa;  /* A soft light blue for section backgrounds */
+  --text-dark: #212529;           /* Main content text color */
+  --text-medium: #495057;         /* Secondary text color (e.g., intro description) */
+  --border-light: #e9ecef;        /* Light border for subtle separation */
+  --border-dashed: #ced4da;       /* Dashed border for visual interest */
+  --shadow-subtle: rgba(0, 0, 0, 0.05); /* Very light shadow */
+  --shadow-medium: rgba(0, 0, 0, 0.1);  /* More prominent shadow on hover */
+  --font-family-base: 'Noto Sans KR', sans-serif;
+  --spacing-sm: 10px;             /* Small spacing */
+  --spacing-md: 20px;             /* Medium spacing */
+  --spacing-lg: 40px;             /* Large spacing */
+  --border-radius-sm: 5px;        /* Small border-radius */
+  --border-radius-md: 8px;        /* Medium border-radius */
+}
+
+/* --- Base Body Styling --- */
+body {
+  font-family: var(--font-family-base);
+  line-height: 1.6;
+  color: var(--text-dark);
+  background-color: var(--bg-light-gray, #f8f9fa); /* Fallback if not defined globally */
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Guide Container (Main Wrapper) --- */
+.guide-container {
+  width: 100%; /* Take full width of its parent */
+  min-height: 100vh; /* Ensure it fills the viewport height */
+  margin: 0; /* Remove margin for full-width layout */
+  padding: var(--spacing-lg, 40px); /* Generous padding for content */
+  background-color: #fff; /* White background for the main content area */
+  border-radius: 0; /* No rounded corners for full-width layout */
+  box-shadow: none; /* No shadow for full-width layout */
+  animation: fadeIn 0.8s ease-out forwards; /* Smooth entrance animation */
+  flex-grow: 1; /* Allow to grow and fill available space */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Page Title and Introduction --- */
+.guide-title {
+  font-size: 3.2em; /* Slightly larger for a stronger impact */
+  color: var(--primary-color); /* **Your accent color for the main title** */
+  text-align: center;
+  margin-bottom: var(--spacing-md, 20px);
+  font-weight: 700;
+  letter-spacing: -0.04em; /* Tighter letter spacing for larger text */
+  max-width: 900px; /* Constrain title width for readability */
+  width: 100%;
+}
+
+.guide-intro {
+  font-size: 1.25em; /* Slightly larger for better readability */
+  text-align: center;
+  margin-bottom: var(--spacing-lg, 40px);
+  color: var(--text-medium); /* Softer color for introductory text */
+  line-height: 1.7; /* Enhanced line height for readability */
+  padding: 0 var(--spacing-md, 20px);
+  max-width: 900px; /* Constrain intro width for readability */
+  width: 100%;
+}
+
+/* --- Guide Content Wrapper (to control overall content width) --- */
+.guide-content-wrapper {
+  max-width: 1000px; /* **Increased content wrapper width for wider layout** */
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* --- Individual Guide Section Cards --- */
+.guide-section {
+  background-color: var(--secondary-bg-light); /* Light blue background */
+  border-left: 8px solid var(--primary-color); /* **Prominent accent bar on the left** */
+  padding: var(--spacing-lg, 30px); /* Generous padding */
+  margin-bottom: var(--spacing-lg, 30px);
+  border-radius: var(--border-radius-md, 8px);
+  box-shadow: 0 4px 15px var(--shadow-subtle); /* Subtle initial shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.guide-section:hover {
+  transform: translateY(-7px); /* More pronounced lift effect */
+  box-shadow: 0 15px 35px var(--shadow-medium); /* More prominent shadow on hover */
+}
+
+.guide-section h2 {
+  font-size: 2em; /* Larger section titles */
+  color: var(--primary-color); /* **Accent color for section titles** */
+  margin-top: 0;
+  margin-bottom: var(--spacing-md, 20px);
+  font-weight: 700; /* Bolder section titles */
+  padding-bottom: var(--spacing-sm, 10px);
+  border-bottom: 2px dashed var(--border-dashed); /* **Thicker dashed border** */
+  line-height: 1.3;
+}
+
+.guide-section ul {
+  list-style: none; /* Remove default list style */
+  padding: 0;
+  margin: 0;
+}
+
+.guide-section ul li {
+  font-size: 1.1em; /* Slightly larger list items */
+  padding: 15px 0; /* More vertical padding for list items */
+  border-bottom: 1px solid var(--border-light); /* Subtle border between list items */
+  display: flex;
+  align-items: flex-start; /* Align checkmark with text */
+  color: var(--text-dark);
+}
+
+.guide-section ul li:last-child {
+  border-bottom: none; /* No border for the last list item */
+}
+
+.guide-section ul li::before {
+  content: '✓'; /* More standard checkmark icon */
+  color: var(--primary-color); /* **Accent color for checkmarks** */
+  margin-right: 18px; /* More space between checkmark and text */
+  font-weight: bold;
+  font-size: 1.4em; /* Larger checkmark icon */
+  line-height: 1.3; /* Ensure checkmark aligns well */
+  flex-shrink: 0; /* Prevent checkmark from shrinking */
+}
+
+.guide-section strong {
+  color: var(--primary-color); /* **Accent color for important text within list items** */
+  font-weight: 700;
+}
+
+/* --- Specific Styling for Useful Links Section (Last Section) --- */
+.guide-section:last-of-type {
+  background-color: var(--bg-card-white, #fff); /* White background */
+  border: 1px solid var(--border-light); /* Subtle border */
+  border-left: 8px solid var(--primary-color); /* **Keep accent bar for consistency** */
+  padding: var(--spacing-lg, 30px);
+  text-align: center; /* Center content within this section */
+}
+
+.guide-section:last-of-type h2 {
+  border-bottom: none;
+  text-align: center;
+  color: var(--text-dark); /* Darker text for this section's title */
+  font-size: 1.8em; /* Slightly smaller title for this section */
+  margin-bottom: var(--spacing-md, 20px);
+}
+
+.guide-section:last-of-type ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center links horizontally */
+  gap: var(--spacing-md, 15px); /* Consistent spacing between links */
+}
+
+.guide-section:last-of-type ul li {
+  border-bottom: none;
+  padding: 0;
+  margin: 0; /* Remove specific list item margins */
+}
+
+.guide-section:last-of-type ul li::before {
+  content: none; /* Remove checkmark for links */
+}
+
+.guide-section a {
+  color: var(--primary-color); /* **Accent color for links** */
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease; /* Smooth transition for all properties */
+  padding: 10px 20px; /* More padding for link buttons */
+  background-color: var(--secondary-bg-light); /* Light background for link buttons */
+  border-radius: var(--border-radius-sm, 5px);
+  box-shadow: 0 3px 8px var(--shadow-subtle); /* Subtle shadow for link buttons */
+  display: inline-block; /* Allows padding and margin to be applied correctly */
+}
+
+.guide-section a:hover {
+  color: var(--primary-dark-hover); /* Darker accent on hover */
+  text-decoration: underline; /* Underline on hover */
+  background-color: #dbe4f1; /* Slightly darker background on hover */
+  transform: translateY(-2px); /* Subtle lift on hover */
+  box-shadow: 0 5px 15px var(--shadow-subtle); /* Slightly larger shadow on hover */
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 1024px) { /* Adjust for larger tablets and smaller desktops */
+  .guide-container {
+    padding: var(--spacing-lg, 30px);
+  }
+  .guide-title {
+    font-size: 2.8em;
+  }
+  .guide-intro {
+    font-size: 1.1em;
+  }
+  .guide-content-wrapper {
+    max-width: 90%; /* Use percentage for flexibility */
+  }
+  .guide-section h2 {
+    font-size: 1.8em;
+  }
+}
+
+@media (max-width: 768px) { /* Tablets and smaller laptops */
+  .guide-container {
+    padding: var(--spacing-md, 20px);
+  }
+  .guide-title {
+    font-size: 2.4em;
+  }
+  .guide-intro {
+    font-size: 1em;
+    padding: 0 var(--spacing-sm, 10px);
+  }
+  .guide-section {
+    padding: var(--spacing-md, 25px);
+    margin-bottom: var(--spacing-md, 25px);
+  }
+  .guide-section h2 {
+    font-size: 1.6em;
+    margin-bottom: var(--spacing-sm, 15px);
+  }
+  .guide-section ul li {
+    font-size: 1em;
+    padding: 10px 0;
+  }
+  .guide-section ul li::before {
+    margin-right: 12px;
+    font-size: 1.3em;
+  }
+  .guide-section a {
+    padding: 8px 15px;
+    font-size: 0.95em;
+  }
+}
+
+@media (max-width: 480px) { /* Mobile phones */
+  .guide-container {
+    padding: var(--spacing-sm, 15px);
+  }
+  .guide-title {
+    font-size: 2em;
+    letter-spacing: -0.02em;
+  }
+  .guide-intro {
+    font-size: 0.95em;
+    margin-bottom: var(--spacing-md, 30px);
+  }
+  .guide-section {
+    padding: var(--spacing-md, 20px);
+    margin-bottom: var(--spacing-md, 20px);
+    border-left-width: 6px; /* Slightly thinner accent bar on mobile */
+  }
+  .guide-section h2 {
+    font-size: 1.4em;
+    margin-bottom: var(--spacing-sm, 10px);
+  }
+  .guide-section ul li {
+    font-size: 0.9em;
+    padding: 8px 0;
+  }
+  .guide-section ul li::before {
+    margin-right: 10px;
+    font-size: 1.2em;
+  }
+  .guide-section:last-of-type ul {
+    gap: var(--spacing-sm, 10px); /* Smaller gap for links on mobile */
+  }
+  .guide-section a {
+    padding: 7px 12px;
+    font-size: 0.9em;
+  }
+}

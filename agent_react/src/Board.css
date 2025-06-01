@@ -1,0 +1,366 @@
+/* Board.css - 넓이를 넓히고 최적화된 전문가 CSS */
+
+/* --- Global Variables (변수들은 App.css 또는 테마 파일에 정의된 것을 가정합니다) --- */
+/* 만약 이 변수들이 아직 정의되지 않았다면, App.css 파일에 아래 내용을 추가해주세요. */
+/*
+:root {
+  --primary-accent: #4f46e5;       // 당신이 선택한 블루-바이올렛 메인 색상
+  --primary-accent-dark: #4338ca;  // 호버 효과를 위한 더 어두운 색상
+  --text-primary-dark: #212529;    // 주 텍스트 색상
+  --text-secondary: #495057;     // 설명 등 보조 텍스트 색상
+  --bg-light-gray: #f8f9fa;      // 페이지/섹션의 밝은 배경
+  --bg-card-white: #ffffff;      // 카드/컨테이너의 흰색 배경
+  --border-light: #e9ecef;       // 테이블/요소의 밝은 테두리
+  --border-medium: #ced4da;      // 입력 필드의 중간 테두리
+  --shadow-sm: rgba(0, 0, 0, 0.05); // 미묘한 작은 그림자
+  --shadow-md: rgba(0, 0, 0, 0.1);  // 약간의 입체감을 위한 중간 그림자
+  --shadow-lg: rgba(0, 0, 0, 0.15); // 더 눈에 띄는 그림자
+  --border-radius-sm: 4px;       // 작은 테두리 반경
+  --border-radius-md: 8px;       // 중간 테두리 반경
+  --spacing-sm: 8px;             // 작은 간격 단위
+  --spacing-md: 16px;            // 중간 간격 단위
+  --spacing-lg: 24px;            // 큰 간격 단위
+
+  // 새로운 넓이 관련 변수 추가
+  --max-content-width-lg: 1100px; // 넓어진 최대 너비
+  --max-content-width-md: 960px;  // 중간 화면에서 사용할 최대 너비
+  --font-family-base: 'Pretendard', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  font-family: var(--font-family-base);
+  line-height: 1.6;
+  color: var(--text-primary-dark);
+  background-color: var(--bg-light-gray);
+  margin: 0;
+  padding: 0;
+}
+*/
+
+/* --- Board Container --- */
+.board-container {
+  /* **넓이를 넓히기 위한 핵심 변경점** */
+  max-width: var(--max-content-width-lg, 1100px); /* 기존 800px에서 1100px로 확장 */
+  margin: 40px auto;
+  padding: var(--spacing-lg, 24px);
+  background-color: var(--bg-card-white, #ffffff);
+  border-radius: var(--border-radius-md, 8px);
+  box-shadow: 0 10px 30px var(--shadow-md, rgba(0, 0, 0, 0.1));
+  animation: fadeInScale 0.7s ease-out forwards;
+  font-family: var(--font-family-base, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif);
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.98) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* --- Header --- */
+.board-title {
+  font-size: 2.8em; /* 더 커진 넓이에 맞춰 제목 크기 키움 */
+  font-weight: 700;
+  color: var(--primary-accent, #4f46e5);
+  text-align: center;
+  margin-bottom: var(--spacing-sm, 10px);
+  letter-spacing: -0.04em; /* 더 넓은 공간에 맞춰 자간 조정 */
+}
+
+.board-description {
+  font-size: 1.2em; /* 설명 텍스트도 살짝 키움 */
+  color: var(--text-secondary, #495057);
+  text-align: center;
+  margin-bottom: var(--spacing-lg, 24px);
+  line-height: 1.5;
+  max-width: 800px; /* 넓이에 맞춰 설명 텍스트 최대 너비 조정 */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- Table Styles --- */
+.board-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: var(--spacing-lg, 24px);
+  border: 1px solid var(--border-light, #e9ecef);
+  border-radius: var(--border-radius-md, 8px);
+  overflow: hidden;
+  box-shadow: 0 4px 15px var(--shadow-sm, rgba(0, 0, 0, 0.05));
+}
+
+.board-table thead th {
+  background-color: var(--primary-accent, #4f46e5);
+  color: white;
+  padding: var(--spacing-md, 16px);
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.05em; /* 테이블 헤더 폰트 크기 살짝 키움 */
+  white-space: nowrap;
+}
+
+.board-table thead th:first-child {
+  border-top-left-radius: var(--border-radius-md, 8px);
+}
+
+.board-table thead th:last-child {
+  border-top-right-radius: var(--border-radius-md, 8px);
+}
+
+.board-table tbody td {
+  padding: var(--spacing-md, 16px);
+  border-bottom: 1px solid var(--border-light, #e9ecef);
+  text-align: center;
+  font-size: 0.98em; /* 테이블 내용 폰트 크기 살짝 키움 */
+  color: var(--text-primary-dark, #212529);
+}
+
+.board-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.board-table tbody tr:nth-child(even) {
+  background-color: var(--bg-light-gray, #f8f9fa);
+}
+
+.board-table tbody tr:hover {
+  background-color: #f0f7ff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.board-table tbody td:nth-child(2) {
+  text-align: left;
+  font-weight: 500;
+  color: var(--primary-accent, #4f46e5);
+  transition: color 0.2s ease;
+}
+
+.board-table tbody td:nth-child(2):hover {
+  text-decoration: underline;
+  color: var(--primary-accent-dark, #4338ca);
+}
+
+.board-table .no-posts-message {
+  padding: var(--spacing-lg, 24px) 0;
+  font-style: italic;
+  color: var(--text-secondary, #6c757d);
+  text-align: center;
+}
+
+/* --- Buttons (Main & Form) --- */
+.board-register-btn,
+.board-submit-btn,
+.board-cancel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 30px; /* 버튼 패딩 더 늘림 */
+  font-size: 1.05em; /* 버튼 폰트 크기 살짝 키움 */
+  font-weight: 600;
+  border: none;
+  border-radius: var(--border-radius-sm, 4px);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px var(--shadow-sm, rgba(0, 0, 0, 0.05));
+  white-space: nowrap;
+}
+
+.board-register-btn {
+  background-color: var(--primary-accent, #4f46e5);
+  color: white;
+  margin: var(--spacing-md, 16px) auto var(--spacing-lg, 24px) auto;
+  display: block;
+  width: fit-content;
+  min-width: 160px; /* 최소 너비 약간 증가 */
+}
+
+.board-register-btn:hover {
+  background-color: var(--primary-accent-dark, #4338ca);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px var(--shadow-md, rgba(0, 0, 0, 0.1));
+}
+
+/* --- Form Styles --- */
+.board-form {
+  background-color: var(--bg-light-gray, #f8f9fa);
+  padding: var(--spacing-lg, 24px);
+  border-radius: var(--border-radius-md, 8px);
+  margin-top: var(--spacing-lg, 24px);
+  box-shadow: 0 5px 15px var(--shadow-sm, rgba(0, 0, 0, 0.08));
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md, 16px);
+}
+
+.board-input,
+.board-textarea {
+  width: calc(100% - (var(--spacing-md, 16px) * 2));
+  padding: var(--spacing-md, 16px);
+  border: 1px solid var(--border-medium, #ced4da);
+  border-radius: var(--border-radius-sm, 4px);
+  font-family: inherit;
+  font-size: 1.05em; /* 입력 필드 폰트 크기 살짝 키움 */
+  color: var(--text-primary-dark, #212529);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.board-input:focus,
+.board-textarea:focus {
+  outline: none;
+  border-color: var(--primary-accent, #4f46e5);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+.board-textarea {
+  resize: vertical;
+  min-height: 120px; /* 텍스트 에어리어 높이 증가 */
+}
+
+/* Form Buttons Group */
+.board-form-actions {
+  display: flex;
+  gap: var(--spacing-md, 16px);
+  justify-content: flex-end;
+  margin-top: var(--spacing-sm, 8px);
+}
+
+.board-submit-btn {
+  background-color: var(--primary-accent, #4f46e5);
+  color: white;
+  margin-bottom: 0;
+  flex-grow: 1;
+  max-width: 160px; /* 폼 버튼 최대 너비 증가 */
+}
+
+.board-submit-btn:hover {
+  background-color: var(--primary-accent-dark, #4338ca);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px var(--shadow-sm, rgba(0, 0, 0, 0.08));
+}
+
+.board-cancel-btn {
+  background-color: var(--secondary-color, #6c757d);
+  color: white;
+  flex-grow: 1;
+  max-width: 160px; /* 폼 버튼 최대 너비 증가 */
+}
+
+.board-cancel-btn:hover {
+  background-color: var(--secondary-hover-color, #5a6268);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px var(--shadow-sm, rgba(0, 0, 0, 0.08));
+}
+
+/* --- Responsive Design (넓어진 너비에 맞춰 조정) --- */
+@media (max-width: 1200px) { /* 새로운 브레이크 포인트 추가 */
+  .board-container {
+    max-width: var(--max-content-width-md, 960px); /* 더 큰 화면에서 중간 너비 적용 */
+  }
+}
+
+@media (max-width: 992px) { /* 기존 768px보다 넓은 새로운 브레이크 포인트 */
+  .board-container {
+    max-width: 90%; /* 화면 너비의 90% 사용 */
+    margin: 30px auto;
+  }
+  .board-table thead th,
+  .board-table tbody td {
+    padding: var(--spacing-md, 16px);
+    font-size: 0.95em;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .board-container {
+    margin: 20px auto;
+    padding: var(--spacing-md, 16px);
+  }
+
+  .board-title {
+    font-size: 2.2em;
+  }
+
+  .board-description {
+    font-size: 1em;
+  }
+
+  .board-table thead th,
+  .board-table tbody td {
+    padding: var(--spacing-sm, 8px);
+    font-size: 0.9em;
+  }
+
+  .board-table tbody td:nth-child(2) {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .board-register-btn {
+    padding: 10px 20px;
+    font-size: 0.95em;
+  }
+
+  .board-input,
+  .board-textarea {
+    padding: var(--spacing-sm, 8px) var(--spacing-md, 16px);
+    font-size: 0.95em;
+  }
+
+  .board-form-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm, 8px);
+  }
+
+  .board-submit-btn,
+  .board-cancel-btn {
+    width: 100%;
+    max-width: 200px;
+    padding: 10px 15px;
+    font-size: 0.95em;
+  }
+}
+
+@media (max-width: 480px) {
+  .board-container {
+    margin: 15px;
+    padding: var(--spacing-md, 16px);
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .board-title {
+    font-size: 1.8em;
+  }
+
+  .board-description {
+    font-size: 0.9em;
+    margin-bottom: var(--spacing-md, 16px);
+  }
+
+  .board-table thead th,
+  .board-table tbody td {
+    padding: 8px;
+    font-size: 0.8em;
+  }
+
+  .board-table thead th:first-child,
+  .board-table tbody td:first-child {
+    display: none;
+  }
+
+  .board-table tbody td:nth-child(2) {
+    text-align: center;
+    max-width: unset;
+    white-space: normal;
+  }
+}

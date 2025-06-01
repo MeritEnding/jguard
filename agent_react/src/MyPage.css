@@ -1,0 +1,210 @@
+/* MyPage.css - Professionally Styled with #4f46e5 Accent */
+
+/* --- Global Variables and Base Styles --- */
+/* Assuming 'Noto Sans KR' is already imported globally or in a common stylesheet */
+:root {
+  --primary-accent: #4f46e5;       /* Your chosen vibrant blue-violet */
+  --primary-accent-dark: #4338ca;  /* Darker shade for hover states */
+  --text-dark: #212529;            /* Main text color for headings, strong elements */
+  --text-medium: #495057;          /* Secondary text color for general content */
+  --text-light: #6c757d;           /* Lighter text for metadata, subtle info */
+  --background-light: #f8f9fa;     /* Light background for sections/list items */
+  --background-card: #ffffff;      /* White background for the main container */
+  --border-subtle: #e9ecef;        /* Very light border for separation */
+  --shadow-base: rgba(0, 0, 0, 0.08); /* Standard subtle shadow */
+  --shadow-hover: rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+  --border-radius-sm: 8px;         /* Smaller border radius for nested elements */
+  --border-radius-lg: 16px;        /* Larger border radius for main containers */
+  --spacing-sm: 10px;              /* Small spacing unit */
+  --spacing-md: 20px;              /* Medium spacing unit */
+  --spacing-lg: 30px;              /* Large spacing unit */
+  --spacing-xl: 40px;              /* Extra large spacing unit */
+  --font-family-base: "Noto Sans KR", sans-serif;
+}
+
+body {
+  font-family: var(--font-family-base);
+  line-height: 1.6;
+  color: var(--text-medium);
+  background-color: var(--background-light); /* Ensure body background is light */
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* --- MyPage Container --- */
+.mypage-container {
+  max-width: 900px;
+  margin: var(--spacing-xl) auto; /* More margin top/bottom for breathing room */
+  padding: var(--spacing-lg); /* Generous padding inside the container */
+  background-color: var(--background-card);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 8px 20px var(--shadow-base); /* Slightly softer, more spread-out shadow */
+  animation: fadeIn 0.8s ease-out forwards; /* Smooth entrance animation */
+  box-sizing: border-box; /* Include padding in the element's total width and height */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Header --- */
+.mypage-title {
+  font-size: 2.8em; /* Larger and more impactful title */
+  color: var(--primary-accent); /* **MyPage title uses your accent color** */
+  text-align: center;
+  margin-bottom: var(--spacing-xl); /* More space below the main title */
+  font-weight: 700; /* Bolder font for prominence */
+  letter-spacing: -0.04em; /* Slight negative letter-spacing for visual appeal */
+  line-height: 1.2;
+}
+
+/* --- Section Styling --- */
+.mypage-section {
+  background-color: var(--background-card); /* Sections within might also be white or slightly off-white */
+  padding: var(--spacing-md) 0; /* Vertical padding for sections */
+  margin-bottom: var(--spacing-xl); /* More space between sections */
+  border-bottom: 1px solid var(--border-subtle); /* Subtle separator for sections */
+}
+
+.mypage-section:last-of-type {
+  border-bottom: none; /* No border for the last section */
+  margin-bottom: 0; /* No bottom margin for the last section */
+}
+
+.mypage-section h2 {
+  font-size: 1.6rem; /* Slightly larger section titles */
+  color: var(--text-dark); /* Darker text for section headings */
+  margin-bottom: var(--spacing-md); /* More space below section title */
+  font-weight: 600;
+  padding-bottom: var(--spacing-sm); /* Padding for the bottom border */
+  border-bottom: 2px solid var(--primary-accent); /* **Accent-colored underline for section titles** */
+  display: inline-block; /* Makes the border only as wide as the text */
+  line-height: 1.3;
+}
+
+.mypage-section p {
+  font-size: 1.05rem; /* Slightly larger paragraph text */
+  color: var(--text-medium);
+  margin: 6px 0; /* Adjusted margin for paragraphs */
+}
+
+/* --- List Styling (e.g., Recent Activities) --- */
+.mypage-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: var(--spacing-md); /* Space above the list */
+}
+
+.mypage-list li {
+  padding: var(--spacing-md); /* More padding inside list items */
+  background: var(--background-light); /* Light background for list items */
+  border-radius: var(--border-radius-sm); /* Slightly rounded corners for list items */
+  margin-bottom: var(--spacing-sm); /* Consistent space between list items */
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--border-subtle); /* Subtle border for each list item */
+  display: flex; /* Use flexbox for content alignment */
+  justify-content: space-between; /* Pushes span to the right */
+  align-items: center; /* Vertically center items */
+}
+
+.mypage-list li:hover {
+  background: #e0e7fa; /* **Lighter shade of accent on hover** */
+  transform: translateY(-3px); /* Subtle lift effect on hover */
+  box-shadow: 0 6px 15px var(--shadow-base); /* Increased shadow on hover */
+}
+
+.mypage-list li strong {
+  color: var(--primary-accent); /* **Accent color for important text in list items** */
+  font-weight: 700;
+}
+
+.mypage-list li span {
+  color: var(--text-light); /* Lighter color for metadata */
+  font-size: 0.95rem; /* Slightly larger font size for metadata */
+  margin-left: var(--spacing-sm); /* Space between main text and metadata */
+  white-space: nowrap; /* Prevent date/time from wrapping */
+  flex-shrink: 0; /* Prevent span from shrinking on small screens */
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .mypage-container {
+    margin: var(--spacing-lg) auto;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-lg); /* Keep border-radius for tablet */
+    box-shadow: 0 6px 18px var(--shadow-base); /* Slightly smaller shadow */
+  }
+
+  .mypage-title {
+    font-size: 2.2em;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .mypage-section h2 {
+    font-size: 1.4rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .mypage-section p,
+  .mypage-list li {
+    font-size: 1rem;
+  }
+
+  .mypage-list li {
+    padding: var(--spacing-sm);
+  }
+
+  .mypage-list li span {
+    font-size: 0.85rem;
+    margin-left: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .mypage-container {
+    margin: var(--spacing-md) 0; /* No horizontal margin for full width on mobile */
+    padding: var(--spacing-sm);
+    border-radius: 0; /* Full width, no rounded corners on very small screens */
+    box-shadow: none; /* No shadow for seamless look */
+  }
+
+  .mypage-title {
+    font-size: 1.8em;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .mypage-section {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .mypage-section h2 {
+    font-size: 1.2rem;
+    padding-bottom: 5px;
+    border-bottom-width: 1px; /* Thinner border for titles on mobile */
+  }
+
+  .mypage-section p {
+    font-size: 0.95rem;
+    margin: 3px 0;
+  }
+
+  .mypage-list li {
+    flex-direction: column; /* Stack content in list items vertically */
+    align-items: flex-start; /* Align text to the left when stacked */
+    padding: var(--spacing-sm) 0; /* Adjust padding for stacked content */
+  }
+
+  .mypage-list li span {
+    margin-left: 0; /* Remove left margin when stacked */
+    margin-top: 5px; /* Add top margin for separation */
+    font-size: 0.8rem;
+  }
+}

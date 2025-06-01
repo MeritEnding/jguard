@@ -1,0 +1,259 @@
+/* News.css - Professionally Styled with #4f46e5 Accent */
+
+/* --- Global Variables and Base Styles --- */
+@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap');
+
+:root {
+  --primary-color: #4f46e5;       /* Your chosen vibrant blue-violet */
+  --primary-hover-color: #4338ca;  /* Darker shade for hover */
+  --background-light: #F8F9FA;    /* Light background for the page */
+  --card-background: #FFFFFF;     /* White background for news cards */
+  --text-dark: #212529;           /* Dark text for headings and main content */
+  --text-medium: #495057;         /* Medium dark text for summaries */
+  --text-light: #6C757D;          /* Lighter text for dates/metadata */
+  --border-color: #E9ECEF;        /* Subtle border color */
+  --shadow-subtle: rgba(0, 0, 0, 0.08); /* Light, gentle shadow */
+  --shadow-medium: rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+  --font-family-korean: 'Pretendard', sans-serif;
+  --font-family-serif: 'Merriweather', serif; /* Serif font for titles, conveying authority */
+  --border-radius-base: 10px;     /* Consistent border radius */
+  --spacing-unit: 16px;           /* Base spacing unit for consistency */
+}
+
+body {
+  font-family: var(--font-family-korean);
+  line-height: 1.6;
+  color: var(--text-dark);
+  background-color: var(--background-light);
+  margin: 0;
+  padding: 0;
+}
+
+/* --- News Container --- */
+.news-container {
+  max-width: 1100px; /* **Increased max-width for a more expansive layout** */
+  margin: 50px auto; /* More vertical margin for better visual separation */
+  padding: 40px; /* More generous padding inside the container */
+  background-color: var(--card-background);
+  border-radius: var(--border-radius-base);
+  box-shadow: 0 15px 35px var(--shadow-subtle); /* Slightly larger, softer shadow */
+  animation: fadeIn 0.8s ease-out forwards; /* Smooth entrance animation */
+  box-sizing: border-box; /* Ensures padding is included in element's total width */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px); /* Starts from a bit lower */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Header --- */
+.news-title {
+  font-family: var(--font-family-serif);
+  font-size: 3.2em; /* Slightly larger and more impactful title */
+  color: var(--primary-color); /* **Main title uses your accent color** */
+  text-align: center;
+  margin-bottom: 15px; /* More space below title */
+  font-weight: 700;
+  letter-spacing: -0.05em; /* Tighter for a strong visual */
+  line-height: 1.2;
+}
+
+.news-subtitle {
+  font-size: 1.25em; /* Larger and more readable subtitle */
+  text-align: center;
+  margin-bottom: 60px; /* More space before the news grid begins */
+  color: var(--text-medium);
+  line-height: 1.6;
+  max-width: 800px; /* Constrain subtitle width for readability */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- News Grid --- */
+.news-grid {
+  display: grid;
+  /* Adjust minmax to support 3 columns on larger screens, then stack */
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: calc(var(--spacing-unit) * 2.5); /* Increased gap for more breathing room */
+  padding: 0; /* Remove horizontal padding here; let container handle it */
+}
+
+/* --- News Card --- */
+.news-card {
+  background-color: var(--card-background);
+  padding: 30px; /* More padding inside each card */
+  border-radius: var(--border-radius-base);
+  box-shadow: 0 6px 20px var(--shadow-subtle); /* Softer initial shadow for cards */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--border-color);
+  overflow: hidden; /* Ensures content respects border-radius */
+}
+
+.news-card:hover {
+  transform: translateY(-8px); /* More pronounced lift effect on hover */
+  box-shadow: 0 15px 35px var(--shadow-medium); /* Stronger, more dramatic shadow on hover */
+}
+
+.news-card h3 {
+  font-family: var(--font-family-serif);
+  font-size: 1.6em; /* Slightly larger news titles within cards */
+  color: var(--text-dark);
+  margin-top: 0;
+  margin-bottom: 12px;
+  line-height: 1.35;
+  font-weight: 700;
+  /* Truncate long titles with ellipsis */
+  display: -webkit-box;
+
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.news-card .news-date {
+  font-size: 0.95em; /* Slightly larger date for readability */
+  color: var(--text-light);
+  margin-bottom: 20px; /* More space between date and summary */
+  font-weight: 400; /* Normal weight for dates */
+}
+
+.news-card .news-summary {
+  font-size: 1.05em; /* Slightly larger summary text for readability */
+  color: var(--text-medium);
+  line-height: 1.6;
+  margin-bottom: 25px; /* More space before the link */
+  flex-grow: 1;
+  /* Truncate long summaries */
+  display: -webkit-box;
+ 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.news-card .news-link {
+  display: inline-flex; /* Use flex for potential icon, better alignment */
+  align-items: center;
+  gap: 5px; /* Space for an arrow icon if added later */
+  color: var(--primary-color); /* **Link uses your accent color** */
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease, transform 0.3s ease;
+  align-self: flex-start; /* Align link to the bottom-left of the card */
+  /* Add subtle button-like styling for links */
+  padding: 8px 0;
+  border-bottom: 2px solid transparent; /* For underline effect on hover */
+}
+
+.news-card .news-link:hover {
+  color: var(--primary-hover-color);
+  transform: translateX(3px); /* Gentle slide effect on hover */
+  border-bottom-color: var(--primary-hover-color); /* Underline appears */
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1200px) { /* Adjust for larger desktops */
+  .news-container {
+    max-width: 960px;
+    padding: 35px;
+  }
+  .news-grid {
+    gap: calc(var(--spacing-unit) * 2);
+  }
+}
+
+@media (max-width: 992px) { /* Tablets in landscape / smaller laptops */
+  .news-container {
+    max-width: 90%; /* Use percentage for fluid layout */
+    margin: 40px auto;
+    padding: 30px;
+  }
+  .news-title {
+    font-size: 2.5em;
+  }
+  .news-subtitle {
+    font-size: 1.1em;
+    margin-bottom: 40px;
+  }
+  .news-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Allow 2 columns more easily */
+    gap: calc(var(--spacing-unit) * 1.8);
+  }
+  .news-card {
+    padding: 25px;
+  }
+  .news-card h3 {
+    font-size: 1.4em;
+  }
+}
+
+@media (max-width: 768px) { /* Tablets in portrait / smaller tablets */
+  .news-container {
+    margin: 25px auto;
+    padding: 25px;
+  }
+  .news-title {
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+  .news-subtitle {
+    font-size: 0.95em;
+    margin-bottom: 30px;
+  }
+  .news-grid {
+    grid-template-columns: 1fr; /* Stack cards vertically */
+    gap: calc(var(--spacing-unit) * 1.5);
+    padding: 0;
+  }
+  .news-card {
+    padding: 20px;
+  }
+  .news-card h3 {
+    font-size: 1.3em;
+  }
+  .news-card .news-summary {
+    font-size: 0.95em;
+   
+  }
+}
+
+@media (max-width: 480px) { /* Mobile phones */
+  .news-container {
+    margin: 15px auto;
+    padding: 15px;
+    border-radius: 0; /* Full width, no shadow */
+    box-shadow: none;
+  }
+  .news-title {
+    font-size: 1.7em;
+    letter-spacing: -0.02em;
+  }
+  .news-subtitle {
+    font-size: 0.85em;
+    margin-bottom: 25px;
+  }
+  .news-card {
+    padding: 15px;
+  }
+  .news-card h3 {
+    font-size: 1.15em;
+  
+  }
+  .news-card .news-date {
+    font-size: 0.8em;
+  }
+  .news-card .news-summary {
+    font-size: 0.9em;
+    margin-bottom: 15px;
+ 
+  }
+}

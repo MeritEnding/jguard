@@ -1,0 +1,253 @@
+/* Chatbot.css */
+
+/* --- Global Variables and Base Styles --- */
+@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700&family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+  --primary-color: #4f46e5; /* A pleasant blue-purple for main elements */
+  --primary-hover-color: #4f46e5;
+  --bot-message-bg: #E3F2FD; /* Light blue for bot messages */
+  --user-message-bg: #BBDEFB; /* Slightly darker blue for user messages */
+  --background-light: #F8F9FA; /* Overall page background */
+  --card-background: #FFFFFF; /* Background for the chat window */
+  --text-dark: #333333;
+  --text-light: #666666;
+  --border-color: #E0E0E0;
+  --shadow-light: rgba(0, 0, 0, 0.08);
+  --shadow-medium: rgba(0, 0, 0, 0.15);
+  --font-family-korean: 'Pretendard', sans-serif;
+  --font-family-english: 'Roboto', sans-serif;
+  --border-radius-base: 12px;
+  --spacing-unit: 16px;
+}
+
+body {
+  font-family: var(--font-family-korean), var(--font-family-english);
+  line-height: 1.6;
+  color: var(--text-dark);
+  background-color: var(--background-light);
+  margin: 0;
+  padding: 0;
+  /* 챗봇 컨테이너를 전체 화면으로 만들려면 body의 중앙 정렬 속성을 제거하고,
+     body 자체가 전체 높이를 차지하도록만 설정합니다. */
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  min-height: 100vh; /* Ensure body takes full viewport height */
+}
+
+/* --- Chatbot Container --- */
+.chatbot-container {
+  /* max-width: 600px; */ /* 전체 화면을 위해 이 속성을 제거하거나 더 큰 값으로 설정 */
+  width: 100%; /* 너비를 100%로 설정하여 부모(body)의 전체 너비를 차지 */
+  height: 100vh; /* 높이를 100vh로 설정하여 뷰포트 전체 높이 차지 */
+  min-height: 100vh; /* min-height도 100vh로 설정 */
+  background-color: var(--card-background);
+  /* border-radius: var(--border-radius-base); */ /* 전체 화면일 경우 모서리 둥글게 하지 않음 */
+  box-shadow: none; /* 전체 화면일 경우 그림자 제거 */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: fadeIn 0.6s ease-out;
+  margin: 0; /* 중앙 정렬을 위한 마진 제거 */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Title --- */
+.chatbot-title {
+  font-size: 1.8em;
+  color: var(--primary-color);
+  text-align: center;
+  padding: var(--spacing-unit) calc(var(--spacing-unit) * 1.5);
+  margin: 0;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--background-light);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* --- Chat Window --- */
+.chat-window {
+  flex-grow: 1;
+  padding: var(--spacing-unit);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--background-light);
+}
+
+/* Custom scrollbar for Webkit browsers (Chrome, Safari, Edge) */
+.chat-window::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-window::-webkit-scrollbar-track {
+  background: var(--background-light);
+  border-radius: 10px;
+}
+
+.chat-window::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  border: 2px solid var(--background-light);
+}
+
+/* --- Chat Messages --- */
+.chat-message {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.message-bubble {
+  max-width: 75%;
+  padding: 12px 18px;
+  border-radius: 20px;
+  font-size: 0.95em;
+  line-height: 1.4;
+  word-wrap: break-word;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.chat-message.bot {
+  justify-content: flex-start;
+}
+
+.chat-message.bot .message-bubble {
+  background-color: var(--bot-message-bg);
+  color: var(--text-dark);
+  border-bottom-left-radius: 5px;
+}
+
+.chat-message.user {
+  justify-content: flex-end;
+}
+
+.chat-message.user .message-bubble {
+  background-color: var(--user-message-bg);
+  color: var(--text-dark);
+  border-bottom-right-radius: 5px;
+}
+
+/* --- Chat Form --- */
+.chat-form {
+  display: flex;
+  padding: var(--spacing-unit);
+  border-top: 1px solid var(--border-color);
+  background-color: var(--background-light);
+}
+
+.chat-form input {
+  flex-grow: 1;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 25px;
+  font-size: 1em;
+  font-family: var(--font-family-korean), var(--font-family-english);
+  margin-right: 10px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  color: var(--text-dark);
+}
+
+.chat-form input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(92, 107, 192, 0.2);
+}
+
+.chat-form button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 20px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px var(--shadow-light);
+  white-space: nowrap;
+}
+
+.chat-form button:hover {
+  background-color: var(--primary-hover-color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+.chat-form button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Responsive Adjustments --- */
+/* 전체 화면으로 만들었기 때문에 768px 미디어 쿼리는 컨테이너 크기 조절보다는
+   내부 요소의 패딩, 폰트 크기 등을 조절하는 데 집중합니다. */
+@media (max-width: 768px) {
+  /* .chatbot-container {
+    // 이미 100% 100vh 이므로 여기서 특별히 다시 설정할 필요 없음
+    // border-radius: 0; // 모바일에서 둥근 모서리 없애려면
+    // box-shadow: none; // 모바일에서 그림자 없애려면
+  } */
+
+  .chatbot-title {
+    font-size: 1.6em;
+    padding: var(--spacing-unit);
+  }
+
+  .chat-window {
+    padding: calc(var(--spacing-unit) * 0.75);
+  }
+
+  .message-bubble {
+    font-size: 0.9em;
+    padding: 10px 15px;
+    max-width: 80%;
+  }
+
+  .chat-form {
+    padding: calc(var(--spacing-unit) * 0.75);
+  }
+
+  .chat-form input {
+    padding: 10px 12px;
+  }
+
+  .chat-form button {
+    padding: 10px 15px;
+    font-size: 0.9em;
+  }
+}
+
+/* 480px 미디어 쿼리도 더 이상 컨테이너 자체의 크기를 조절할 필요 없음 */
+@media (max-width: 480px) {
+  /* .chatbot-container {
+    // 이미 100% 100vh 이므로 여기서 특별히 다시 설정할 필요 없음
+  } */
+
+  .chatbot-title {
+    font-size: 1.4em;
+    padding: var(--spacing-unit) calc(var(--spacing-unit) * 0.75);
+  }
+
+  .message-bubble {
+    font-size: 0.85em;
+    padding: 8px 12px;
+  }
+
+  .chat-form {
+    flex-direction: row; /* Keep input and button side by side */
+    padding: calc(var(--spacing-unit) * 0.75);
+  }
+}
