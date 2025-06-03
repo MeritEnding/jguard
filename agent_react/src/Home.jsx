@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 // Note: We're assuming App.css is globally imported (e.g., in index.js or App.js).
 // If Home.css still contains specific styles not merged into App.css, keep this line.
 // Otherwise, it can be removed for cleaner project structure.
-
+import Header from './Header';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -13,6 +13,7 @@ const Home = () => {
         // Apply the .home-container class to the main wrapper 
         <div className="home-container">
             {/* 상단 소개 영역 (Hero Section) */}
+            <Header></Header>
             <section className="hero-section">
                 <h2>“전세사기 진단 아직 안해보셨나요?”</h2>
                 <p>
@@ -20,23 +21,7 @@ const Home = () => {
                 </p>
 
                 {/* 버튼 그룹 */}
-                <div className="hero-button-group">
-                    <button className="hero-button" onClick={() => navigate("/chatbot")}>
-                        전세 리스크 진단
-                    </button>
-                    <button className="hero-button" onClick={() => navigate("/guide")}>
-                        예방법 가이드
-                    </button>
-                    <button className="hero-button" onClick={() => navigate("/board")}>
-                        상담 게시판
-                    </button>
-                    <button className="hero-button" onClick={() => navigate("/news")}>
-                        뉴스 및 알림
-                    </button>
-                    <button className="hero-button" onClick={() => navigate("/mypage")}>
-                        마이페이지
-                    </button>
-                </div>
+              
 
                 {/* 이미지 영역 */}
                 <div className="hero-image-container">

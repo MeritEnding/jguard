@@ -363,4 +363,35 @@ body {
     max-width: unset;
     white-space: normal;
   }
+  
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #4338ca;
+  color: white;
+  border-color: #4f46e5;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.answer-count {
+  color: red;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
 }

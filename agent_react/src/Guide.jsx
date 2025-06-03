@@ -1,10 +1,11 @@
 // Guide.js 파일 예시 (가정)
 import React from 'react';
 import './Guide.css'; // Guide.css 임포트
-
+import Header from './Header';
 const Guide = () => {
   return (
     <div className="guide-container"> {/* 이 div는 이제 전체 화면을 차지 */}
+      <Header></Header>
       <h1 className="guide-title">전세 사기 예방 가이드</h1>
       <p className="guide-intro">
         전세 계약 시 발생할 수 있는 위험을 줄이고 안전하게 보증금을 지키기 위한 핵심 가이드입니다.

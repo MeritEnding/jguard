@@ -7,6 +7,8 @@ import News from './News';
 import MyPage from './MyPage';
 import Board_detail from './Board_detail';
 import Board_create from './Board_create';
+import Signup_form from './Signup_form';
+import Login from './Login';
 
 const router = createBrowserRouter([
     {
@@ -41,13 +43,23 @@ const router = createBrowserRouter([
     },
     {
         id: 6,
-        path: 'board/detail/:id',
+        path: '/board/detail/:id',
         element: <Board_detail/>,
     },
     {
         id:7,
-        path: 'board/question/create',
+        path: '/board/question/create',
         element: <Board_create/>
+    },
+    {
+        id:8,
+        path: '/user/signup',
+        element: <Signup_form/>
+    },
+    {
+        id:9,
+        path: '/user/login',
+        element: <Login/>
     }
 
 
