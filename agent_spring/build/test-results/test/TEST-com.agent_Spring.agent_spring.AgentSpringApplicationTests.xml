@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.agent_Spring.agent_spring.AgentSpringApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-06-01T16:12:46.329Z" hostname="DESKTOP-98MDODF" time="0.444">
+  <properties/>
+  <testcase name="testJpa()" classname="com.agent_Spring.agent_spring.AgentSpringApplicationTests" time="0.444"/>
+  <system-out><![CDATA[01:12:42.488 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.agent_Spring.agent_spring.AgentSpringApplicationTests]: AgentSpringApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+01:12:42.595 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.agent_Spring.agent_spring.AgentSpringApplication for test class com.agent_Spring.agent_spring.AgentSpringApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.6)
+
+2025-06-02T01:12:42.900+09:00  INFO 25608 --- [agent_spring] [    Test worker] c.a.a.AgentSpringApplicationTests        : Starting AgentSpringApplicationTests using Java 17.0.12 with PID 25608 (started by User in C:\Users\User\Desktop\agent_spring)
+2025-06-02T01:12:42.902+09:00  INFO 25608 --- [agent_spring] [    Test worker] c.a.a.AgentSpringApplicationTests        : No active profile set, falling back to 1 default profile: "default"
+2025-06-02T01:12:43.464+09:00  INFO 25608 --- [agent_spring] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-02T01:12:43.523+09:00  INFO 25608 --- [agent_spring] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 2 JPA repository interfaces.
+2025-06-02T01:12:43.884+09:00  INFO 25608 --- [agent_spring] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-02T01:12:43.927+09:00  INFO 25608 --- [agent_spring] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-06-02T01:12:43.955+09:00  INFO 25608 --- [agent_spring] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-02T01:12:44.188+09:00  INFO 25608 --- [agent_spring] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-02T01:12:44.215+09:00  INFO 25608 --- [agent_spring] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-02T01:12:44.367+09:00  INFO 25608 --- [agent_spring] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:~/local user=SA
+2025-06-02T01:12:44.369+09:00  INFO 25608 --- [agent_spring] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-02T01:12:44.384+09:00  WARN 25608 --- [agent_spring] [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-02T01:12:44.403+09:00  INFO 25608 --- [agent_spring] [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-02T01:12:44.996+09:00  INFO 25608 --- [agent_spring] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-02T01:12:45.036+09:00  INFO 25608 --- [agent_spring] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-02T01:12:45.198+09:00  WARN 25608 --- [agent_spring] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-02T01:12:46.147+09:00  INFO 25608 --- [agent_spring] [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:~/local'
+2025-06-02T01:12:46.290+09:00  INFO 25608 --- [agent_spring] [    Test worker] c.a.a.AgentSpringApplicationTests        : Started AgentSpringApplicationTests in 3.575 seconds (process running for 4.454)
+Hibernate: select a1_0.id,a1_0.content,a1_0.create_date,q1_0.id,q1_0.content,q1_0.create_date,q1_0.subject from answer a1_0 left join question q1_0 on q1_0.id=a1_0.question_id where a1_0.id=?
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
