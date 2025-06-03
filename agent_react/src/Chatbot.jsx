@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Chatbot.css";
+import Header from './Header';
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([
@@ -38,6 +39,7 @@ const Chatbot = () => {
 
   return (
     <div className="chatbot-container">
+      <Header></Header>
       <h2 className="chatbot-title">전세사기 예방 챗봇</h2>
       <div className="chat-window">
         {messages.map((msg, idx) => (

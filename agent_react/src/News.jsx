@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./News.css";
+import Header from './Header';
 
 const sampleNews = [
   {
@@ -35,6 +36,7 @@ const News = () => {
 
   return (
     <div className="news-container">
+      <Header></Header>
       <h1 className="news-title">전세 관련 뉴스 및 알림</h1>
       <p className="news-subtitle">최근 전세사기 사례 및 제도 변경 정보를 제공합니다.</p>
 

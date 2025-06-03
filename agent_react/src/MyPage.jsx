@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./MyPage.css";
+import Header from './Header';
 
 const Mypage = () => {
   const [userInfo, setUserInfo] = useState({
@@ -36,6 +37,7 @@ const Mypage = () => {
 
   return (
     <div className="mypage-container">
+      <Header></Header>
       <h1 className="mypage-title">마이페이지</h1>
 
       <section className="mypage-section">
