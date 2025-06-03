@@ -4,8 +4,9 @@ import Board from './Board';
 import Chatbot from './Chatbot';
 import Guide from './Guide';
 import News from './News';
-import MyPage from './MyPage'
-
+import MyPage from './MyPage';
+import Board_detail from './Board_detail';
+import Board_create from './Board_create';
 
 const router = createBrowserRouter([
     {
@@ -37,7 +38,18 @@ const router = createBrowserRouter([
         id: 5,
         path: '/mypage',
         element: <MyPage/>
+    },
+    {
+        id: 6,
+        path: 'board/detail/:id',
+        element: <Board_detail/>,
+    },
+    {
+        id:7,
+        path: 'board/question/create',
+        element: <Board_create/>
     }
+
 
 ]);
 export default router;
