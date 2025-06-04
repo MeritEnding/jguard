@@ -1,0 +1,34 @@
+# IDE specific files
+.idea/
+.vscode/
+*.iml
+
+# Compiled class files
+target/
+build/
+
+# Package Manager
+node_modules/
+
+# Log files
+*.log
+logs/
+
+# STS (Spring Tool Suite)
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.sts4-cache
+
+# Sensitive Information - DO NOT COMMIT!
+# Application configuration with sensitive data
+application.properties
+application.yml
+application-*.properties
+application-*.yml
+
+# Other common sensitive files
+.env
+.DS_Store
