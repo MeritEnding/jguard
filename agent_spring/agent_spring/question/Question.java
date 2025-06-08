@@ -1,6 +1,7 @@
 package com.agent_Spring.agent_spring.question;
 
 import com.agent_Spring.agent_spring.answer.Answer;
+import com.agent_Spring.agent_spring.user.SiteUser;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -28,4 +29,10 @@ public class Question {
     @OneToMany(mappedBy="question", cascade=CascadeType.REMOVE)
     @JsonManagedReference
     private List<Answer> answerList;
+
+    private LocalDateTime modifyDate;
+
+    @ManyToOne
+    private SiteUser author;
+
 }

@@ -1,6 +1,8 @@
 package com.agent_Spring.agent_spring.question;
 
 import com.agent_Spring.agent_spring.DataNotFoundException;
+import com.agent_Spring.agent_spring.user.SiteUser;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,12 +40,21 @@ public class QuestionService {
         }
     }
 
-    public void create(String subject, String content){
+    public void create(String subject, String content, SiteUser user){
         Question q = new Question();
         q.setSubject(subject);
         q.setContent(content);
         q.setCreateDate(LocalDateTime.now());
+        q.setAuthor(user);
         this.questionRepository.save(q);
+    }
+
+    public void modify(Question question, String subject, String content){
+        question.setSubject(subject);
+        question.setContent(content);
+        question.setModifyDate(LocalDateTime.now());
+
+        this.questionRepository.save(question);
     }
 
 

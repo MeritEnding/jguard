@@ -1,6 +1,7 @@
 package com.agent_Spring.agent_spring.answer;
 
 import com.agent_Spring.agent_spring.question.Question;
+import com.agent_Spring.agent_spring.user.SiteUser;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -24,4 +25,9 @@ public class Answer {
     @ManyToOne
     @JsonBackReference
     private Question question;
+
+    private LocalDateTime modifyDate;
+
+    @ManyToOne
+    private SiteUser author;
 }
