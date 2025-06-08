@@ -1,7 +1,9 @@
+// src/components/Board_detail.jsx
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Board_detail.css";
-import axiosInstance from "./api/axiosInstance";
+import axiosInstance from "./api/axiosInstance"; // axiosInstance 경로 확인
+import { jwtDecode } from 'jwt-decode'; // ✅ jwt-decode 라이브러리 임포트
 
 const Board_detail = () => {
   const { id } = useParams();
@@ -10,7 +12,33 @@ const Board_detail = () => {
   const [error, setError] = useState(null);
   const [answerContent, setAnswerContent] = useState("");
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null); // ✅ 현재 로그인된 사용자 정보를 저장할 상태
   const navigate = useNavigate();
+
+  // ✅ JWT 토큰에서 현재 사용자 정보를 추출하는 헬퍼 함수
+  const getCurrentUserFromToken = () => {
+    const accessToken = sessionStorage.getItem("accessToken");
+    if (accessToken) {
+      try {
+        const decodedToken = jwtDecode(accessToken);
+        // 토큰의 만료 시간 확인
+        const currentTime = Date.now() / 1000;
+        if (decodedToken.exp < currentTime) {
+          console.log("Access Token 만료됨. 로그아웃 처리.");
+          sessionStorage.removeItem("accessToken"); // 만료된 토큰 제거
+          return null;
+        }
+        // 토큰 페이로드에 사용자 이름이 'username' 필드로 있다고 가정
+        // 서버에서 어떤 필드로 사용자 이름을 담아주는지 확인하고 수정해야 해요.
+        return { username: decodedToken.username };
+      } catch (error) {
+        console.error("토큰 디코딩 중 오류 발생:", error);
+        sessionStorage.removeItem("accessToken"); // 유효하지 않은 토큰 제거
+        return null;
+      }
+    }
+    return null;
+  };
 
   // Function to fetch question details and its answers
   const fetchDetail = async () => {
@@ -31,7 +59,8 @@ const Board_detail = () => {
 
         if (err.response.status === 403) {
           alert("이 게시물에 접근할 권한이 없습니다. 로그인 후 다시 시도해주세요.");
-          navigate("/login");
+          sessionStorage.removeItem("accessToken"); // 403 에러 시 토큰 제거
+          navigate("/user/login");
         } else if (err.response.status === 404) {
           setError("질문을 찾을 수 없습니다. 삭제되었거나 존재하지 않는 게시물입니다.");
         }
@@ -47,13 +76,23 @@ const Board_detail = () => {
 
   // Effect hook to fetch data when the component mounts or 'id' changes
   useEffect(() => {
+    // ✅ 컴포넌트 마운트 시 현재 로그인된 사용자 정보를 토큰에서 가져와 상태에 저장
+    setCurrentUser(getCurrentUserFromToken());
     fetchDetail();
-  }, [id, navigate]);
+  }, [id, navigate]); // navigate는 useEffect 내부에서 사용되므로 의존성 배열에 포함
 
   // Handles submitting a new answer
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitStatus(null);
+
+    // ✅ 토큰이 없거나 유효하지 않으면 답변 제출 불가
+    if (!currentUser) {
+        setSubmitStatus("답변을 등록하려면 로그인해야 합니다.");
+        alert("답변을 등록하려면 로그인해야 합니다.");
+        navigate("/user/login"); // 로그인 페이지로 리디렉션
+        return;
+    }
 
     if (!answerContent.trim()) {
       setSubmitStatus("답변을 입력해주세요.");
@@ -83,7 +122,8 @@ const Board_detail = () => {
 
         if (err.response.status === 403) {
           alert("답변을 등록할 권한이 없습니다. 로그인 후 다시 시도해주세요.");
-          navigate("/login");
+          sessionStorage.removeItem("accessToken"); // 403 에러 시 토큰 제거
+          navigate("/user/login");
         }
       } else if (err.request) {
         setSubmitStatus("네트워크 오류: 서버에 연결할 수 없습니다.");
@@ -127,10 +167,22 @@ const Board_detail = () => {
     );
   }
 
-  // 이 부분에서 인증 로직을 제거하여 항상 true가 되도록 변경했습니다.
-  // const showModifyButton = question.author && question.author.username === currentUsername;
-  // -> question 객체가 존재하면 항상 수정 버튼을 표시
-  const showModifyButton = true; // 인증 로직 제거: 항상 true
+  // --- ⭐️ 수정된 인증 로직 부분 ⭐️ ---
+  // 현재 로그인된 사용자 (currentUser)와 게시글 작성자 (question.author)의 username을 비교
+  console.log("-------------------- 디버깅 시작 --------------------");
+  console.log("1. 현재 로그인된 사용자 (from JWT token):", currentUser ? currentUser.username : null);
+  console.log("2. API에서 받은 질문 데이터 (question 객체):", question);
+  if (question && question.author) {
+    console.log("3. 게시글 작성자 이름 (question.author.username):", question.author.username);
+  } else {
+    console.log("3. 게시글 작성자 정보를 찾을 수 없습니다.");
+  }
+  console.log("-------------------- 디버깅 끝 --------------------");
+
+  // showModifyButton은 이제 currentUser가 존재하고, question.author도 존재하며,
+  // 두 username이 일치할 때만 true가 돼요.
+  const showModifyButton =
+    currentUser && question.author && currentUser.username === question.author.username;
 
   // --- Main Content Rendering ---
   return (
@@ -141,12 +193,12 @@ const Board_detail = () => {
           <h1 className="question-subject">{question.subject}</h1>
           {question.createDate && (
             <p className="question-meta">
-              Posted on: **{new Date(question.createDate).toLocaleDateString()}
-              **
+              Posted on:{" "}
+              <strong>{new Date(question.createDate).toLocaleDateString()}</strong>
             </p>
           )}
-          {/* 수정 버튼 추가 부분 (인증 로직 없이 항상 표시) */}
-          {showModifyButton && ( // showModifyButton은 이제 항상 true
+          {/* ⭐️ 수정 버튼 렌더링 부분 ⭐️ */}
+          {showModifyButton && (
             <div className="my-3">
               <button
                 onClick={handleModify}
@@ -175,7 +227,7 @@ const Board_detail = () => {
                   key={answer.id || answer.createDate}
                   className="answer-item"
                 >
-                  <p className="answer-content">{answer.content}</p>
+                  <p className="answer-content">[{answer.author?.username || ""}] : {answer.content}</p>
                   {answer.createDate && (
                     <span className="answer-meta">
                       Answered on:{" "}

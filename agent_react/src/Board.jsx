@@ -69,6 +69,7 @@ const Board = () => {
           <tr>
             <th>번호</th>
             <th>제목</th>
+            <th>글쓴이</th>
             <th>작성일시</th>
           </tr>
         </thead>
@@ -91,6 +92,7 @@ const Board = () => {
                     </span>
                   )}
                 </td>
+                <td>{q.author?.username || ""}</td>
                 <td>{q.createDate || "작성일 없음"}</td>
               </tr>
             ))
