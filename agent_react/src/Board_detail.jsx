@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Board_detail.css";
-import axiosInstance from "./api/axiosInstance"; // axiosInstance 경로 확인
-import { jwtDecode } from 'jwt-decode'; // ✅ jwt-decode 라이브러리 임포트
+import axiosInstance from "./api/axiosInstance";
+import { jwtDecode } from 'jwt-decode';
 
 const Board_detail = () => {
   const { id } = useParams();
@@ -12,35 +12,30 @@ const Board_detail = () => {
   const [error, setError] = useState(null);
   const [answerContent, setAnswerContent] = useState("");
   const [submitStatus, setSubmitStatus] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null); // ✅ 현재 로그인된 사용자 정보를 저장할 상태
+  const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
 
-  // ✅ JWT 토큰에서 현재 사용자 정보를 추출하는 헬퍼 함수
   const getCurrentUserFromToken = () => {
     const accessToken = sessionStorage.getItem("accessToken");
     if (accessToken) {
       try {
         const decodedToken = jwtDecode(accessToken);
-        // 토큰의 만료 시간 확인
         const currentTime = Date.now() / 1000;
         if (decodedToken.exp < currentTime) {
           console.log("Access Token 만료됨. 로그아웃 처리.");
-          sessionStorage.removeItem("accessToken"); // 만료된 토큰 제거
+          sessionStorage.removeItem("accessToken");
           return null;
         }
-        // 토큰 페이로드에 사용자 이름이 'username' 필드로 있다고 가정
-        // 서버에서 어떤 필드로 사용자 이름을 담아주는지 확인하고 수정해야 해요.
         return { username: decodedToken.username };
       } catch (error) {
         console.error("토큰 디코딩 중 오류 발생:", error);
-        sessionStorage.removeItem("accessToken"); // 유효하지 않은 토큰 제거
+        sessionStorage.removeItem("accessToken");
         return null;
       }
     }
     return null;
   };
 
-  // Function to fetch question details and its answers
   const fetchDetail = async () => {
     setLoading(true);
     setError(null);
@@ -59,7 +54,7 @@ const Board_detail = () => {
 
         if (err.response.status === 403) {
           alert("이 게시물에 접근할 권한이 없습니다. 로그인 후 다시 시도해주세요.");
-          sessionStorage.removeItem("accessToken"); // 403 에러 시 토큰 제거
+          sessionStorage.removeItem("accessToken");
           navigate("/user/login");
         } else if (err.response.status === 404) {
           setError("질문을 찾을 수 없습니다. 삭제되었거나 존재하지 않는 게시물입니다.");
@@ -74,23 +69,19 @@ const Board_detail = () => {
     }
   };
 
-  // Effect hook to fetch data when the component mounts or 'id' changes
   useEffect(() => {
-    // ✅ 컴포넌트 마운트 시 현재 로그인된 사용자 정보를 토큰에서 가져와 상태에 저장
     setCurrentUser(getCurrentUserFromToken());
     fetchDetail();
-  }, [id, navigate]); // navigate는 useEffect 내부에서 사용되므로 의존성 배열에 포함
+  }, [id, navigate]);
 
-  // Handles submitting a new answer
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitStatus(null);
 
-    // ✅ 토큰이 없거나 유효하지 않으면 답변 제출 불가
     if (!currentUser) {
         setSubmitStatus("답변을 등록하려면 로그인해야 합니다.");
         alert("답변을 등록하려면 로그인해야 합니다.");
-        navigate("/user/login"); // 로그인 페이지로 리디렉션
+        navigate("/user/login");
         return;
     }
 
@@ -107,7 +98,7 @@ const Board_detail = () => {
       if (response.status === 200 || response.status === 201) {
         setSubmitStatus("답변이 성공적으로 등록되었습니다! 🎉");
         setAnswerContent("");
-        fetchDetail(); // Re-fetch to display the newly added answer
+        fetchDetail();
       } else {
         throw new Error(`답변 등록 실패: 서버 응답 코드 ${response.status}`);
       }
@@ -122,8 +113,12 @@ const Board_detail = () => {
 
         if (err.response.status === 403) {
           alert("답변을 등록할 권한이 없습니다. 로그인 후 다시 시도해주세요.");
-          sessionStorage.removeItem("accessToken"); // 403 에러 시 토큰 제거
+          sessionStorage.removeItem("accessToken");
           navigate("/user/login");
+        } else if (err.response.status === 401) { // 401 Unauthorized 처리 추가
+            alert("로그인이 필요합니다. 다시 로그인해주세요.");
+            sessionStorage.removeItem("accessToken");
+            navigate('/user/login');
         }
       } else if (err.request) {
         setSubmitStatus("네트워크 오류: 서버에 연결할 수 없습니다.");
@@ -135,7 +130,62 @@ const Board_detail = () => {
 
   // 질문 수정 페이지로 이동하는 함수
   const handleModify = () => {
-    navigate(`/question/modify/${question.id}`);
+    // question 객체가 존재하고 id가 있는지 확인 (방어적 코딩)
+    if (question && question.id) {
+        navigate(`/question/modify/${question.id}`);
+    } else {
+        alert("수정할 질문 정보를 찾을 수 없습니다.");
+    }
+  };
+
+  // ✅ 질문 삭제 함수 추가
+  const handleDelete = async () => {
+    if (!currentUser) {
+        alert("게시글을 삭제하려면 로그인해야 합니다.");
+        navigate("/user/login");
+        return;
+    }
+
+    // 사용자에게 삭제 여부 확인
+    if (!window.confirm("정말로 이 질문을 삭제하시겠습니까?")) {
+        return; // 사용자가 취소하면 함수 종료
+    }
+
+    try {
+        // DELETE 요청으로 백엔드 API 호출
+        const response = await axiosInstance.delete(`/api/question/delete/${id}`);
+
+        if (response.status === 200) {
+            alert("질문이 성공적으로 삭제되었습니다.");
+            navigate("/board"); // 삭제 후 게시판 목록 페이지로 이동
+        } else {
+            throw new Error(`질문 삭제 실패: 서버 응답 코드 ${response.status}`);
+        }
+    } catch (err) {
+        console.error("Error deleting question:", err);
+        if (err.response) {
+            const errorMessage =
+                err.response.data.message || err.response.data || "알 수 없는 오류가 발생했습니다.";
+            alert(`질문 삭제 실패: ${errorMessage}`);
+
+            if (err.response.status === 403) {
+                alert("질문 삭제 권한이 없습니다. (작성자가 아니거나 권한 부족)");
+                sessionStorage.removeItem("accessToken");
+                navigate('/user/login');
+            } else if (err.response.status === 401) {
+                alert("로그인이 필요합니다. 다시 로그인해주세요.");
+                sessionStorage.removeItem("accessToken");
+                navigate('/user/login');
+            } else if (err.response.status === 404) {
+                alert("삭제하려는 질문을 찾을 수 없습니다.");
+                navigate("/board"); // 404면 이미 삭제되었을 가능성도 있으므로 목록으로 이동
+            }
+        } else if (err.request) {
+            alert("네트워크 오류: 서버에 연결할 수 없습니다.");
+        } else {
+            alert(`오류 발생: ${err.message}`);
+        }
+    }
   };
 
   // --- Conditional Rendering for Loading, Error, and No Question States ---
@@ -167,7 +217,6 @@ const Board_detail = () => {
     );
   }
 
-  // --- ⭐️ 수정된 인증 로직 부분 ⭐️ ---
   // 현재 로그인된 사용자 (currentUser)와 게시글 작성자 (question.author)의 username을 비교
   console.log("-------------------- 디버깅 시작 --------------------");
   console.log("1. 현재 로그인된 사용자 (from JWT token):", currentUser ? currentUser.username : null);
@@ -179,9 +228,8 @@ const Board_detail = () => {
   }
   console.log("-------------------- 디버깅 끝 --------------------");
 
-  // showModifyButton은 이제 currentUser가 존재하고, question.author도 존재하며,
-  // 두 username이 일치할 때만 true가 돼요.
-  const showModifyButton =
+  // 수정 및 삭제 버튼 표시 여부
+  const showActionButtons =
     currentUser && question.author && currentUser.username === question.author.username;
 
   // --- Main Content Rendering ---
@@ -197,14 +245,20 @@ const Board_detail = () => {
               <strong>{new Date(question.createDate).toLocaleDateString()}</strong>
             </p>
           )}
-          {/* ⭐️ 수정 버튼 렌더링 부분 ⭐️ */}
-          {showModifyButton && (
+          {/* ⭐️ 수정 및 삭제 버튼 렌더링 부분 ⭐️ */}
+          {showActionButtons && (
             <div className="my-3">
               <button
                 onClick={handleModify}
-                className="btn btn-sm btn-outline-secondary"
+                className="btn btn-sm btn-outline-secondary me-2" // 수정 버튼
               >
                 수정
+              </button>
+              <button
+                onClick={handleDelete} // 삭제 버튼
+                className="btn btn-sm btn-outline-danger"
+              >
+                삭제
               </button>
             </div>
           )}
