@@ -3,6 +3,7 @@ import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import './Guide.css';
 import Header from './Header';
+import axiosInstance from './api/axiosInstance'; // 🟢 axiosInstance 임포트 추가
 
 // Chart.js 필수 모듈 등록
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -10,28 +11,42 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 const Guide = () => {
     const [trendData, setTrendData] = useState(null);
     const [isLoadingTrend, setIsLoadingTrend] = useState(true); // 로딩 상태 추가
+    const [errorTrend, setErrorTrend] = useState(null); // 🟢 에러 상태 추가
 
     useEffect(() => {
         // 검색어 트렌드 데이터 불러오기
-        fetch("http://localhost:8080/api/trend")
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error(`HTTP 오류! 상태: ${res.status}`);
-                }
-                return res.json();
-            })
-            .then((data) => {
+        const fetchTrendData = async () => {
+            setIsLoadingTrend(true); // 로딩 시작
+            setErrorTrend(null); // 이전 에러 초기화
+            try {
+                // 🟢 fetch 대신 axiosInstance.get() 사용
+                const res = await axiosInstance.get("http://localhost:8080/api/trend");
+                const data = res.data; // axios는 응답 데이터를 res.data로 제공
+
                 console.log("받은 트렌드 데이터 (월별):", data);
                 setTrendData(data);
-            })
-            .catch((err) => {
+            } catch (err) {
                 console.error("검색어 트렌드 로드 실패:", err);
+                // 🟢 axios 에러 처리 방식에 맞게 수정
+                if (err.response) {
+                    // 서버 응답 에러 (예: 403 Forbidden, 500 Internal Server Error)
+                    const errorMessage = err.response.data.message || err.response.data || "트렌드 데이터를 불러오지 못했습니다.";
+                    setErrorTrend(`오류: ${errorMessage}`);
+                } else if (err.request) {
+                    // 네트워크 에러 (요청은 보냈으나 응답을 받지 못함)
+                    setErrorTrend("네트워크 오류: 트렌드 데이터를 불러올 수 없습니다. 서버에 연결할 수 없습니다.");
+                } else {
+                    // 기타 에러
+                    setErrorTrend(`오류: ${err.message}`);
+                }
                 setTrendData(null);
-            })
-            .finally(() => {
-                setIsLoadingTrend(false); // 데이터 로드 완료
-            });
-    }, []);
+            } finally {
+                setIsLoadingTrend(false); // 데이터 로드 완료 (성공/실패 무관)
+            }
+        };
+
+        fetchTrendData();
+    }, []); // 의존성 배열 비워둠 (컴포넌트 마운트 시 한 번만 실행)
 
     // 그래프 옵션 설정
     const chartOptions = {
@@ -106,6 +121,8 @@ const Guide = () => {
         const labels = trendData.results[0].data.map(item => item.period);
 
         const datasets = trendData.results.map((group, index) => {
+            // 일관된 색상 부여를 위해 랜덤 대신 고정 색상 또는 색상 팔레트를 사용할 수 있습니다.
+            // 여기서는 예시로 랜덤 색상을 유지합니다.
             const color = `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`;
             const backgroundColor = `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.2)`;
 
@@ -149,13 +166,20 @@ const Guide = () => {
                             검색어 트렌드 데이터를 불러오는 중입니다...
                         </p>
                     ) : (
-                        trendData && trendData.results && trendData.results.length > 0 ? (
-                            <Line options={chartOptions} data={chartData} />
-                        ) : ( // 데이터가 없을 때 메시지
-                            <p className="no-data-message" style={{ textAlign: 'center', fontSize: '1.1em', color: '#888', padding: '50px' }}>
-                                현재 표시할 검색어 트렌드 데이터가 없습니다.<br/>
-                                데이터는 매월 1일에 업데이트되므로, 다음 업데이트를 기다려주세요.
+                        errorTrend ? ( // 에러 발생 시 메시지
+                            <p className="error-message" style={{ textAlign: 'center', fontSize: '1.1em', color: 'red', padding: '50px' }}>
+                                {errorTrend}<br/>
+                                잠시 후 다시 시도해 주세요.
                             </p>
+                        ) : (
+                            trendData && trendData.results && trendData.results.length > 0 ? (
+                                <Line options={chartOptions} data={chartData} />
+                            ) : ( // 데이터가 없을 때 메시지
+                                <p className="no-data-message" style={{ textAlign: 'center', fontSize: '1.1em', color: '#888', padding: '50px' }}>
+                                    현재 표시할 검색어 트렌드 데이터가 없습니다.<br/>
+                                    데이터는 매월 1일에 업데이트되므로, 다음 업데이트를 기다려주세요.
+                                </p>
+                            )
                         )
                     )}
                 </div>
