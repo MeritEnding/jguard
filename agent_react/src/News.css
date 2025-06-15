@@ -1,259 +1,202 @@
-/* News.css - Professionally Styled with #4f46e5 Accent */
+/* src/News.css */
 
-/* --- Global Variables and Base Styles --- */
-@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap');
-
+/* 전역 폰트 및 색상 변수 (필요시 App.css 또는 전역 스타일 파일에서 정의하여 재사용) */
 :root {
-  --primary-color: #4f46e5;       /* Your chosen vibrant blue-violet */
-  --primary-hover-color: #4338ca;  /* Darker shade for hover */
-  --background-light: #F8F9FA;    /* Light background for the page */
-  --card-background: #FFFFFF;     /* White background for news cards */
-  --text-dark: #212529;           /* Dark text for headings and main content */
-  --text-medium: #495057;         /* Medium dark text for summaries */
-  --text-light: #6C757D;          /* Lighter text for dates/metadata */
-  --border-color: #E9ECEF;        /* Subtle border color */
-  --shadow-subtle: rgba(0, 0, 0, 0.08); /* Light, gentle shadow */
-  --shadow-medium: rgba(0, 0, 0, 0.15); /* More pronounced shadow */
-  --font-family-korean: 'Pretendard', sans-serif;
-  --font-family-serif: 'Merriweather', serif; /* Serif font for titles, conveying authority */
-  --border-radius-base: 10px;     /* Consistent border radius */
-  --spacing-unit: 16px;           /* Base spacing unit for consistency */
+    --primary-color: #6a82fb;
+    --secondary-color: #fc5c7d;
+    --accent-yellow: #f7b731;
+    --text-dark: #2c3e50;
+    --text-medium: #555;
+    --text-light: #f8f9fa;
+    --bg-light: #f0f2f5;
+    --bg-white: #ffffff;
+    --border-light: #e0e0e0;
+    --shadow-soft: rgba(0, 0, 0, 0.08);
+
+    --header-height: 80px; /* Header의 실제 높이에 맞춰 조정 */
 }
 
 body {
-  font-family: var(--font-family-korean);
-  line-height: 1.6;
-  color: var(--text-dark);
-  background-color: var(--background-light);
-  margin: 0;
-  padding: 0;
+    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0; /* 기본 마진 제거 */
+    padding-top: var(--header-height); /* Header 높이만큼 상단 여백 추가 */
+    overflow-x: hidden; /* 가로 스크롤 방지 */
 }
 
-/* --- News Container --- */
+/* 뉴스 컨테이너 전체 스타일 */
 .news-container {
-  max-width: 1100px; /* **Increased max-width for a more expansive layout** */
-  margin: 50px auto; /* More vertical margin for better visual separation */
-  padding: 40px; /* More generous padding inside the container */
-  background-color: var(--card-background);
-  border-radius: var(--border-radius-base);
-  box-shadow: 0 15px 35px var(--shadow-subtle); /* Slightly larger, softer shadow */
-  animation: fadeIn 0.8s ease-out forwards; /* Smooth entrance animation */
-  box-sizing: border-box; /* Ensures padding is included in element's total width */
+    width: 100%; /* 전체 너비 사용 */
+    min-height: calc(100vh - var(--header-height)); /* Header를 제외한 최소 높이 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 수평 중앙 정렬 */
+    padding-bottom: 50px; /* 하단 여백 */
+    box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px); /* Starts from a bit lower */
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+/* Header는 News.jsx에서 import하여 사용되므로, Header의 스타일은 별도 파일에서 관리됩니다.
+   Header 컴포넌트의 CSS 파일(예: Header.css)에서 position: fixed 등을 설정하여 상단에 고정해야 합니다.
+   Header가 삐뚤어지는 문제는 Header 컴포넌트 자체의 스타일링 문제일 가능성이 높습니다.
+*/
 
-/* --- Header --- */
+/* 뉴스 페이지 제목 */
 .news-title {
-  font-family: var(--font-family-serif);
-  font-size: 3.2em; /* Slightly larger and more impactful title */
-  color: var(--primary-color); /* **Main title uses your accent color** */
-  text-align: center;
-  margin-bottom: 15px; /* More space below title */
-  font-weight: 700;
-  letter-spacing: -0.05em; /* Tighter for a strong visual */
-  line-height: 1.2;
+    font-size: 2.8em;
+    font-weight: 800;
+    color: var(--primary-color);
+    margin-top: 40px; /* Header 아래에서 시작하도록 상단 마진 추가 */
+    margin-bottom: 10px;
+    position: relative;
+    padding-bottom: 15px;
+    text-align: center;
 }
 
+.news-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 5px;
+    background-color: var(--secondary-color);
+    border-radius: 3px;
+}
+
+/* 뉴스 페이지 부제목 */
 .news-subtitle {
-  font-size: 1.25em; /* Larger and more readable subtitle */
-  text-align: center;
-  margin-bottom: 60px; /* More space before the news grid begins */
-  color: var(--text-medium);
-  line-height: 1.6;
-  max-width: 800px; /* Constrain subtitle width for readability */
-  margin-left: auto;
-  margin-right: auto;
+    font-size: 1.2em;
+    color: var(--text-medium);
+    margin-bottom: 40px;
+    text-align: center;
+    max-width: 800px;
+    padding: 0 20px;
 }
 
-/* --- News Grid --- */
+/* 뉴스 카드 그리드 레이아웃 */
 .news-grid {
-  display: grid;
-  /* Adjust minmax to support 3 columns on larger screens, then stack */
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: calc(var(--spacing-unit) * 2.5); /* Increased gap for more breathing room */
-  padding: 0; /* Remove horizontal padding here; let container handle it */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 반응형 그리드 */
+    gap: 30px;
+    max-width: 1200px; /* 최대 너비 */
+    width: 100%;
+    padding: 0 20px; /* 좌우 패딩 */
+    box-sizing: border-box;
 }
 
-/* --- News Card --- */
+/* 개별 뉴스 카드 스타일 */
 .news-card {
-  background-color: var(--card-background);
-  padding: 30px; /* More padding inside each card */
-  border-radius: var(--border-radius-base);
-  box-shadow: 0 6px 20px var(--shadow-subtle); /* Softer initial shadow for cards */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 1px solid var(--border-color);
-  overflow: hidden; /* Ensures content respects border-radius */
+    background-color: var(--bg-white);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px var(--shadow-soft);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* 내용과 링크를 카드 하단에 배치 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left; /* 카드 내 텍스트 왼쪽 정렬 */
 }
 
 .news-card:hover {
-  transform: translateY(-8px); /* More pronounced lift effect on hover */
-  box-shadow: 0 15px 35px var(--shadow-medium); /* Stronger, more dramatic shadow on hover */
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
 .news-card h3 {
-  font-family: var(--font-family-serif);
-  font-size: 1.6em; /* Slightly larger news titles within cards */
-  color: var(--text-dark);
-  margin-top: 0;
-  margin-bottom: 12px;
-  line-height: 1.35;
-  font-weight: 700;
-  /* Truncate long titles with ellipsis */
-  display: -webkit-box;
-
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.news-card .news-date {
-  font-size: 0.95em; /* Slightly larger date for readability */
-  color: var(--text-light);
-  margin-bottom: 20px; /* More space between date and summary */
-  font-weight: 400; /* Normal weight for dates */
-}
-
-.news-card .news-summary {
-  font-size: 1.05em; /* Slightly larger summary text for readability */
-  color: var(--text-medium);
-  line-height: 1.6;
-  margin-bottom: 25px; /* More space before the link */
-  flex-grow: 1;
-  /* Truncate long summaries */
-  display: -webkit-box;
- 
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.news-card .news-link {
-  display: inline-flex; /* Use flex for potential icon, better alignment */
-  align-items: center;
-  gap: 5px; /* Space for an arrow icon if added later */
-  color: var(--primary-color); /* **Link uses your accent color** */
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease, transform 0.3s ease;
-  align-self: flex-start; /* Align link to the bottom-left of the card */
-  /* Add subtle button-like styling for links */
-  padding: 8px 0;
-  border-bottom: 2px solid transparent; /* For underline effect on hover */
-}
-
-.news-card .news-link:hover {
-  color: var(--primary-hover-color);
-  transform: translateX(3px); /* Gentle slide effect on hover */
-  border-bottom-color: var(--primary-hover-color); /* Underline appears */
-}
-
-/* --- Responsive Adjustments --- */
-@media (max-width: 1200px) { /* Adjust for larger desktops */
-  .news-container {
-    max-width: 960px;
-    padding: 35px;
-  }
-  .news-grid {
-    gap: calc(var(--spacing-unit) * 2);
-  }
-}
-
-@media (max-width: 992px) { /* Tablets in landscape / smaller laptops */
-  .news-container {
-    max-width: 90%; /* Use percentage for fluid layout */
-    margin: 40px auto;
-    padding: 30px;
-  }
-  .news-title {
-    font-size: 2.5em;
-  }
-  .news-subtitle {
-    font-size: 1.1em;
-    margin-bottom: 40px;
-  }
-  .news-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Allow 2 columns more easily */
-    gap: calc(var(--spacing-unit) * 1.8);
-  }
-  .news-card {
-    padding: 25px;
-  }
-  .news-card h3 {
     font-size: 1.4em;
-  }
-}
-
-@media (max-width: 768px) { /* Tablets in portrait / smaller tablets */
-  .news-container {
-    margin: 25px auto;
-    padding: 25px;
-  }
-  .news-title {
-    font-size: 2em;
+    color: var(--text-dark);
+    margin-top: 0;
     margin-bottom: 10px;
-  }
-  .news-subtitle {
-    font-size: 0.95em;
-    margin-bottom: 30px;
-  }
-  .news-grid {
-    grid-template-columns: 1fr; /* Stack cards vertically */
-    gap: calc(var(--spacing-unit) * 1.5);
-    padding: 0;
-  }
-  .news-card {
-    padding: 20px;
-  }
-  .news-card h3 {
-    font-size: 1.3em;
-  }
-  .news-card .news-summary {
-    font-size: 0.95em;
-   
-  }
+    line-height: 1.4;
+    word-break: keep-all; /* 단어 단위로 줄바꿈 */
 }
 
-@media (max-width: 480px) { /* Mobile phones */
-  .news-container {
-    margin: 15px auto;
-    padding: 15px;
-    border-radius: 0; /* Full width, no shadow */
-    box-shadow: none;
-  }
-  .news-title {
-    font-size: 1.7em;
-    letter-spacing: -0.02em;
-  }
-  .news-subtitle {
-    font-size: 0.85em;
-    margin-bottom: 25px;
-  }
-  .news-card {
-    padding: 15px;
-  }
-  .news-card h3 {
-    font-size: 1.15em;
-  
-  }
-  .news-card .news-date {
-    font-size: 0.8em;
-  }
-  .news-card .news-summary {
+.news-date {
     font-size: 0.9em;
+    color: var(--text-medium);
     margin-bottom: 15px;
- 
-  }
+}
+
+.news-summary {
+    font-size: 1em;
+    color: var(--text-medium);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1; /* 요약 내용이 공간을 채우도록 */
+    overflow: hidden; /* 넘치는 내용 숨김 */
+    text-overflow: ellipsis; /* ...으로 표시 */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* 3줄까지만 표시 */
+    -webkit-box-orient: vertical;
+}
+
+.news-link {
+    display: inline-block;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: auto; /* 카드 하단에 붙도록 */
+    align-self: flex-start; /* 링크를 왼쪽 정렬 */
+    transition: color 0.2s ease;
+}
+
+.news-link:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+/* 로딩, 에러, 데이터 없음 메시지 */
+.loading-message,
+.error-message,
+.no-news-message {
+    width: 100%;
+    text-align: center;
+    font-size: 1.3em;
+    color: var(--text-medium);
+    padding: 50px 0;
+    grid-column: 1 / -1; /* 그리드 전체 너비 차지 */
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .news-title {
+        font-size: 2.2em;
+        margin-top: 30px;
+    }
+    .news-subtitle {
+        font-size: 1em;
+        margin-bottom: 30px;
+    }
+    .news-grid {
+        grid-template-columns: 1fr; /* 모바일에서는 1열 */
+        padding: 0 15px;
+    }
+    .news-card {
+        padding: 20px;
+    }
+    .news-card h3 {
+        font-size: 1.2em;
+    }
+    .news-summary {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .news-title {
+        font-size: 1.8em;
+        margin-top: 20px;
+    }
+    .news-subtitle {
+        font-size: 0.9em;
+        margin-bottom: 20px;
+    }
 }

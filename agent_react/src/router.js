@@ -10,6 +10,8 @@ import Board_create from './Board_create';
 import Signup_form from './Signup_form';
 import Login from './Login';
 import Board_update from './Board_update';
+import Search from './Search';
+
 const router = createBrowserRouter([
     {
         id: 0,
@@ -65,6 +67,11 @@ const router = createBrowserRouter([
         id:10,
         path: '/question/modify/:id',
         element: <Board_update/>
+    },
+    {
+        id:11,
+        path: '/search',
+        element: <Search/>
     }
 
 

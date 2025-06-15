@@ -1,397 +1,328 @@
-/* Board.css - 넓이를 넓히고 최적화된 전문가 CSS */
+/* src/Board.css */
 
-/* --- Global Variables (변수들은 App.css 또는 테마 파일에 정의된 것을 가정합니다) --- */
-/* 만약 이 변수들이 아직 정의되지 않았다면, App.css 파일에 아래 내용을 추가해주세요. */
-/*
+/* --- 폰트 및 전역 변수 재사용 (App.css와 동일하게 유지) --- */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
 :root {
-  --primary-accent: #4f46e5;       // 당신이 선택한 블루-바이올렛 메인 색상
-  --primary-accent-dark: #4338ca;  // 호버 효과를 위한 더 어두운 색상
-  --text-primary-dark: #212529;    // 주 텍스트 색상
-  --text-secondary: #495057;     // 설명 등 보조 텍스트 색상
-  --bg-light-gray: #f8f9fa;      // 페이지/섹션의 밝은 배경
-  --bg-card-white: #ffffff;      // 카드/컨테이너의 흰색 배경
-  --border-light: #e9ecef;       // 테이블/요소의 밝은 테두리
-  --border-medium: #ced4da;      // 입력 필드의 중간 테두리
-  --shadow-sm: rgba(0, 0, 0, 0.05); // 미묘한 작은 그림자
-  --shadow-md: rgba(0, 0, 0, 0.1);  // 약간의 입체감을 위한 중간 그림자
-  --shadow-lg: rgba(0, 0, 0, 0.15); // 더 눈에 띄는 그림자
-  --border-radius-sm: 4px;       // 작은 테두리 반경
-  --border-radius-md: 8px;       // 중간 테두리 반경
-  --spacing-sm: 8px;             // 작은 간격 단위
-  --spacing-md: 16px;            // 중간 간격 단위
-  --spacing-lg: 24px;            // 큰 간격 단위
-
-  // 새로운 넓이 관련 변수 추가
-  --max-content-width-lg: 1100px; // 넓어진 최대 너비
-  --max-content-width-md: 960px;  // 중간 화면에서 사용할 최대 너비
-  --font-family-base: 'Pretendard', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --primary-color: #6a82fb; /* 메인 강조 색상 (파란-보라 계열) */
+    --secondary-color: #fc5c7d; /* 보조 강조 색상 (핑크-오렌지 계열) */
+    --accent-yellow: #f7b731; /* 버튼, 하이라이트 색상 */
+    --text-dark: #2c3e50; /* 어두운 텍스트 */
+    --text-medium: #555; /* 중간 텍스트 */
+    --text-light: #f8f9fa; /* 밝은 배경 위 텍스트 */
+    --bg-light: #f0f2f5; /* 전체 배경 */
+    --bg-white: #ffffff;
+    --border-light: #e0e0e0;
+    --shadow-soft: rgba(0, 0, 0, 0.08);
+    --shadow-medium: rgba(0, 0, 0, 0.2);
+    --shadow-strong: rgba(0, 0, 0, 0.35);
 }
 
 body {
-  font-family: var(--font-family-base);
-  line-height: 1.6;
-  color: var(--text-primary-dark);
-  background-color: var(--bg-light-gray);
-  margin: 0;
-  padding: 0;
+    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden; /* 가로 스크롤 방지 */
 }
-*/
 
-/* --- Board Container --- */
+/* --- 전체 컨테이너 스타일 (뷰포트 전체 사용) --- */
 .board-container {
-  /* **넓이를 넓히기 위한 핵심 변경점** */
-  max-width: var(--max-content-width-lg, 1100px); /* 기존 800px에서 1100px로 확장 */
-  margin: 40px auto;
-  padding: var(--spacing-lg, 24px);
-  background-color: var(--bg-card-white, #ffffff);
-  border-radius: var(--border-radius-md, 8px);
-  box-shadow: 0 10px 30px var(--shadow-md, rgba(0, 0, 0, 0.1));
-  animation: fadeInScale 0.7s ease-out forwards;
-  font-family: var(--font-family-base, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif);
+    width: 100vw;
+    min-height: calc(100vh - 80px); /* 헤더 높이 고려 */
+    background-color: var(--bg-light);
+    padding: 60px 0; /* 상하 여백, 좌우는 내부 섹션에서 관리 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 내부 콘텐츠 중앙 정렬 */
+    text-align: center; /* 텍스트도 중앙 정렬 */
 }
 
-@keyframes fadeInScale {
-  from {
-    opacity: 0;
-    transform: scale(0.98) translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-/* --- Header --- */
 .board-title {
-  font-size: 2.8em; /* 더 커진 넓이에 맞춰 제목 크기 키움 */
-  font-weight: 700;
-  color: var(--primary-accent, #4f46e5);
-  text-align: center;
-  margin-bottom: var(--spacing-sm, 10px);
-  letter-spacing: -0.04em; /* 더 넓은 공간에 맞춰 자간 조정 */
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.board-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 5px;
+    background-color: var(--secondary-color);
+    border-radius: 3px;
 }
 
 .board-description {
-  font-size: 1.2em; /* 설명 텍스트도 살짝 키움 */
-  color: var(--text-secondary, #495057);
-  text-align: center;
-  margin-bottom: var(--spacing-lg, 24px);
-  line-height: 1.5;
-  max-width: 800px; /* 넓이에 맞춰 설명 텍스트 최대 너비 조정 */
-  margin-left: auto;
-  margin-right: auto;
+    font-size: 1.1rem;
+    color: var(--text-medium);
+    margin-bottom: 40px;
+    max-width: 700px;
+    text-align: center;
 }
 
-/* --- Table Styles --- */
+/* --- 게시판 테이블 스타일 --- */
 .board-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  margin-bottom: var(--spacing-lg, 24px);
-  border: 1px solid var(--border-light, #e9ecef);
-  border-radius: var(--border-radius-md, 8px);
-  overflow: hidden;
-  box-shadow: 0 4px 15px var(--shadow-sm, rgba(0, 0, 0, 0.05));
+    width: 100%;
+    max-width: 1000px; /* 테이블 최대 너비 */
+    background-color: var(--bg-white);
+    border-collapse: collapse; /* 셀 경계선 제거 */
+    border-radius: 15px; /* 둥근 모서리 */
+    overflow: hidden; /* 둥근 모서리 적용을 위해 */
+    box-shadow: 0 10px 30px var(--shadow-soft); /* 부드러운 그림자 */
+    margin-bottom: 30px;
 }
 
 .board-table thead th {
-  background-color: var(--primary-accent, #4f46e5);
-  color: white;
-  padding: var(--spacing-md, 16px);
-  text-align: center;
-  font-weight: 600;
-  font-size: 1.05em; /* 테이블 헤더 폰트 크기 살짝 키움 */
-  white-space: nowrap;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 18px 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 2px solid var(--border-light);
 }
 
-.board-table thead th:first-child {
-  border-top-left-radius: var(--border-radius-md, 8px);
+.board-table tbody tr {
+    border-bottom: 1px solid var(--border-light);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
 }
 
-.board-table thead th:last-child {
-  border-top-right-radius: var(--border-radius-md, 8px);
-}
-
-.board-table tbody td {
-  padding: var(--spacing-md, 16px);
-  border-bottom: 1px solid var(--border-light, #e9ecef);
-  text-align: center;
-  font-size: 0.98em; /* 테이블 내용 폰트 크기 살짝 키움 */
-  color: var(--text-primary-dark, #212529);
-}
-
-.board-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.board-table tbody tr:nth-child(even) {
-  background-color: var(--bg-light-gray, #f8f9fa);
+.board-table tbody tr:last-child {
+    border-bottom: none; /* 마지막 행은 하단 경계선 제거 */
 }
 
 .board-table tbody tr:hover {
-  background-color: #f0f7ff;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+    background-color: var(--bg-light);
+    transform: scale(1.005); /* 약간 확대 효과 */
 }
 
-.board-table tbody td:nth-child(2) {
-  text-align: left;
-  font-weight: 500;
-  color: var(--primary-accent, #4f46e5);
-  transition: color 0.2s ease;
-}
-
-.board-table tbody td:nth-child(2):hover {
-  text-decoration: underline;
-  color: var(--primary-accent-dark, #4338ca);
-}
-
-.board-table .no-posts-message {
-  padding: var(--spacing-lg, 24px) 0;
-  font-style: italic;
-  color: var(--text-secondary, #6c757d);
-  text-align: center;
-}
-
-/* --- Buttons (Main & Form) --- */
-.board-register-btn,
-.board-submit-btn,
-.board-cancel-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px 30px; /* 버튼 패딩 더 늘림 */
-  font-size: 1.05em; /* 버튼 폰트 크기 살짝 키움 */
-  font-weight: 600;
-  border: none;
-  border-radius: var(--border-radius-sm, 4px);
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 10px var(--shadow-sm, rgba(0, 0, 0, 0.05));
-  white-space: nowrap;
-}
-
-.board-register-btn {
-  background-color: var(--primary-accent, #4f46e5);
-  color: white;
-  margin: var(--spacing-md, 16px) auto var(--spacing-lg, 24px) auto;
-  display: block;
-  width: fit-content;
-  min-width: 160px; /* 최소 너비 약간 증가 */
-}
-
-.board-register-btn:hover {
-  background-color: var(--primary-accent-dark, #4338ca);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px var(--shadow-md, rgba(0, 0, 0, 0.1));
-}
-
-/* --- Form Styles --- */
-.board-form {
-  background-color: var(--bg-light-gray, #f8f9fa);
-  padding: var(--spacing-lg, 24px);
-  border-radius: var(--border-radius-md, 8px);
-  margin-top: var(--spacing-lg, 24px);
-  box-shadow: 0 5px 15px var(--shadow-sm, rgba(0, 0, 0, 0.08));
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md, 16px);
-}
-
-.board-input,
-.board-textarea {
-  width: calc(100% - (var(--spacing-md, 16px) * 2));
-  padding: var(--spacing-md, 16px);
-  border: 1px solid var(--border-medium, #ced4da);
-  border-radius: var(--border-radius-sm, 4px);
-  font-family: inherit;
-  font-size: 1.05em; /* 입력 필드 폰트 크기 살짝 키움 */
-  color: var(--text-primary-dark, #212529);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.board-input:focus,
-.board-textarea:focus {
-  outline: none;
-  border-color: var(--primary-accent, #4f46e5);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
-}
-
-.board-textarea {
-  resize: vertical;
-  min-height: 120px; /* 텍스트 에어리어 높이 증가 */
-}
-
-/* Form Buttons Group */
-.board-form-actions {
-  display: flex;
-  gap: var(--spacing-md, 16px);
-  justify-content: flex-end;
-  margin-top: var(--spacing-sm, 8px);
-}
-
-.board-submit-btn {
-  background-color: var(--primary-accent, #4f46e5);
-  color: white;
-  margin-bottom: 0;
-  flex-grow: 1;
-  max-width: 160px; /* 폼 버튼 최대 너비 증가 */
-}
-
-.board-submit-btn:hover {
-  background-color: var(--primary-accent-dark, #4338ca);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px var(--shadow-sm, rgba(0, 0, 0, 0.08));
-}
-
-.board-cancel-btn {
-  background-color: var(--secondary-color, #6c757d);
-  color: white;
-  flex-grow: 1;
-  max-width: 160px; /* 폼 버튼 최대 너비 증가 */
-}
-
-.board-cancel-btn:hover {
-  background-color: var(--secondary-hover-color, #5a6268);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px var(--shadow-sm, rgba(0, 0, 0, 0.08));
-}
-
-/* --- Responsive Design (넓어진 너비에 맞춰 조정) --- */
-@media (max-width: 1200px) { /* 새로운 브레이크 포인트 추가 */
-  .board-container {
-    max-width: var(--max-content-width-md, 960px); /* 더 큰 화면에서 중간 너비 적용 */
-  }
-}
-
-@media (max-width: 992px) { /* 기존 768px보다 넓은 새로운 브레이크 포인트 */
-  .board-container {
-    max-width: 90%; /* 화면 너비의 90% 사용 */
-    margin: 30px auto;
-  }
-  .board-table thead th,
-  .board-table tbody td {
-    padding: var(--spacing-md, 16px);
-    font-size: 0.95em;
-  }
-}
-
-
-@media (max-width: 768px) {
-  .board-container {
-    margin: 20px auto;
-    padding: var(--spacing-md, 16px);
-  }
-
-  .board-title {
-    font-size: 2.2em;
-  }
-
-  .board-description {
-    font-size: 1em;
-  }
-
-  .board-table thead th,
-  .board-table tbody td {
-    padding: var(--spacing-sm, 8px);
-    font-size: 0.9em;
-  }
-
-  .board-table tbody td:nth-child(2) {
-    max-width: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .board-register-btn {
-    padding: 10px 20px;
-    font-size: 0.95em;
-  }
-
-  .board-input,
-  .board-textarea {
-    padding: var(--spacing-sm, 8px) var(--spacing-md, 16px);
-    font-size: 0.95em;
-  }
-
-  .board-form-actions {
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-sm, 8px);
-  }
-
-  .board-submit-btn,
-  .board-cancel-btn {
-    width: 100%;
-    max-width: 200px;
-    padding: 10px 15px;
-    font-size: 0.95em;
-  }
-}
-
-@media (max-width: 480px) {
-  .board-container {
-    margin: 15px;
-    padding: var(--spacing-md, 16px);
-    border-radius: 0;
-    box-shadow: none;
-  }
-
-  .board-title {
-    font-size: 1.8em;
-  }
-
-  .board-description {
-    font-size: 0.9em;
-    margin-bottom: var(--spacing-md, 16px);
-  }
-
-  .board-table thead th,
-  .board-table tbody td {
-    padding: 8px;
-    font-size: 0.8em;
-  }
-
-  .board-table thead th:first-child,
-  .board-table tbody td:first-child {
-    display: none;
-  }
-
-  .board-table tbody td:nth-child(2) {
+.board-table tbody td {
+    padding: 15px 20px;
+    font-size: 1rem;
+    color: var(--text-dark);
     text-align: center;
-    max-width: unset;
-    white-space: normal;
-  }
-  
+    vertical-align: middle; /* 세로 중앙 정렬 */
 }
+
+/* 제목 셀은 왼쪽 정렬 */
+.board-table tbody td:nth-child(2) {
+    text-align: left;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+/* 글쓴이, 작성일시는 중앙 정렬 */
+.board-table tbody td:nth-child(3),
+.board-table tbody td:nth-child(4) {
+    color: var(--text-medium);
+    font-size: 0.95rem;
+}
+
+/* 답변 수 스타일 */
+.answer-count {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 3px 8px;
+    background-color: var(--accent-yellow);
+    color: var(--bg-white);
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+/* 게시글이 없을 때의 td 스타일 */
+.board-table tbody tr td[colspan="4"] {
+    padding: 50px 20px;
+    color: var(--text-medium);
+    font-style: italic;
+}
+
+/* --- 페이징 버튼 스타일 --- */
 .pagination {
-  display: flex;
-  justify-content: center;
-  gap: 4px;
-  margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
 }
 
 .pagination button {
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  background: white;
-  cursor: pointer;
+    background-color: var(--bg-white);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 50px;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .pagination button.active {
-  background-color: #4338ca;
-  color: white;
-  border-color: #4f46e5;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border-color: var(--primary-color);
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .pagination button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+    background-color: var(--bg-light);
+    color: var(--text-medium);
+    border-color: var(--border-light);
+    cursor: not-allowed;
+    opacity: 0.7;
 }
 
-.answer-count {
-  color: red;
-  font-size: 0.8rem;
-  margin-left: 0.5rem;
+.pagination span {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    font-weight: 500;
+    margin: 0 10px;
+}
+
+/* --- 질문 등록 버튼 --- */
+.board-register-btn {
+    /* Home의 cta-button primary 스타일 재활용 */
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 15px 35px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    text-decoration: none; /* 링크 스타일 제거 */
+}
+
+.board-register-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+
+/* --- 반응형 디자인 --- */
+@media (max-width: 992px) {
+    .board-container {
+        padding: 40px 0;
+    }
+    .board-title {
+        font-size: 2.4rem;
+    }
+    .board-description {
+        font-size: 1rem;
+        margin-bottom: 30px;
+        padding: 0 20px;
+    }
+    .board-table {
+        max-width: 90%; /* 테이블 너비 조절 */
+    }
+    .board-table thead th,
+    .board-table tbody td {
+        padding: 15px 15px;
+        font-size: 0.95rem;
+    }
+    .answer-count {
+        font-size: 0.8rem;
+        padding: 2px 6px;
+    }
+}
+
+@media (max-width: 768px) {
+    .board-container {
+        padding: 30px 0;
+    }
+    .board-title {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+    .board-description {
+        font-size: 0.95rem;
+        margin-bottom: 25px;
+        padding: 0 15px;
+    }
+    .board-table {
+        max-width: 95%; /* 더 넓게 */
+        font-size: 0.9rem;
+    }
+    .board-table thead th,
+    .board-table tbody td {
+        padding: 12px 10px;
+    }
+    /* 번호, 글쓴이, 작성일시는 작게 */
+    .board-table tbody td:nth-child(1),
+    .board-table tbody td:nth-child(3),
+    .board-table tbody td:nth-child(4) {
+        font-size: 0.85rem;
+    }
+    .pagination button {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+    .pagination span {
+        font-size: 1rem;
+    }
+    .board-register-btn {
+        padding: 12px 25px;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .board-container {
+        padding: 20px 0;
+    }
+    .board-title {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+    .board-description {
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+        padding: 0 10px;
+    }
+    .board-table {
+        font-size: 0.8rem;
+        max-width: 98%;
+    }
+    .board-table thead th,
+    .board-table tbody td {
+        padding: 10px 8px;
+    }
+    .board-table tbody td:nth-child(2) {
+        text-align: center; /* 모바일에서 제목도 중앙 정렬 */
+    }
+    .pagination {
+        flex-wrap: wrap; /* 버튼이 너무 많으면 줄바꿈 */
+        gap: 8px;
+    }
+    .pagination button {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+    .pagination span {
+        font-size: 0.9rem;
+    }
+    .board-register-btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
 }
