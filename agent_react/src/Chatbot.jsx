@@ -18,8 +18,8 @@ function Chatbot() {
     const wsRef = useRef(null); // 웹소켓 객체를 저장할 ref
 
     // ***** 이 부분을 반드시 Colab에서 얻은 실제 ngrok Public URL로 교체하세요! *****
-    // 현재는 "https://8efe-34-53-45-171.ngrok-free.app" 이 URL을 사용 중입니다.
-    const BASE_URL = "https://66ad-34-81-171-244.ngrok-free.app"; // <--- Colab 출력의 ngrok URL과 일치하는지 다시 확인!
+   
+    const BASE_URL = ""; // <--- Colab 출력의 ngrok URL과 일치하는지 다시 확인!
 
     // 채팅 스크롤을 최하단으로 자동 이동
     const chatBoxRef = useRef(null);
