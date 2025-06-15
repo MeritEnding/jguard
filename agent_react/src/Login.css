@@ -1,73 +1,174 @@
-/* LoginForm.css */
+/* src/Login.css */
 
+/* 전역 폰트 및 색상 변수 (App.css 또는 전역 스타일 파일에서 정의된 것을 재사용) */
+:root {
+    --primary-color: #6a82fb; /* 메인 강조 색상 */
+    --secondary-color: #fc5c7d; /* 보조 강조 색상 */
+    --text-dark: #2c3e50; /* 어두운 텍스트 */
+    --text-medium: #555; /* 중간 텍스트 */
+    --bg-light: #f0f2f5; /* 전체 배경 */
+    --bg-white: #ffffff;
+    --border-light: #e0e0e0;
+    --shadow-subtle: rgba(0, 0, 0, 0.05); /* 은은한 그림자 */
+
+    --header-height: 80px; /* Header의 실제 높이에 맞춰 조정 */
+}
+
+/* body 전역 스타일 - 중요! */
+/* 이 부분은 App.css 또는 전역 스타일 시트에 위치하는 것이 가장 좋습니다.
+   여기서는 Login 컴포넌트만 볼 때도 올바른 레이아웃을 위해 포함합니다. */
+body {
+    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0; /* 기본 마진 제거 */
+    padding-top: var(--header-height); /* 🟢 Header 높이만큼 상단 여백 추가 */
+    overflow-x: hidden; /* 가로 스크롤 방지 */
+    min-height: 100vh; /* 최소 높이를 뷰포트 높이로 설정 */
+    display: flex; /* flexbox 사용 */
+    flex-direction: column; /* 세로 방향 정렬 */
+    justify-content: center; /* 세로 중앙 정렬 */
+    align-items: center; /* 가로 중앙 정렬 */
+}
+
+/* 로그인 컨테이너 */
 .login-container {
-  max-width: 400px;
-  margin: 60px auto;
-  padding: 30px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  background-color: #fafafa;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 90%;
+    max-width: 400px; /* 🟢 더 작은 최대 너비 */
+    padding: 30px; /* 🟢 더 작은 패딩 */
+    background-color: var(--bg-white);
+    border-radius: 8px; /* 🟢 부드러운 모서리 */
+    box-shadow: 0 4px 15px var(--shadow-subtle); /* 🟢 은은한 그림자 */
+    text-align: center;
+    margin-top: 30px; /* 🟢 상단 여백 조정 */
+    margin-bottom: 30px; /* 🟢 하단 여백 조정 */
+    box-sizing: border-box;
 }
 
-.login-title {
-  text-align: center;
-  margin-bottom: 25px;
-  font-size: 24px;
-  color: #333;
+/* 로그인 제목 */
+.login-container h2 {
+    font-size: 2em; /* 🟢 폰트 크기 조정 */
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 25px; /* 🟢 여백 조정 */
+    position: relative;
+    padding-bottom: 10px;
 }
 
-.login-form {
-  display: flex;
-  flex-direction: column;
+.login-container h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 60px; /* 🟢 밑줄 길이 조정 */
+    height: 3px; /* 🟢 밑줄 두께 조정 */
+    background-color: var(--secondary-color);
+    border-radius: 2px;
+}
+
+/* 폼 그룹 (라벨 + 입력 필드) */
+.login-form .form-group {
+    margin-bottom: 20px; /* 🟢 여백 조정 */
+    text-align: left;
 }
 
 .login-form label {
-  margin-bottom: 6px;
-  font-weight: bold;
-  color: #222;
+    display: block;
+    font-size: 0.95em; /* 🟢 폰트 크기 조정 */
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    font-weight: 500;
 }
 
-.login-form input {
-  margin-bottom: 15px;
-  padding: 10px;
-  font-size: 14px;
-  border-radius: 6px;
-  border: 1px solid #bbb;
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 10px 12px; /* 🟢 패딩 조정 */
+    border: 1px solid var(--border-light);
+    border-radius: 5px; /* 🟢 모서리 둥글기 조정 */
+    font-size: 1em; /* 🟢 폰트 크기 조정 */
+    color: var(--text-dark);
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
 }
 
-.login-form input:focus {
-  border-color: #0077cc;
-  outline: none;
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(106, 130, 251, 0.2); /* 🟢 은은한 포커스 효과 */
 }
 
-.login-form button {
-  padding: 12px;
-  background-color: #0077cc;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.2s ease;
+/* 로그인 화면 내 버튼 스타일링 */
+.login-form button[type="submit"],
+.login-form button[type="button"] {
+    width: 100%;
+    padding: 12px; /* 🟢 패딩 조정 */
+    border: none;
+    border-radius: 5px; /* 🟢 모서리 둥글기 조정 */
+    font-size: 1.1em; /* 🟢 폰트 크기 조정 */
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 15px; /* 🟢 상단 여백 조정 */
 }
 
-.login-form button:hover {
-  background-color: #005fa3;
+.login-form button[type="submit"] {
+    background-color: var(--primary-color); /* 🟢 단색 배경 */
+    color: var(--bg-white);
+    margin-bottom: 10px;
 }
 
-.error-box {
-  background-color: #ffe0e0;
-  color: #b00020;
-  padding: 10px;
-  border-radius: 6px;
-  margin-bottom: 15px;
+.login-form button[type="submit"]:hover {
+    background-color: #5a70e2; /* 🟢 호버 시 약간 어둡게 */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.success-box {
-  background-color: #e0ffe0;
-  color: #006600;
-  padding: 10px;
-  border-radius: 6px;
-  margin-bottom: 15px;
+.login-form button[type="button"] {
+    background-color: transparent; /* 🟢 투명 배경 */
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color); /* 🟢 테두리만 */
+}
+
+.login-form button[type="button"]:hover {
+    background-color: var(--primary-color);
+    color: var(--bg-white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 25px;
+        max-width: 90%;
+    }
+    .login-container h2 {
+        font-size: 1.8em;
+    }
+    .login-form input {
+        padding: 9px 10px;
+        font-size: 0.95em;
+    }
+    .login-form button[type="submit"],
+    .login-form button[type="button"] {
+        padding: 10px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        padding: 20px;
+    }
+    .login-container h2 {
+        font-size: 1.6em;
+    }
+    .login-form label {
+        font-size: 0.9em;
+    }
 }

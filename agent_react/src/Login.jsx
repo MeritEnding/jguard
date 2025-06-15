@@ -1,104 +1,75 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axiosInstance from './api/axiosInstance';
 import './Login.css';
-import axiosInstance from './api/axiosInstance'; // axiosInstance는 이미 설정되어 있어야 함
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-  });
-
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccessMessage('');
-    setIsSubmitting(true);
-
     try {
-      const response = await axiosInstance.post('/api/user/login', formData);
+      const response = await axiosInstance.post('/api/user/login', {
+        username,
+        password,
+      });
 
-      // Access Token은 응답 헤더에서 가져옵니다.
-      const accessToken = response.headers.get('access'); 
+      // ✅ 수정: axios는 헤더를 일반 객체로 다룹니다.
+      const accessToken = response.headers['access']; 
       
       if (accessToken) {
-        // 보안을 위해 Access Token을 sessionStorage에 저장
+        // ✅ 수정: localStorage 대신 sessionStorage를 사용하셨으므로 일관성 유지
         sessionStorage.setItem('accessToken', accessToken); 
-        
-        setSuccessMessage('로그인 성공! 🎉 잠시 후 메인 페이지로 이동합니다.'); 
-        
-        setTimeout(() => {
-          navigate('/'); 
-        }, 1500); 
+        alert('로그인 성공!');
+        navigate('/board');
       } else {
-        setError('로그인에 성공했지만 토큰을 받을 수 없습니다. 다시 시도해주세요.');
+        alert('로그인 실패: 토큰을 받지 못했습니다. 다시 시도해주세요.');
+        console.error('로그인 응답에 Access Token이 없습니다.');
       }
-
-    } catch (err) {
-      console.error("로그인 실패:", err);
-      if (err.response) {
-        setError(err.response.data.message || '로그인 실패: 아이디 또는 비밀번호를 확인하세요.');
-      } else if (err.request) {
-        setError('네트워크 오류: 서버에 연결할 수 없습니다. 다시 시도해주세요.');
+    } catch (error) {
+      console.error('로그인 실패:', error);
+      if (error.response) {
+        alert(`로그인 실패: ${error.response.data.message || '아이디 또는 비밀번호가 일치하지 않습니다.'}`);
+      } else if (error.request) {
+        alert('로그인 실패: 서버에 연결할 수 없습니다.');
       } else {
-        setError('로그인 중 오류 발생: ' + err.message);
+        alert('로그인 실패: 요청 중 오류가 발생했습니다.');
       }
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
   return (
     <div className="login-container">
-      <h2 className="login-title">로그인</h2>
-
-      {error && <div className="error-box">{error}</div>}
-      {successMessage && <div className="success-box">{successMessage}</div>}
-
-      <form onSubmit={handleSubmit} className="login-form">
-        <label htmlFor="username">사용자ID</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          value={formData.username}
-          onChange={handleChange}
-          required
-        />
-
-        <label htmlFor="password">비밀번호</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? '로그인 중...' : '로그인'}
-        </button>
-      </form>
-
-      <div className="login-links">
-        <Link to="/find-password">비밀번호 찾기</Link>
-        <span className="divider">|</span>
-        <Link to="/find-id">아이디 찾기</Link>
-        <span className="divider">|</span>
-        <Link to="/user/signup">회원가입</Link>
+      <div className='login-body'>
+        <h2>로그인</h2>
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="form-group">
+            <label htmlFor="username">아이디:</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">비밀번호:</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="login-button">로그인</button>
+          <button type="button" onClick={() => navigate('/signup')} className="signup-button">
+            회원가입
+          </button>
+        </form>
       </div>
     </div>
   );
