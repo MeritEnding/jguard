@@ -1,4 +1,5 @@
 package com.agent_Spring.agent_spring;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,5 +1,6 @@
-package com.agent_Spring.agent_spring.user;
+package com.agent_Spring.agent_spring;
 
+import com.agent_Spring.agent_spring.user.SiteUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

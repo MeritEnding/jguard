@@ -1,4 +1,10 @@
 package com.agent_Spring.agent_spring.news;
 
-public class NewsRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+interface NewsRepository extends JpaRepository<News, Long> {
+    boolean existsByTitle(String title);
+    List<News> findTop20ByOrderByPublishedAtDesc();
 }

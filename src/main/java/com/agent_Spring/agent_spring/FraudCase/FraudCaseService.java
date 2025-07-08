@@ -1,4 +1,3 @@
-// src/main/java/com/agent_Spring/agent_spring/FraudCase/FraudStatsService.java
 package com.agent_Spring.agent_spring.FraudCase;
 
 import lombok.RequiredArgsConstructor;
@@ -8,11 +7,11 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class FraudStatsService {
+public class FraudCaseService {
 
-    private final FraudStatsRepository fraudStatsRepository;
+    private final FraudCaseRepository fraudCaseRepository;
 
-    public List<FraudStats> getChungcheongbukdoStats() {
-        return fraudStatsRepository.findByCityOrderByYearAsc("충청북도");
+    public List<FraudCase> getCasesByRegion(String city, String district, String neighborhood){
+        return fraudCaseRepository.findByCityAndDistrictAndNeighborhood(city, district, neighborhood);
     }
 }

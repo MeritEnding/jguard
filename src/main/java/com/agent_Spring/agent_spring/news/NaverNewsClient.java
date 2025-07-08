@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter; // DateTimeFormatter 추가 (날짜 파싱에 사용)
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,25 +14,25 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.URI;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets; // StandardCharsets 추가
+import java.nio.charset.StandardCharsets;
 
-@Component // 스프링 빈으로 등록
+@Component
 class NaverNewsClient {
-    private static final String NAVER_CLIENT_ID = "rk53wrPaeG6oA_p2IUWi";
-    private static final String NAVER_CLIENT_SECRET = "pr_10pQXIi";
+    // **이 값들은 네이버 '검색 API' -> '뉴스' 서비스를 활성화했을 때 발급받는 ID/Secret 이어야 합니다.**
+    private static final String NAVER_CLIENT_ID = "apiid";    // 실제 발급받은 Client ID로 변경
+    private static final String NAVER_CLIENT_SECRET = "api키"; // 실제 발급받은 Client Secret으로 변경
 
-    private static final String BASE_URL = "https://openapi.naver.com/v1/search/news.json"; // 네이버 뉴스 API 엔드포인트
+    // **네이버 뉴스 검색 API의 실제 엔드포인트 URL입니다.**
+    private static final String BASE_URL = "https://openapi.naver.com/v1/search/news.json";
 
-    private final HttpClient httpClient = HttpClient.newHttpClient(); // HttpClient는 한 번만 생성하여 재사용
+    private final HttpClient httpClient = HttpClient.newHttpClient();
 
+    // NewsService에서 호출하는 'fetch' 메서드입니다.
     public List<News> fetch(String keyword) {
         List<News> result = new ArrayList<>();
         try {
-            // 네이버 뉴스 API 요청 URL 구성
-            // query: 검색어 (UTF-8 인코딩)
-            // display: 검색 결과 개수 (10개 고정. 네이버는 max=1 대신 display 파라미터 사용)
-            // sort: 정렬 옵션 (sim:유사도순, date:날짜순. 기본은 sim)
             String encodedKeyword = URLEncoder.encode(keyword, StandardCharsets.UTF_8.toString());
+            // display는 한 번에 가져올 검색 결과 개수 (최대 100). sort=date는 최신순 정렬.
             String url = String.format("%s?query=%s&display=10&sort=date", BASE_URL, encodedKeyword);
 
             HttpRequest request = HttpRequest.newBuilder()
@@ -43,36 +43,41 @@ class NaverNewsClient {
 
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-            // 디버깅을 위해 API 응답 본문 출력
+            // API 호출이 실패했을 경우 (HTTP 상태 코드 200 OK가 아닌 경우) 로그 출력
+            if (response.statusCode() != 200) {
+                System.err.println("Naver News API Request Failed for keyword '" + keyword + "'. Status Code: " + response.statusCode());
+                System.err.println("Response Body: " + response.body());
+                return List.of(); // 빈 리스트 반환하여 다음 처리로 넘김
+            }
+
+            // 디버깅을 위해 API 응답 본문 출력 (중요!)
             System.out.println("Naver News API Response for keyword '" + keyword + "': " + response.body());
 
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode json = objectMapper.readTree(response.body());
-            JsonNode items = json.get("items"); // 네이버 뉴스는 'items' 배열 안에 기사 목록이 있습니다.
+            JsonNode items = json.get("items"); // 네이버 뉴스 API는 'items' 배열 안에 기사 목록이 있습니다.
 
             // 'items' 노드가 존재하고 배열 형태인지 확인
             if (items != null && items.isArray()) {
-                for (JsonNode item : items) { // JsonNode 타입 명시
-                    // 네이버 뉴스 API 응답 필드 이름에 맞춰 변경
+                // 네이버 'pubDate' 형식 (RFC 822)에 맞는 DateTimeFormatter 정의: "Sat, 04 May 2024 12:00:00 +0900"
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss Z");
+
+                for (JsonNode item : items) {
+                    // 제목에 포함될 수 있는 HTML 태그 제거
                     String titleHtml = item.has("title") ? item.get("title").asText() : "제목 없음";
-                    // 네이버 API는 제목에 HTML 태그(<b>, </b>)가 포함되어 올 수 있으므로 제거
                     String title = titleHtml.replaceAll("<[^>]*>", "");
 
-                    String articleUrl = item.has("link") ? item.get("link").asText() : ""; // 'link' 필드
-                    String sourceName = item.has("publisher") ? item.get("publisher").asText() : "출처 불명"; // 'publisher' 필드
-                    String publishedAtText = item.has("pubDate") ? item.get("pubDate").asText() : null; // 'pubDate' 필드 (RFC 822 포맷)
+                    String articleUrl = item.has("link") ? item.get("link").asText() : "";
+                    String sourceName = item.has("publisher") ? item.get("publisher").asText() : "출처 불명";
+                    String publishedAtText = item.has("pubDate") ? item.get("pubDate").asText() : null;
 
                     LocalDateTime publishedAt = null;
                     if (publishedAtText != null) {
                         try {
-                            // 네이버 'pubDate' 형식 (RFC 822): "Sat, 04 May 2024 12:00:00 +0900"
-                            // LocalDateTime.parse에는 기본적으로 이 형식이 없으므로 DateTimeFormatter 사용
-                            // RFC 822를 파싱하는 형식은 'EEE, dd MMM yyyy HH:mm:ss Z' 입니다.
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss Z");
                             publishedAt = LocalDateTime.parse(publishedAtText, formatter);
-
                         } catch (DateTimeParseException dtpe) {
                             System.err.println("Error parsing date '" + publishedAtText + "' for keyword '" + keyword + "': " + dtpe.getMessage());
+                            // 날짜 파싱 오류 시 publishedAt은 null로 유지
                         }
                     }
 
@@ -90,8 +95,8 @@ class NaverNewsClient {
             }
             return result;
         } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Failed to fetch news for keyword '" + keyword + "': " + e.getMessage());
+            System.err.println("Critical error fetching news for keyword '" + keyword + "': " + e.getMessage());
+            e.printStackTrace(); // 스택 트레이스도 출력하여 상세 오류 확인
             return List.of();
         }
     }
