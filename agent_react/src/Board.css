@@ -1,42 +1,38 @@
-/* src/Board.css */
+/* src/Board.css - 더 넓고 시원한 레이아웃으로 개선 */
 
-/* --- 폰트 및 전역 변수 재사용 (App.css와 동일하게 유지) --- */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+/* --- 폰트 및 전역 변수 (그대로 유지) --- */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
 
 :root {
-    --primary-color: #6a82fb; /* 메인 강조 색상 (파란-보라 계열) */
-    --secondary-color: #fc5c7d; /* 보조 강조 색상 (핑크-오렌지 계열) */
-    --accent-yellow: #f7b731; /* 버튼, 하이라이트 색상 */
-    --text-dark: #2c3e50; /* 어두운 텍스트 */
-    --text-medium: #555; /* 중간 텍스트 */
-    --text-light: #f8f9fa; /* 밝은 배경 위 텍스트 */
-    --bg-light: #f0f2f5; /* 전체 배경 */
+    --primary-color: #6a82fb;
+    --secondary-color: #fc5c7d;
+    --accent-yellow: #f7b731;
+    --text-dark: #2c3e50;
+    --text-medium: #555;
+    --text-light: #f8f9fa;
+    --bg-light: #f0f2f5;
     --bg-white: #ffffff;
-    --border-light: #e0e0e0;
-    --shadow-soft: rgba(0, 0, 0, 0.08);
-    --shadow-medium: rgba(0, 0, 0, 0.2);
-    --shadow-strong: rgba(0, 0, 0, 0.35);
+    --border-light: #e9ecef; /* 좀 더 부드러운 색으로 변경 */
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.1);
+    --shadow-strong: 0 12px 35px rgba(106, 130, 251, 0.3);
 }
 
 body {
-    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     background-color: var(--bg-light);
     color: var(--text-dark);
     line-height: 1.6;
-    overflow-x: hidden; /* 가로 스크롤 방지 */
 }
 
-/* --- 전체 컨테이너 스타일 (뷰포트 전체 사용) --- */
+/* --- ✨ 레이아웃 구조 변경 --- */
 .board-container {
-    width: 100vw;
-    min-height: calc(100vh - 80px); /* 헤더 높이 고려 */
-    background-color: var(--bg-light);
-    padding: 60px 0; /* 상하 여백, 좌우는 내부 섹션에서 관리 */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* 내부 콘텐츠 중앙 정렬 */
-    text-align: center; /* 텍스트도 중앙 정렬 */
+    /* 전체 페이지의 흐름만 제어 */
+}
+
+.board-header-wrapper {
+    padding: 60px 24px;
+    text-align: center;
 }
 
 .board-title {
@@ -46,6 +42,7 @@ body {
     color: var(--primary-color);
     position: relative;
     padding-bottom: 15px;
+    display: inline-block; /* ::after 요소 너비 맞춤 */
 }
 
 .board-title::after {
@@ -63,31 +60,35 @@ body {
 .board-description {
     font-size: 1.1rem;
     color: var(--text-medium);
-    margin-bottom: 40px;
     max-width: 700px;
-    text-align: center;
+    margin: 0 auto;
 }
 
-/* --- 게시판 테이블 스타일 --- */
+/* ✨ 넓어진 콘텐츠 영역 */
+.board-content-area {
+    max-width: 1200px; /* ✨ 최대 너비 1200px로 확장 */
+    width: 95%; /* 화면 너비에 따라 유동적으로 조절 */
+    margin: 0 auto; /* 중앙 정렬 */
+}
+
+/* --- 게시판 테이블 스타일 (디테일 개선) --- */
 .board-table {
     width: 100%;
-    max-width: 1000px; /* 테이블 최대 너비 */
     background-color: var(--bg-white);
-    border-collapse: collapse; /* 셀 경계선 제거 */
-    border-radius: 15px; /* 둥근 모서리 */
-    overflow: hidden; /* 둥근 모서리 적용을 위해 */
-    box-shadow: 0 10px 30px var(--shadow-soft); /* 부드러운 그림자 */
+    border-collapse: collapse;
+    border-radius: 16px; /* ✨ 모서리 반경 증가 */
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
     margin-bottom: 30px;
 }
 
 .board-table thead th {
     background-color: var(--primary-color);
     color: var(--text-light);
-    padding: 18px 20px;
+    padding: 18px 24px; /* ✨ 좌우 여백 증가 */
     font-size: 1.1rem;
     font-weight: 600;
     text-align: center;
-    border-bottom: 2px solid var(--border-light);
 }
 
 .board-table tbody tr {
@@ -95,39 +96,32 @@ body {
     transition: background-color 0.2s ease, transform 0.2s ease;
     cursor: pointer;
 }
-
-.board-table tbody tr:last-child {
-    border-bottom: none; /* 마지막 행은 하단 경계선 제거 */
-}
+.board-table tbody tr:last-child { border-bottom: none; }
 
 .board-table tbody tr:hover {
-    background-color: var(--bg-light);
-    transform: scale(1.005); /* 약간 확대 효과 */
+    background-color: #f8f7ff;
+    transform: scale(1.005);
 }
 
 .board-table tbody td {
-    padding: 15px 20px;
+    padding: 16px 24px; /* ✨ 좌우 여백 증가 */
     font-size: 1rem;
     color: var(--text-dark);
     text-align: center;
-    vertical-align: middle; /* 세로 중앙 정렬 */
+    vertical-align: middle;
 }
 
-/* 제목 셀은 왼쪽 정렬 */
 .board-table tbody td:nth-child(2) {
     text-align: left;
     font-weight: 500;
     color: var(--primary-color);
 }
-
-/* 글쓴이, 작성일시는 중앙 정렬 */
 .board-table tbody td:nth-child(3),
 .board-table tbody td:nth-child(4) {
     color: var(--text-medium);
     font-size: 0.95rem;
 }
 
-/* 답변 수 스타일 */
 .answer-count {
     display: inline-block;
     margin-left: 8px;
@@ -140,20 +134,28 @@ body {
     vertical-align: middle;
 }
 
-/* 게시글이 없을 때의 td 스타일 */
 .board-table tbody tr td[colspan="4"] {
-    padding: 50px 20px;
+    padding: 60px 20px;
     color: var(--text-medium);
     font-style: italic;
 }
 
-/* --- 페이징 버튼 스타일 --- */
+/* --- ✨ 하단 컨트롤 (페이지네이션, 글쓰기 버튼) --- */
+.board-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
 .pagination {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    margin-bottom: 40px;
+    flex-grow: 1; /* ✨ 중앙 공간 차지 */
 }
 
 .pagination button {
@@ -165,15 +167,13 @@ body {
     font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    min-width: 50px;
+    min-width: 45px;
 }
-
 .pagination button:hover:not(:disabled) {
     background-color: var(--primary-color);
     color: var(--text-light);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-
 .pagination button.active {
     background-color: var(--primary-color);
     color: var(--text-light);
@@ -181,10 +181,9 @@ body {
     font-weight: 700;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
-
 .pagination button:disabled {
     background-color: var(--bg-light);
-    color: var(--text-medium);
+    color: #aaa;
     border-color: var(--border-light);
     cursor: not-allowed;
     opacity: 0.7;
@@ -197,9 +196,7 @@ body {
     margin: 0 10px;
 }
 
-/* --- 질문 등록 버튼 --- */
 .board-register-btn {
-    /* Home의 cta-button primary 스타일 재활용 */
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     color: white;
     padding: 15px 35px;
@@ -210,9 +207,8 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    text-decoration: none; /* 링크 스타일 제거 */
+    text-decoration: none;
 }
-
 .board-register-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
@@ -220,109 +216,33 @@ body {
 
 
 /* --- 반응형 디자인 --- */
-@media (max-width: 992px) {
-    .board-container {
-        padding: 40px 0;
-    }
-    .board-title {
-        font-size: 2.4rem;
-    }
-    .board-description {
-        font-size: 1rem;
-        margin-bottom: 30px;
-        padding: 0 20px;
-    }
-    .board-table {
-        max-width: 90%; /* 테이블 너비 조절 */
-    }
-    .board-table thead th,
-    .board-table tbody td {
-        padding: 15px 15px;
-        font-size: 0.95rem;
-    }
-    .answer-count {
-        font-size: 0.8rem;
-        padding: 2px 6px;
+@media (max-width: 1200px) {
+    .board-content-area {
+        width: 95%; /* 화면이 1200px보다 작아지면 비율로 너비 조절 */
     }
 }
 
 @media (max-width: 768px) {
-    .board-container {
-        padding: 30px 0;
+    .board-header-wrapper { padding: 40px 20px; }
+    .board-title { font-size: 2rem; }
+    .board-description { font-size: 0.95rem; }
+    
+    .board-footer {
+        flex-direction: column;
+        gap: 30px;
     }
-    .board-title {
-        font-size: 2rem;
-        margin-bottom: 15px;
-    }
-    .board-description {
-        font-size: 0.95rem;
-        margin-bottom: 25px;
-        padding: 0 15px;
-    }
-    .board-table {
-        max-width: 95%; /* 더 넓게 */
-        font-size: 0.9rem;
-    }
-    .board-table thead th,
-    .board-table tbody td {
-        padding: 12px 10px;
-    }
-    /* 번호, 글쓴이, 작성일시는 작게 */
-    .board-table tbody td:nth-child(1),
-    .board-table tbody td:nth-child(3),
-    .board-table tbody td:nth-child(4) {
-        font-size: 0.85rem;
-    }
-    .pagination button {
-        padding: 8px 12px;
-        font-size: 0.9rem;
-    }
-    .pagination span {
-        font-size: 1rem;
+    .pagination {
+        order: 2; /* 페이지네이션을 버튼 아래로 */
     }
     .board-register-btn {
-        padding: 12px 25px;
-        font-size: 1.1rem;
+        order: 1; /* 글쓰기 버튼을 위로 */
+        width: 100%;
     }
 }
 
+/* 테이블의 모바일 반응형은 기존 스타일 유지 */
 @media (max-width: 480px) {
-    .board-container {
-        padding: 20px 0;
-    }
-    .board-title {
-        font-size: 1.8rem;
-        margin-bottom: 15px;
-    }
-    .board-description {
-        font-size: 0.9rem;
-        margin-bottom: 20px;
-        padding: 0 10px;
-    }
-    .board-table {
-        font-size: 0.8rem;
-        max-width: 98%;
-    }
-    .board-table thead th,
-    .board-table tbody td {
-        padding: 10px 8px;
-    }
     .board-table tbody td:nth-child(2) {
         text-align: center; /* 모바일에서 제목도 중앙 정렬 */
-    }
-    .pagination {
-        flex-wrap: wrap; /* 버튼이 너무 많으면 줄바꿈 */
-        gap: 8px;
-    }
-    .pagination button {
-        padding: 6px 10px;
-        font-size: 0.8rem;
-    }
-    .pagination span {
-        font-size: 0.9rem;
-    }
-    .board-register-btn {
-        padding: 10px 20px;
-        font-size: 1rem;
     }
 }

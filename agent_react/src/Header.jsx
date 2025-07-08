@@ -1,14 +1,30 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axiosInstance from './api/axiosInstance'; // api 폴더가 components 폴더와 같은 레벨에 있다고 가정
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import axiosInstance from './api/axiosInstance';
 import './Header.css';
-
+import { FaBars, FaTimes } from 'react-icons/fa'; // 모바일 메뉴 아이콘
 
 const Header = () => {
     const navigate = useNavigate();
+    const location = useLocation(); // ✨ 현재 경로를 감지하기 위해 추가
     const isLoggedIn = sessionStorage.getItem('accessToken') !== null;
 
+    // ✨ 각 드롭다운 메뉴를 위한 독립적인 상태
+    const [isAiServiceMenuOpen, setIsAiServiceMenuOpen] = useState(false);
+    const [isFraudLookupMenuOpen, setIsFraudLookupMenuOpen] = useState(false);
+    const [isNewsMenuOpen, setIsNewsMenuOpen] = useState(false); // ✨ 뉴스 메뉴 상태 추가 (버그 수정)
+    const [isCommunityMenuOpen, setIsCommunityMenuOpen] = useState(false);
+
+    // ✨ 모바일 메뉴를 위한 상태
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    // ✨ 페이지 이동 시 모바일 메뉴가 자동으로 닫히도록 설정
+    useEffect(() => {
+        setIsMobileMenuOpen(false);
+    }, [location]);
+
     const handleLogout = async () => {
+        // ... (기존 로그아웃 로직은 그대로 사용)
         try {
             await axiosInstance.post('/logout');
             alert('로그아웃되었습니다.');
@@ -21,33 +37,87 @@ const Header = () => {
         }
     };
 
+    // ✨ 모바일 메뉴 토글 함수
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
     return (
-        <header className="header-fixed">
+        // ✨ 모바일 메뉴가 열렸을 때를 구분하기 위한 클래스 추가
+        <header className={`header-fixed ${isMobileMenuOpen ? 'mobile-menu-open' : ''}`}>
             <div className="header-container">
                 <div className="header-logo">
-                    <Link to="/">홈</Link>
+                    <Link to="/">JGuard</Link>
                 </div>
 
-                <nav className="main-nav">
+                {/* ✨ isMobileMenuOpen 상태에 따라 클래스 동적 부여 */}
+                <nav className={`main-nav ${isMobileMenuOpen ? 'active' : ''}`}>
                     <ul>
-                        <li><Link to="/search">전세사기 사례</Link></li>
-                        <li><Link to="/chatbot">전세 리스크 진단</Link></li>
                         <li><Link to="/guide">예방법 가이드</Link></li>
+
+                        {/* AI 서비스 드롭다운 */}
+                        <li className="dropdown" onMouseEnter={() => setIsAiServiceMenuOpen(true)} onMouseLeave={() => setIsAiServiceMenuOpen(false)}>
+                            <span className="dropdown-toggle">AI 서비스</span>
+                            {isAiServiceMenuOpen && (
+                                <ul className="dropdown-menu">
+                                    <li><Link to="/chatbot">전세 계약 사전 진단</Link></li>
+                                    <li><Link to="/chatbot1">자동 대응 서류 생성</Link></li>
+                                    <li><Link to="/chatbot2">전문 변호사 매칭</Link></li>
+                                </ul>
+                            )}
+                        </li>
+
+                        {/* 내 지역 전세사기 조회 드롭다운 */}
+                        <li className="dropdown" onMouseEnter={() => setIsFraudLookupMenuOpen(true)} onMouseLeave={() => setIsFraudLookupMenuOpen(false)}>
+                            <span className="dropdown-toggle">전세사기 조회</span>
+                            {isFraudLookupMenuOpen && (
+                                <ul className="dropdown-menu">
+                                    <li><Link to="/FraudCaseLookup">내 지역 전세사기 조회</Link></li>
+                                    <li><Link to="/risk_analysis">전세가율 기반 위험도</Link></li>
+                                </ul>
+                            )}
+                        </li>
+                        
+                        {/* 뉴스 드롭다운 (버그 수정) */}
+                        <li className="dropdown" onMouseEnter={() => setIsNewsMenuOpen(true)} onMouseLeave={() => setIsNewsMenuOpen(false)}>
+                            <span className="dropdown-toggle">뉴스/알림</span>
+                            {isNewsMenuOpen && (
+                                <ul className="dropdown-menu">
+                                    <li><Link to="/chungbuk_news">지역별 뉴스</Link></li>
+                                    <li><Link to="/news">전체 뉴스</Link></li>
+                                </ul>
+                            )}
+                        </li>
+            
+                     
                         <li><Link to="/board">사기 매물 공유</Link></li>
-                        <li><Link to="/news">뉴스 및 알림</Link></li>
+                             
+                   
+
                         {isLoggedIn && <li><Link to="/mypage">마이페이지</Link></li>}
                     </ul>
-                </nav>
-
-                <div className="header-util">
-                    <div className="login-button">
+                     {/* 모바일 화면에서만 보이는 로그인/로그아웃 버튼 */}
+                    <div className="mobile-auth-buttons">
                         {isLoggedIn ? (
                             <button onClick={handleLogout} className="logout-btn">로그아웃</button>
                         ) : (
-                            <Link to='/user/login'>로그인</Link>
+                            <Link to='/user/login' className="login-btn">로그인</Link>
                         )}
                     </div>
-                    <button className="menu-toggle">☰</button>
+                </nav>
+
+                <div className="header-util">
+                    <div className="auth-buttons">
+                        {isLoggedIn ? (
+                            <button onClick={handleLogout} className="logout-btn">로그아웃</button>
+                        ) : (
+                            <Link to='/user/login' className="login-btn">로그인</Link>
+                        )}
+                    </div>
+                    {/* ✨ 모바일 메뉴 토글 버튼 */}
+                    <button className="menu-toggle" onClick={toggleMobileMenu}>
+                        {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+                    </button>
                 </div>
             </div>
         </header>

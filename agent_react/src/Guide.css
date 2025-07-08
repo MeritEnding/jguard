@@ -1,208 +1,177 @@
-/* Guide.css */
+/* Guide.css - 전문가의 터치로 재탄생한 디자인 */
 
-/* 전체 페이지 레이아웃 및 폰트 설정 */
-.guide-container {
-    font-family: 'Arial, sans-serif';
-    line-height: 1.6;
-    color: #333;
-    width: 100%; /* 화면 전체 너비 사용 */
-    margin: 0 auto; /* 상하 여백 0, 좌우 자동 마진 (콘텐츠 중앙 정렬에 도움) */
-    padding: 20px; /* 전체 컨테이너의 내부 여백 */
-    background-color: #f9f9f9;
-    /* border-radius와 box-shadow는 내부 콘텐츠 박스에만 적용되도록 변경하거나,
-       여기서는 제거하여 전체 화면 배경처럼 동작하게 할 수 있습니다.
-       여기서는 전체 배경이 아닌, 콘텐츠 영역에 대한 스타일로 유지합니다. */
+/* --- Global Variables (일관성 유지) --- */
+:root {
+    --primary-color: #6a82fb;
+    --secondary-color: #fc5c7d;
+    --text-dark: #2c3e50;
+    --text-medium: #555;
+    --bg-light: #f0f2f5;
+    --bg-white: #ffffff;
+    --border-light: #e9ecef;
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.1);
+    --color-up: #D63031;
+    --color-down: #00B894;
+    --color-stable: #636E72;
+    --warning-bg: #fffbeb;
+    --warning-border: #fde68a;
+    --warning-text: #92400e;
 }
 
-/* Header는 별도 컴포넌트에서 관리되므로 여기서는 스타일을 지정하지 않습니다. */
-/* 만약 Header가 guide-container 내부에 있다면, Header가 삐뚤어지지 않도록
-   Header 컴포넌트의 스타일을 점검해야 합니다. 예를 들어, Header에 `width: 100%`나
-   `display: flex; justify-content: center;` 등을 적용할 수 있습니다. */
-
-/* 실제 콘텐츠가 들어갈 내부 래퍼 추가 (선택 사항, 깔끔한 중앙 정렬을 위해) */
-/* 이 div를 Guide 컴포넌트의 최상위 return 안에 추가하고, guide-container를 이 div로 감싸는 것을 고려할 수 있습니다.
-.guide-content-wrapper-outer {
-    max-width: 1200px;
-    margin: 20px auto;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+/* --- Page Layout & Header --- */
+.guide-page-container {
+    background-color: var(--bg-light);
+    min-height: calc(100vh - 80px);
 }
-*/
-
-/* 가이드 제목 스타일 */
-.guide-title {
-    font-size: 2.5em;
-    font-weight: bold;
-    margin: 0;
-    text-align: center; /* 제목 중앙 정렬 */
-    margin-bottom: 20px;
-    color: #2c3e50; /* 제목 색상 */
+.guide-main-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
 }
 
-/* 가이드 소개 문구 스타일 */
-.guide-intro {
-    font-size: 1.2em;
-    color: #555;
+.guide-header {
     text-align: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px; /* 아래 여백 */
-    border-bottom: 1px dashed #ddd; /* 구분선 */
+    margin-bottom: 48px;
+}
+.guide-header h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+.guide-header p {
+    font-size: 1.1rem;
+    color: var(--text-medium);
+    margin-top: 12px;
 }
 
-/* 모든 가이드 섹션의 공통 스타일 */
 .guide-section {
-    margin-bottom: 30px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    background-color: var(--bg-white);
+    padding: 32px 40px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 40px;
 }
-
-/* 검색어 트렌드 섹션 (guide-section의 기본 스타일을 따름) */
-.trend-section {
-    /* guide-section과 동일한 기본 스타일을 가지며, 추가적인 스타일은 내부 요소에서 정의됩니다. */
-}
-
-/* 검색어 트렌드 섹션의 제목 */
-.trend-section h2 {
-    font-size: 1.8em;
-    text-align: center;
-    color: #2c3e50;
-    margin-bottom: 1.5em;
-    font-weight: bold;
-}
-
-/* 검색어 트렌드 섹션의 설명 문구 */
-.trend-section p {
-    font-size: 1.1em;
-    text-align: center;
-    color: #555;
-    margin-bottom: 2em;
-}
-
-/* 차트 래퍼 스타일 */
-.chart-wrapper {
-    width: 90%; /* 부모 요소의 90% 너비 */
-    margin: 0 auto; /* 중앙 정렬 */
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-/* 로딩, 에러, 데이터 없음 메시지 공통 스타일 */
-.loading-message,
-.error-message,
-.no-data-message {
-    text-align: center;
-    font-size: 1.1em;
-    padding: 50px;
-}
-
-/* 로딩 메시지 색상 */
-.loading-message {
-    color: #888;
-}
-
-/* 에러 메시지 색상 */
-.error-message {
-    color: red;
-}
-
-/* 데이터 없음 메시지 색상 */
-.no-data-message {
-    color: #888;
-}
-
-/* 일반 가이드 섹션의 부제목 (h2) 스타일 */
 .guide-section h2 {
-    font-size: 1.5em;
-    color: #333;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 24px 0;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-light);
 }
 
-/* 가이드 섹션의 ul 리스트 스타일 */
-.guide-section ul {
-    list-style: none; /* 기본 리스트 스타일 제거 */
-    padding: 0;
-}
+/* --- Trend Dashboard Styling --- */
+.status-message { text-align: center; padding: 40px; color: var(--text-medium); font-size: 1.1rem; }
+.status-message.error { color: var(--color-up); }
 
-/* 가이드 섹션의 li 리스트 아이템 스타일 */
-.guide-section ul li {
-    margin-bottom: 10px;
-    padding-left: 20px; /* 리스트 아이템 들여쓰기 */
-    position: relative; /* 커스텀 불릿 위치 조절을 위해 필요 */
-}
-
-/* 가이드 섹션의 커스텀 불릿 스타일 */
-.guide-section ul li::before {
-    content: '•'; /* 원형 불릿 */
-    color: #007bff; /* 불릿 색상 */
-    font-weight: bold;
-    display: inline-block;
-    width: 1em; /* 불릿의 너비 */
-    margin-left: -1em; /* 불릿을 왼쪽으로 살짝 이동 */
-}
-
-/* strong 태그 (강조) 스타일 */
-.guide-section strong {
-    font-weight: bold;
-}
-
-/* 가이드 내용 섹션들을 감싸는 래퍼 (Flexbox 적용) */
-.guide-content-wrapper {
+.trend-warning-message {
     display: flex;
-    flex-wrap: wrap; /* 내용이 넘칠 경우 다음 줄로 넘어가도록 설정 */
-    justify-content: space-between; /* 섹션들 간의 공간을 균등하게 분배 */
-    gap: 20px; /* 섹션 간 간격 (새로운 CSS 속성, 구형 브라우저 호환성 유의) */
-    max-width: 1200px; /* 이 래퍼의 최대 너비를 지정하여 중앙 정렬 */
-    margin: 0 auto; /* 이 래퍼를 중앙 정렬 */
+    align-items: flex-start;
+    gap: 16px;
+    background-color: var(--warning-bg);
+    border: 1px solid var(--warning-border);
+    color: var(--warning-text);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+}
+.trend-warning-message svg { font-size: 1.5rem; flex-shrink: 0; margin-top: 4px; }
+.warning-content strong { display: block; margin-bottom: 8px; font-size: 1.1rem; }
+.warning-content ul { padding-left: 20px; margin: 0; }
+
+.trend-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
 }
 
-/* guide-content-wrapper 내의 개별 가이드 섹션 스타일 */
-.guide-content-wrapper .guide-section {
-    flex: 1 1 calc(33.333% - 20px); /* 3열 레이아웃을 위한 설정 (너비 33.333%에서 gap만큼 제외) */
-    min-width: 300px; /* 섹션이 너무 줄어들지 않도록 최소 너비 설정 */
+.trend-card {
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+.trend-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-medium); }
 
-/* 유용한 관련 링크 섹션에 대한 특정 스타일 */
-.guide-section.useful-links ul {
-    list-style: disc; /* 원형 불릿으로 변경 */
-    padding-left: 20px; /* 기본 들여쓰기 유지 */
+.trend-card-header { display: flex; justify-content: space-between; align-items: center; }
+.trend-keyword { font-size: 1.2rem; font-weight: 700; color: var(--text-dark); }
+.trend-indicator { font-size: 0.9rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 6px; }
+.trend-indicator.up { background-color: rgba(214, 48, 49, 0.1); color: var(--color-up); }
+.trend-indicator.down { background-color: rgba(0, 184, 148, 0.1); color: var(--color-down); }
+.trend-indicator.stable { background-color: rgba(99, 110, 114, 0.1); color: var(--color-stable); }
+
+.trend-card-body { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin: 12px 0; }
+.current-ratio { font-size: 2.2rem; font-weight: 800; color: var(--text-dark); line-height: 1; }
+.ratio-unit { font-size: 1rem; font-weight: 600; color: var(--text-medium); }
+.trend-sparkline { width: 120px; height: 40px; }
+
+.trend-card-footer {
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: right;
+    border-top: 1px dashed var(--border-light);
+    padding-top: 12px;
 }
+.trend-card.up .trend-card-footer { color: var(--color-up); }
+.trend-card.down .trend-card-footer { color: var(--color-down); }
+.trend-card.stable .trend-card-footer { color: var(--color-stable); }
 
-/* 유용한 관련 링크 섹션의 불릿 제거 (기본 disc 불릿이 적용되므로 커스텀 불릿은 제거) */
-.guide-section.useful-links ul li::before {
-    content: none;
+
+/* --- Accordion Styling --- */
+.accordion-container { display: flex; flex-direction: column; gap: 12px; }
+.accordion-item { border: 1px solid var(--border-light); border-radius: 12px; overflow: hidden; transition: background-color 0.2s ease; }
+.accordion-item.open { background-color: #f8f7ff; border-color: var(--primary-color);}
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
 }
+.accordion-title { font-size: 1.2rem; font-weight: 600; color: var(--text-dark); }
+.accordion-item.open .accordion-title { color: var(--primary-color); }
 
-/* 링크 스타일 */
-.guide-section.useful-links a {
-    color: #007bff; /* 링크 색상 */
-    text-decoration: none; /* 밑줄 제거 */
+.accordion-icon { font-size: 1.2rem; color: var(--text-medium); transition: transform 0.3s ease; }
+.accordion-item.open .accordion-icon { transform: rotate(180deg); color: var(--primary-color); }
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
 }
+.accordion-item.open .accordion-content { max-height: 1000px; }
+.accordion-content-inner { padding: 0 20px 20px 20px; }
 
-/* 링크 호버 시 밑줄 추가 */
-.guide-section.useful-links a:hover {
-    text-decoration: underline;
+.accordion-content ul { list-style-type: none; padding-left: 0; margin: 0; }
+.accordion-content li {
+    padding: 12px 0 12px 24px;
+    position: relative;
+    border-bottom: 1px dashed var(--border-light);
+    line-height: 1.7;
+    color: var(--text-medium);
 }
-
-/* 반응형 디자인을 위한 미디어 쿼리 */
-
-/* 화면 너비가 992px 이하일 때 (태블릿) */
-@media (max-width: 992px) {
-    .guide-content-wrapper .guide-section {
-        flex: 1 1 calc(50% - 20px); /* 2열 레이아웃 (너비 50%에서 gap만큼 제외) */
-    }
+.accordion-content li:last-child { border-bottom: none; }
+.accordion-content li::before {
+    content: '✔️';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
 }
+.accordion-content strong { color: var(--text-dark); font-weight: 700; }
 
-/* 화면 너비가 768px 이하일 때 (모바일) */
+/* --- Responsive --- */
 @media (max-width: 768px) {
-    .guide-content-wrapper .guide-section {
-        flex: 1 1 100%; /* 1열 레이아웃 (전체 너비 사용) */
-    }
+    .guide-main-content, .guide-section { padding: 24px; }
+    .guide-header h1 { font-size: 2rem; }
+    .guide-section h2 { font-size: 1.5rem; }
+    .trend-grid { grid-template-columns: 1fr; }
 }

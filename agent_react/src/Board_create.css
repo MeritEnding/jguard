@@ -1,0 +1,151 @@
+/* Board_create.css - '글 수정' 페이지와 일관된 디자인 */
+
+/* --- Global Variables (일관성 유지) --- */
+:root {
+    --primary-color: #6a82fb;
+    --secondary-color: #fc5c7d;
+    --text-dark: #2c3e50;
+    --text-medium: #555;
+    --bg-light: #f0f2f5;
+    --bg-white: #ffffff;
+    --border-light: #e0e0e0;
+    --border-focus: #6a82fb;
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.1);
+    --success-color: #22c55e;
+    --error-color: #ef4444;
+}
+
+/* --- Page Layout --- */
+.create-page-container {
+    background-color: var(--bg-light);
+    padding: 60px 24px;
+    min-height: calc(100vh - var(--header-height)); /* Header 높이 제외 */
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 (내용이 적을 경우) */
+}
+
+.create-form-wrapper {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--bg-white);
+    padding: clamp(24px, 5vw, 48px);
+    border-radius: 16px;
+    box-shadow: var(--shadow-medium);
+}
+
+.create-form-header {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 24px;
+}
+.create-form-header h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+.create-form-header p {
+    margin-top: 8px;
+    font-size: 1.1rem;
+    color: var(--text-medium);
+}
+
+/* --- Form Elements Styling (update.css와 동일) --- */
+.create-form .form-group {
+    margin-bottom: 24px;
+}
+
+.create-form label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 16px;
+    font-size: 1rem;
+    font-family: inherit;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.form-control::placeholder {
+    color: #94a3b8;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 4px rgba(106, 130, 251, 0.2);
+}
+
+textarea.form-control {
+    resize: vertical;
+}
+
+/* --- Action Buttons (update.css와 동일) --- */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 32px;
+}
+
+.cancel-btn, .submit-btn {
+    padding: 12px 28px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cancel-btn {
+    background-color: #f1f5f9;
+    color: var(--text-medium);
+    border: 1px solid #e2e8f0;
+}
+.cancel-btn:hover {
+    background-color: #e2e8f0;
+    color: var(--text-dark);
+}
+
+.submit-btn {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    box-shadow: var(--shadow-soft);
+}
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Submit Status Message (update.css와 동일) --- */
+.submit-status {
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-align: center;
+}
+.submit-status.success {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: var(--success-color);
+}
+.submit-status.error {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--error-color);
+}

@@ -1,77 +1,127 @@
-/* SignupForm.css */
+/* src/Signup_form.css - 기존 JSX 구조에 맞춘 전문가 디자인 */
 
+/* --- 폰트 및 전역 변수 (일관성 유지) --- */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+:root {
+    --primary-color: #6a82fb;
+    --secondary-color: #fc5c7d;
+    --text-dark: #2c3e50;
+    --text-medium: #555;
+    --bg-light: #f0f2f5;
+    --bg-white: #ffffff;
+    --border-light: #e0e0e0;
+    --border-focus: #6a82fb;
+    --success-color: #10b981;
+    --error-color: #ef4444;
+    --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* --- 페이지 전체 레이아웃 --- */
+/* signup-container를 전체 페이지를 감싸는 역할로 활용 */
 .signup-container {
-  max-width: 400px;
-  margin: 60px auto;
-  padding: 30px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #fdfdfd;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    padding: 24px;
+    box-sizing: border-box; /* padding을 포함하여 크기 계산 */
 }
 
-.signup-title {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: #333;
-}
-
+/* --- 회원가입 폼 카드 --- */
 .signup-form {
-  display: flex;
-  flex-direction: column;
+    width: 100%;
+    max-width: 420px;
+    background-color: var(--bg-white);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-medium);
+    text-align: left; /* 폼 내부 요소는 왼쪽 정렬 */
 }
 
+/* --- 헤더 및 메시지 박스 --- */
+.signup-title {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 32px;
+}
+
+.error-box, .success-box {
+    padding: 14px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-align: center;
+}
+.error-box {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--error-color);
+}
+.success-box {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--success-color);
+}
+
+/* --- 폼 요소 (라벨, 인풋) --- */
 .signup-form label {
-  margin-bottom: 6px;
-  font-weight: bold;
-  color: #333;
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
 }
 
 .signup-form input {
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #bbb;
-  border-radius: 5px;
-  font-size: 14px;
+    width: 100%;
+    height: 52px;
+    padding: 0 16px;
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    background-color: #f9fafb;
+    font-size: 1rem;
+    color: var(--text-dark);
+    transition: all 0.2s ease;
+    margin-bottom: 20px; /* 각 인풋 사이의 간격 */
 }
 
 .signup-form input:focus {
-  border-color: #005fcc;
-  outline: none;
+    outline: none;
+    background-color: var(--bg-white);
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(106, 130, 251, 0.2);
 }
 
-.signup-form button {
-  padding: 10px;
-  background-color: #005fcc;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.2s ease;
+/* --- 회원가입 버튼 --- */
+.signup-form button[type="submit"] {
+    width: 100%;
+    height: 56px;
+    background: var(--primary-color);
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: all 0.3s ease;
 }
 
-.signup-form button:hover {
-  background-color: #0045a2;
+.signup-form button[type="submit"]:hover {
+    background: #5a72e8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(106, 130, 251, 0.3);
 }
 
-.error-box {
-  background-color: #ffe0e0;
-  color: #b00020;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 15px;
-}
-
-.error-message {
-  margin: 0;
-}
-
-.success-box {
-  background-color: #e0ffe0;
-  color: #007f00;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 15px;
+/* --- 반응형 디자인 --- */
+@media (max-width: 480px) {
+    .signup-form {
+        padding: 32px 24px;
+    }
+    .signup-title {
+        font-size: 1.8rem;
+    }
 }

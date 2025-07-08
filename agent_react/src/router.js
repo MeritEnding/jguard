@@ -4,13 +4,16 @@ import Board from './Board';
 import Chatbot from './Chatbot';
 import Guide from './Guide';
 import News from './News';
-import MyPage from './MyPage';
+
 import Board_detail from './Board_detail';
 import Board_create from './Board_create';
 import Signup_form from './Signup_form';
 import Login from './Login';
 import Board_update from './Board_update';
-import Search from './Search';
+import FraudCaseLookup from './FraudCaseLookup';
+import FraudStates from "./FraudStates";
+import Risk_Analysis from "./Risk_Analysis";
+import Chungbuk_news from './Chungbuk_news';
 
 const router = createBrowserRouter([
     {
@@ -38,11 +41,7 @@ const router = createBrowserRouter([
         path: '/news',
         element: <News/>,
     },
-    {
-        id: 5,
-        path: '/mypage',
-        element: <MyPage/>
-    },
+    
     {
         id: 6,
         path: '/board/detail/:id',
@@ -55,7 +54,7 @@ const router = createBrowserRouter([
     },
     {
         id:8,
-        path: '/user/signup',
+        path: '/signup',
         element: <Signup_form/>
     },
     {
@@ -70,10 +69,24 @@ const router = createBrowserRouter([
     },
     {
         id:11,
-        path: '/search',
-        element: <Search/>
+        path: '/FraudCaseLookup',
+        element: <FraudCaseLookup/>
+    },
+    {
+        id:12,
+        path: '/FraudStates',
+        element: <FraudStates/>
+    },
+    {
+        id:13,
+        path: '/risk_analysis',
+        element: <Risk_Analysis/>
+    },
+    {
+        id:14,
+        path: '/chungbuk_news',
+        element: <Chungbuk_news/>
     }
-
 
 ]);
 export default router;

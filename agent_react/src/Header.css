@@ -1,216 +1,257 @@
-/* src/Header.css */
+/* Header.css */
 
-/* --- 폰트 및 전역 변수 재사용 (App.css와 동일하게 유지) --- */
+/* --- Global Variables (다른 CSS 파일과 동일하게 유지) --- */
 :root {
-    --primary-color: #6a82fb; /* 메인 강조 색상 */
-    --secondary-color: #fc5c7d; /* 보조 강조 색상 */
-    --accent-yellow: #f7b731; /* 버튼, 하이라이트 색상 */
-    --text-dark: #2c3e50; /* 어두운 텍스트 */
-    --text-medium: #555; /* 중간 텍스트 */
-    --text-light: #f8f9fa; /* 밝은 배경 위 텍스트 */
-    --bg-white: #ffffff; /* 헤더 배경 */
-    --shadow-soft: rgba(0, 0, 0, 0.08);
-    --shadow-medium: rgba(0, 0, 0, 0.2);
+    --header-height: 70px; /* 헤더 높이 통일 */
+    --primary-color: #5E5DF0;
+    --text-dark: #1A1A2E;
+    --text-medium: #555;
+    --bg-white: #FFFFFF;
+    --border-light: #EAEAEA;
+    --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.04);
+    --shadow-medium: 0 8px 16px rgba(0, 0, 0, 0.08);
 }
 
+/* --- Header Base --- */
+.header-fixed {
+    width: 100%;
+    height: var(--header-height);
+    background-color: var(--bg-white);
+    box-shadow: var(--shadow-soft);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
 
-/* --- Header 내부 컨테이너 (콘텐츠 중앙 정렬 및 최대 너비 설정) --- */
 .header-container {
-    max-width: 1400px; /* **최대 너비 증가!** 더 넓은 공간 확보 */
-    margin: 0 auto; /* 중앙 정렬 */
-    padding: 0 60px; /* **좌우 패딩 증가!** 더 시원하게 */
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
     display: flex;
-    justify-content: space-between; /* 로고, 메뉴, 유틸리티 아이템 분리 */
+    justify-content: space-between;
     align-items: center;
 }
 
-/* --- 로고 스타일 --- */
 .header-logo a {
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 2.2rem;
-    font-weight: 700;
+    font-size: 1.5rem;
+    font-weight: 800;
     color: var(--primary-color);
     text-decoration: none;
-    transition: color 0.3s ease;
 }
 
-.header-logo a:hover {
-    color: var(--secondary-color);
-}
-
-/* --- 메인 내비게이션 스타일 --- */
+/* --- Main Navigation (Desktop) --- */
 .main-nav ul {
     list-style: none;
-    display: flex;
-    gap: 80px; /* **메뉴 항목 간 간격 크게 증가!** */
     margin: 0;
     padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 32px;
 }
 
-.main-nav li {
-    position: relative;
-}
-
-.main-nav a {
+.main-nav ul a, .main-nav ul .dropdown-toggle {
     text-decoration: none;
     color: var(--text-dark);
-    font-size: 1.05rem;
     font-weight: 500;
-    padding: 8px 0;
+    font-size: 1rem;
+    padding: 8px 4px;
+    position: relative;
+    cursor: pointer;
     transition: color 0.3s ease;
 }
 
-.main-nav a:hover {
-    color: var(--primary-color);
-}
-
-/* 메뉴 링크 호버 밑줄 애니메이션 */
-.main-nav a::after {
+.main-nav ul a::after, .main-nav ul .dropdown-toggle::after {
     content: '';
     position: absolute;
+    bottom: -2px;
     left: 0;
-    bottom: 0px;
-    width: 0%;
-    height: 3px;
+    width: 0;
+    height: 2px;
     background-color: var(--primary-color);
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: width 0.3s ease;
 }
 
-.main-nav a:hover::after {
+.main-nav ul a:hover, .main-nav ul .dropdown-toggle:hover {
+    color: var(--primary-color);
+}
+.main-nav ul a:hover::after, .main-nav ul .dropdown-toggle:hover::after {
     width: 100%;
 }
 
-/* --- 유틸리티 영역 (로그인/로그아웃 버튼) --- */
-.header-util {
-    display: flex;
-    align-items: center;
+/* --- Dropdown Menu --- */
+.dropdown {
+    position: relative;
 }
 
-.login-button a,
-.logout-btn {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 10px 28px; /* 버튼 패딩 약간 증가 */
-    border-radius: 28px; /* 더 둥근 버튼 */
-    font-size: 1.05rem; /* 폰트 크기 약간 증가 */
-    font-weight: 600;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
+.dropdown-menu {
+    position: absolute;
+    top: 140%; /* 드롭다운 메뉴 위치 */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--bg-white);
+    border-radius: 8px;
+    box-shadow: var(--shadow-medium);
+    list-style: none;
+    padding: 8px 0;
+    margin: 0;
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transform-origin: top center;
+    animation: fadeOutUp 0.3s ease forwards;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    animation: fadeInDown 0.3s ease forwards;
+}
+
+.dropdown-menu li {
+    padding: 0;
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    color: var(--text-medium);
     white-space: nowrap;
 }
 
-.login-button a:hover,
-.logout-btn:hover {
-    background-color: var(--secondary-color);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px var(--shadow-medium);
+.dropdown-menu li a:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+.dropdown-menu li a::after { display: none; } /* 드롭다운 내부 링크에는 밑줄 제거 */
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translate(-50%, -10px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}
+@keyframes fadeOutUp {
+    from { opacity: 1; transform: translate(-50%, 0); }
+    to { opacity: 0; transform: translate(-50%, -10px); }
 }
 
-/* 모바일 햄버거 메뉴 아이콘 (기본 숨김) */
+/* --- Header Utils (Login/Logout, Toggle) --- */
+.header-util {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.auth-buttons .login-btn, .auth-buttons .logout-btn {
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: 1px solid var(--primary-color);
+    background-color: transparent;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.auth-buttons .login-btn:hover, .auth-buttons .logout-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
 .menu-toggle {
-    display: none;
+    display: none; /* 데스크톱에서는 숨김 */
     background: none;
     border: none;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     color: var(--text-dark);
     cursor: pointer;
-    line-height: 1;
-    padding: 5px;
+}
+.mobile-auth-buttons {
+    display: none; /* 데스크톱에서는 숨김 */
 }
 
-/* --- 반응형 디자인 (간격 재조정) --- */
-
-/* 태블릿 및 작은 데스크톱 (1200px 이하) */
-@media (max-width: 1200px) {
-    .header-container {
-        max-width: 1100px; /* 최대 너비 조정 */
-        padding: 0 40px; /* 좌우 패딩 조정 */
+/* --- Responsive Design (Mobile) --- */
+@media (max-width: 1024px) {
+    .menu-toggle {
+        display: block;
     }
-    .main-nav ul {
-        gap: 40px; /* 메뉴 항목 간 간격 조정 */
-    }
-    .header-logo a {
-        font-size: 2rem;
-    }
-}
-
-/* 태블릿 및 작은 데스크톱 (992px 이하) */
-@media (max-width: 992px) {
-    .header-container {
-        padding: 0 30px;
+    .auth-buttons {
+        display: none; /* 데스크톱용 로그인 버튼 숨김 */
     }
     .main-nav {
-        display: none; /* 메인 메뉴 숨김 */
+        position: fixed;
+        top: var(--header-height);
+        right: 0;
+        width: 100%;
+        max-width: 320px; /* 모바일 메뉴 최대 너비 */
+        height: calc(100vh - var(--header-height));
+        background-color: var(--bg-white);
+        transform: translateX(100%);
+        transition: transform 0.4s ease-in-out;
+        padding: 40px;
+        box-shadow: -5px 0px 15px rgba(0, 0, 0, 0.1);
     }
-    .menu-toggle {
-        display: block; /* 햄버거 메뉴 표시 */
+    .main-nav.active {
+        transform: translateX(0);
     }
-    .header-logo a {
-        font-size: 1.8rem;
+    .main-nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
     }
-    .login-button a,
-    .logout-btn {
-        padding: 8px 20px;
-        font-size: 0.9rem;
+    .main-nav ul li {
+        width: 100%;
+        border-bottom: 1px solid var(--border-light);
     }
-}
-
-/* 모바일 (768px 이하) */
-@media (max-width: 768px) {
-    .header-container {
-        padding: 0 20px;
+    .main-nav ul a, .main-nav ul .dropdown-toggle {
+        display: block;
+        width: 100%;
+        padding: 20px 0;
+        font-size: 1.2rem;
     }
-    .header-logo a {
-        font-size: 1.6rem;
+    .main-nav ul a::after, .main-nav ul .dropdown-toggle::after {
+        display: none;
     }
-    .login-button {
-        margin-left: 15px;
+    /* 모바일 드롭다운 스타일 */
+    .dropdown-menu {
+        position: static;
+        transform: none;
+        box-shadow: none;
+        opacity: 1;
+        visibility: visible;
+        animation: none;
+        display: none; /* 기본적으로 숨김 */
+        min-width: 100%;
+        padding-left: 20px;
+        border-top: 1px solid var(--border-light);
     }
-    .login-button a,
-    .logout-btn {
-        padding: 6px 15px;
-        font-size: 0.85rem;
+    .dropdown:hover .dropdown-menu { /* 모바일에서는 hover가 아닌 click으로 제어해야 이상적 */
+        display: block; /* 예시로 hover 유지, 실제론 onClick으로 상태관리 필요 */
     }
-    .menu-toggle {
-        font-size: 2rem;
+    .dropdown-menu li {
+        border-bottom: none;
     }
-}
-
-/* 작은 모바일 (480px 이하) */
-@media (max-width: 480px) {
-    .header-container {
-        padding: 0 15px;
+     .dropdown-menu li a {
+        padding: 15px 0;
+        font-size: 1rem;
     }
-    .header-logo a {
-        font-size: 1.4rem;
+    /* 모바일 메뉴 하단 로그인 버튼 */
+    .mobile-auth-buttons {
+        display: block;
+        margin-top: 40px;
+        text-align: center;
     }
-    .login-button a,
-    .logout-btn {
-        padding: 5px 12px;
-        font-size: 0.8rem;
+    .mobile-auth-buttons .login-btn, .mobile-auth-buttons .logout-btn {
+         display: block;
+         width: 100%;
+         padding: 12px;
+         border-radius: 8px;
+         background-color: var(--primary-color);
+         color: white;
+         border: none;
+         font-size: 1.1rem;
     }
-}
-/* src/Header.css (예시) */
-
-.header-fixed {
-    position: fixed; /* 화면 상단에 고정 */
-    width: 100vw; /* 뷰포트 너비 전체 사용 */
-    background-color: var(--bg-white);
-    box-shadow: 0 4px 20px var(--shadow-soft); /* 더 부드럽고 깊은 그림자 */
-    padding: 20px 0; /* 내부 콘텐츠가 container에 의해 좌우 패딩을 가지므로 여기선 0 */
-    
-    top: 0;
-    z-index: 1000; /* 항상 상단에 고정 */
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* 은은한 하단 경계선 */
-
-
-}
-
-/* Header 내부의 메뉴 항목이나 로고 등에도 필요한 스타일을 추가 */
-.header-nav {
-    display: flex;
-    gap: 30px;
-    /* ... 기타 스타일 ... */
 }

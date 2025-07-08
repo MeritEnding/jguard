@@ -1,174 +1,130 @@
-/* src/Login.css */
+/* src/Login.css - 회원가입 페이지와 통일된 전문가 디자인 */
 
-/* 전역 폰트 및 색상 변수 (App.css 또는 전역 스타일 파일에서 정의된 것을 재사용) */
+/* --- 폰트 및 전역 변수 (일관성 유지) --- */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+
 :root {
-    --primary-color: #6a82fb; /* 메인 강조 색상 */
-    --secondary-color: #fc5c7d; /* 보조 강조 색상 */
-    --text-dark: #2c3e50; /* 어두운 텍스트 */
-    --text-medium: #555; /* 중간 텍스트 */
-    --bg-light: #f0f2f5; /* 전체 배경 */
+    --primary-color: #6a82fb;
+    --secondary-color: #fc5c7d;
+    --text-dark: #2c3e50;
+    --text-medium: #555;
+    --bg-light: #f0f2f5;
     --bg-white: #ffffff;
     --border-light: #e0e0e0;
-    --shadow-subtle: rgba(0, 0, 0, 0.05); /* 은은한 그림자 */
-
-    --header-height: 80px; /* Header의 실제 높이에 맞춰 조정 */
+    --border-focus: #6a82fb;
+    --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
-/* body 전역 스타일 - 중요! */
-/* 이 부분은 App.css 또는 전역 스타일 시트에 위치하는 것이 가장 좋습니다.
-   여기서는 Login 컴포넌트만 볼 때도 올바른 레이아웃을 위해 포함합니다. */
-body {
-    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
-    background-color: var(--bg-light);
-    color: var(--text-dark);
-    line-height: 1.6;
-    margin: 0; /* 기본 마진 제거 */
-    padding-top: var(--header-height); /* 🟢 Header 높이만큼 상단 여백 추가 */
-    overflow-x: hidden; /* 가로 스크롤 방지 */
-    min-height: 100vh; /* 최소 높이를 뷰포트 높이로 설정 */
-    display: flex; /* flexbox 사용 */
-    flex-direction: column; /* 세로 방향 정렬 */
-    justify-content: center; /* 세로 중앙 정렬 */
-    align-items: center; /* 가로 중앙 정렬 */
-}
-
-/* 로그인 컨테이너 */
+/* --- 페이지 전체 레이아웃 (Signup 페이지와 동일) --- */
 .login-container {
-    width: 90%;
-    max-width: 400px; /* 🟢 더 작은 최대 너비 */
-    padding: 30px; /* 🟢 더 작은 패딩 */
-    background-color: var(--bg-white);
-    border-radius: 8px; /* 🟢 부드러운 모서리 */
-    box-shadow: 0 4px 15px var(--shadow-subtle); /* 🟢 은은한 그림자 */
-    text-align: center;
-    margin-top: 30px; /* 🟢 상단 여백 조정 */
-    margin-bottom: 30px; /* 🟢 하단 여백 조정 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    padding: 24px;
     box-sizing: border-box;
 }
 
-/* 로그인 제목 */
-.login-container h2 {
-    font-size: 2em; /* 🟢 폰트 크기 조정 */
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 25px; /* 🟢 여백 조정 */
-    position: relative;
-    padding-bottom: 10px;
+/* --- 로그인 폼 카드 --- */
+.login-body {
+    width: 100%;
+    max-width: 420px;
+    background-color: var(--bg-white);
+    padding: 48px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-medium);
+    animation: fadeIn 0.5s ease-out;
 }
 
-.login-container h2::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-    width: 60px; /* 🟢 밑줄 길이 조정 */
-    height: 3px; /* 🟢 밑줄 두께 조정 */
-    background-color: var(--secondary-color);
-    border-radius: 2px;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* 폼 그룹 (라벨 + 입력 필드) */
+/* --- 헤더 --- */
+.login-body h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin: 0 0 32px 0; /* 상단 마진 제거, 하단 마진 추가 */
+}
+
+/* --- 폼 요소 (라벨, 인풋) --- */
 .login-form .form-group {
-    margin-bottom: 20px; /* 🟢 여백 조정 */
-    text-align: left;
+    margin-bottom: 20px;
 }
 
 .login-form label {
     display: block;
-    font-size: 0.95em; /* 🟢 폰트 크기 조정 */
+    font-size: 0.9rem;
+    font-weight: 600;
     color: var(--text-dark);
     margin-bottom: 8px;
-    font-weight: 500;
 }
 
-.login-form input[type="text"],
-.login-form input[type="password"] {
+.login-form input {
     width: 100%;
-    padding: 10px 12px; /* 🟢 패딩 조정 */
+    height: 52px;
+    padding: 0 16px;
     border: 1px solid var(--border-light);
-    border-radius: 5px; /* 🟢 모서리 둥글기 조정 */
-    font-size: 1em; /* 🟢 폰트 크기 조정 */
+    border-radius: 10px;
+    background-color: #f9fafb;
+    font-size: 1rem;
     color: var(--text-dark);
-    box-sizing: border-box;
-    transition: border-color 0.2s ease;
-}
-
-.login-form input[type="text"]:focus,
-.login-form input[type="password"]:focus {
-    border-color: var(--primary-color);
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(106, 130, 251, 0.2); /* 🟢 은은한 포커스 효과 */
-}
-
-/* 로그인 화면 내 버튼 스타일링 */
-.login-form button[type="submit"],
-.login-form button[type="button"] {
-    width: 100%;
-    padding: 12px; /* 🟢 패딩 조정 */
-    border: none;
-    border-radius: 5px; /* 🟢 모서리 둥글기 조정 */
-    font-size: 1.1em; /* 🟢 폰트 크기 조정 */
-    font-weight: 600;
-    cursor: pointer;
     transition: all 0.2s ease;
-    margin-top: 15px; /* 🟢 상단 여백 조정 */
 }
 
-.login-form button[type="submit"] {
-    background-color: var(--primary-color); /* 🟢 단색 배경 */
-    color: var(--bg-white);
-    margin-bottom: 10px;
+.login-form input:focus {
+    outline: none;
+    background-color: var(--bg-white);
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(106, 130, 251, 0.2);
 }
 
-.login-form button[type="submit"]:hover {
-    background-color: #5a70e2; /* 🟢 호버 시 약간 어둡게 */
+/* --- 버튼 스타일링 (로그인, 회원가입) --- */
+.login-button, .signup-button {
+    width: 100%;
+    height: 56px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    margin-top: 12px; /* 위 요소와 간격 */
+}
+
+.login-button:hover {
+    background: #5a72e8;
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 20px rgba(106, 130, 251, 0.3);
 }
 
-.login-form button[type="button"] {
-    background-color: transparent; /* 🟢 투명 배경 */
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color); /* 🟢 테두리만 */
+.signup-button {
+    background: transparent;
+    color: var(--text-medium);
+    border: 1px solid var(--border-light);
+    margin-top: 12px;
 }
 
-.login-form button[type="button"]:hover {
-    background-color: var(--primary-color);
-    color: var(--bg-white);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.signup-button:hover {
+    background-color: #f8f9fa;
+    border-color: #d1d5db;
 }
 
-
-/* 반응형 디자인 */
-@media (max-width: 768px) {
-    .login-container {
-        padding: 25px;
-        max-width: 90%;
-    }
-    .login-container h2 {
-        font-size: 1.8em;
-    }
-    .login-form input {
-        padding: 9px 10px;
-        font-size: 0.95em;
-    }
-    .login-form button[type="submit"],
-    .login-form button[type="button"] {
-        padding: 10px;
-        font-size: 1em;
-    }
-}
-
+/* --- 반응형 디자인 --- */
 @media (max-width: 480px) {
-    .login-container {
-        padding: 20px;
+    .login-body {
+        padding: 32px 24px;
     }
-    .login-container h2 {
-        font-size: 1.6em;
-    }
-    .login-form label {
-        font-size: 0.9em;
+    .login-body h2 {
+        font-size: 1.8rem;
     }
 }

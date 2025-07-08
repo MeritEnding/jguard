@@ -1,466 +1,196 @@
-/* 기본 스타일 초기화 및 전역 변수 설정 */
+/* Board_detail.css - 매거진 스타일의 게시글 상세 페이지 */
+
+/* --- Global Variables (일관성 유지) --- */
 :root {
-    --primary-color: #ff8c00; /* 오렌지색 계열 (이미지 상단바 색상) */
-    --secondary-color: #e0e0e0; /* 밝은 회색 */
-    --background-color: #f0f2f5; /* 전체 배경색 (아주 연한 회색) */
-    --container-bg: #ffffff; /* 컨테이너 내부 배경색 */
-    --text-dark: #333333; /* 어두운 텍스트 색상 */
-    --text-medium: #6c757d; /* 중간 텍스트 색상 (메타 정보 등) */
-    --text-light: #999999; /* 밝은 텍스트 색상 */
-    --border-light: #e0e0e0; /* 얇은 경계선 색상 */
-    --border-medium: #cccccc; /* 중간 경계선 색상 */
-    --button-bg: #007bff; /* 기본 버튼 배경색 */
-    --button-text: #ffffff; /* 버튼 텍스트 색상 */
-    --bg-light: #f8f9fa; /* 첨부파일 섹션 등 밝은 배경 */
+    --primary-color: #6a82fb;
+    --secondary-color: #fc5c7d;
+    --text-dark: #2c3e50;
+    --text-medium: #555;
+    --bg-light: #f0f2f5;
+    --bg-white: #ffffff;
+    --border-light: #e9ecef;
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-body {
-    font-family: 'Noto Sans KR', sans-serif; /* 한국어 폰트 지정 */
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color); /* 전체 배경색 */
-    color: var(--text-dark);
-    line-height: 1.6;
+/* --- Page & Container Layout --- */
+.detail-page-wrapper {
+    background-color: var(--bg-light);
+    padding: 40px 24px 60px;
 }
 
-/* 전체 컨테이너 (페이지 가운데 정렬 및 그림자) */
-.board-detail-wrapper {
-    max-width: 1000px; /* 전체 너비 제한 */
-    margin: 0 auto; /* 중앙 정렬 */
-    padding: 0; /* 내부 패딩 제거 (상단바와 붙도록) */
-    background-color: transparent; /* Wrapper 자체 배경 투명하게 */
-    box-shadow: none; /* Wrapper 자체 그림자 제거 */
+.detail-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--bg-white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-medium);
+    padding: clamp(24px, 5vw, 48px);
 }
 
-.board-detail-container {
-    background-color: var(--container-bg); /* 내부 컨테이너 배경색 흰색 */
-    padding: 40px; /* 내부 컨테이너 패딩 */
-    border-radius: 8px; /* 모서리 둥글게 */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* 부드러운 그림자 */
-    margin-top: 0; /* 상단 바와 붙도록 마진 제거 */
-}
-
-/* --- 상단 커뮤니티 내비게이션 바 스타일 --- */
-.community-nav-bar {
-    background-color: var(--primary-color); /* 오렌지색 배경 */
-    color: white;
-    display: flex;
-    align-items: center;
-    height: 60px; /* 높이 조정 */
-    padding: 0 20px;
-    border-radius: 8px 8px 0 0; /* 상단만 둥글게 */
-    margin-bottom: 20px; /* 하단 여백 */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-}
-
-.nav-item {
-    display: flex;
-    align-items: center;
-    padding: 0 15px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 500;
-    transition: background-color 0.2s ease;
-    height: 100%; /* 아이템 높이 전체 채움 */
-}
-
-.nav-item:hover {
-    background-color: rgba(0, 0, 0, 0.1); /* 호버 시 약간 어둡게 */
-}
-
-.nav-item.home-icon {
-    font-size: 1.5rem; /* 홈 아이콘 크기 */
-    padding-left: 0; /* 왼쪽 패딩 제거 */
-}
-
-.nav-item .fa {
-    margin-right: 8px; /* 아이콘과 텍스트 간격 */
-}
-
-.nav-item .fa-chevron-down {
-    font-size: 0.7em; /* 화살표 아이콘 크기 */
-    margin-left: 5px;
-    margin-right: 0; /* 오른쪽 여백 제거 */
-}
-
-/* --- 질문 헤더 --- */
-.question-header {
-    margin-bottom: 20px;
-    padding-bottom: 0;
-    border-bottom: none;
-    position: relative;
-    /* padding-top: 20px; */ /* 컨테이너 패딩에 의해 이미 확보됨 */
-}
-
-.question-subject {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 15px;
-    line-height: 1.3;
-}
-
-/* 제목 아래 회색 구분선 */
-.subject-divider {
-    border: none;
-    border-top: 1px solid var(--border-light);
-    margin: 15px 0 20px 0;
-}
-
-.question-meta-group {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 25px; /* 메타 정보들 간의 간격 조금 더 넓게 */
-    margin-bottom: 20px;
-    color: var(--text-medium);
-    font-size: 0.9rem;
-}
-
-.question-meta {
-    display: flex;
-    align-items: center;
-    gap: 8px; /* 아이콘과 텍스트 간격 조금 더 넓게 */
-    margin: 0;
-}
-
-.question-meta strong {
-    font-weight: 500;
-    color: var(--text-medium);
-}
-
-/* 아이콘 스타일 (react-icons 사용 시) */
-.meta-icon {
-    color: var(--primary-color); /* 아이콘 색상도 오렌지색으로 통일 */
-    font-size: 1rem;
-}
-
-/* 질문 수정/삭제 버튼 컨테이너 (위치 조정) */
-.question-action-buttons {
-    position: absolute;
-    top: 0px; /* 이미지 상단에 더 가깝게 조정 */
-    right: 0;
-    display: flex;
-    gap: 10px;
-    margin: 0;
-}
-
-.board-action-btn {
-    padding: 8px 15px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-    border: 1px solid var(--border-medium); /* 테두리 추가 */
-    background-color: white; /* 흰색 배경 */
-    color: var(--text-medium); /* 텍스트 색상 */
-}
-
-.board-action-btn:hover {
-    transform: translateY(-1px);
-}
-
-.board-action-btn.modify:hover {
-    background-color: var(--secondary-color); /* 밝은 회색으로 호버 */
-}
-
-.board-action-btn.delete:hover {
-    background-color: #dc3545; /* 빨간색 계열 */
-    color: white;
-    border-color: #dc3545;
-}
-
-
-/* 첨부파일 섹션 (이미지에 맞춰 추가) */
-.attachment-section {
-    background-color: var(--bg-light); /* 밝은 회색 배경 */
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    padding: 15px 20px;
-    margin-bottom: 30px; /* 질문 본문과의 간격 */
-    display: flex;
-    align-items: center;
-    min-height: 50px; /* 최소 높이 설정 */
-}
-
-.attachment-placeholder {
-    color: var(--text-medium);
-    font-style: italic; /* 이탤릭체 제거, 일반 폰트 */
-    margin: 0;
-    font-weight: 500;
-}
-
-
-/* 질문 본문 영역 조정 */
-.question-body-content-area {
-    margin-bottom: 40px;
-    padding: 10px 0;
-    white-space: pre-wrap; /* 줄바꿈 유지 */
-    word-break: break-word; /* 긴 단어 강제 줄바꿈 */
-    min-height: 100px; /* 최소 높이 */
-}
-
-.question-content {
-    font-size: 1rem;
-    line-height: 1.8;
-    color: var(--text-dark);
-    margin: 0;
-}
-
-/* 구분선 */
-.section-divider {
-    border: none;
-    border-top: 1px solid var(--border-light);
-    margin: 30px 0; /* 위아래 여백 */
-}
-
-/* --- 답변 섹션 --- */
-.answers-section {
-    margin-bottom: 40px;
-}
-
-.answers-heading {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 25px;
-}
-
-.answer-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.answer-item {
-    background-color: var(--bg-light); /* 답변 배경색 */
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.answer-content {
-    font-size: 1rem;
-    line-height: 1.7;
-    margin-bottom: 10px;
-    color: var(--text-dark);
-    white-space: pre-wrap;
-    word-break: break-word;
-}
-
-.answer-meta {
-    font-size: 0.85rem;
-    color: var(--text-light);
-    text-align: right; /* 오른쪽 정렬 */
-    display: block; /* 줄바꿈 */
-}
-
-.no-answers {
-    color: var(--text-medium);
-    font-style: italic;
-    text-align: center;
-    padding: 20px;
-    border: 1px dashed var(--border-light);
-    border-radius: 8px;
-    margin-top: 20px;
-}
-
-/* --- 답변 폼 섹션 --- */
-.answer-form-section {
-    margin-bottom: 40px;
-}
-
-.answer-form-heading {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 25px;
-}
-
-.answer-form {
+/* --- Full-page Status (Loading, Error) --- */
+.detail-status-container {
     display: flex;
     flex-direction: column;
-}
-
-.answer-textarea {
-    width: 100%;
-    padding: 15px;
-    border: 1px solid var(--border-medium);
-    border-radius: 8px;
-    font-size: 1rem;
-    line-height: 1.5;
-    resize: vertical; /* 세로 크기 조절 가능 */
-    min-height: 150px; /* 최소 높이 */
-    margin-bottom: 20px;
-    box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
-}
-
-.answer-textarea::placeholder {
-    color: var(--text-light);
-}
-
-.answer-textarea:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2);
-}
-
-.submit-button {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    align-self: flex-end; /* 오른쪽 정렬 */
-    box-shadow: 0 4px 10px rgba(255, 140, 0, 0.2);
-}
-
-.submit-button:hover {
-    background-color: #e67e00; /* 조금 더 어두운 오렌지 */
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(255, 140, 0, 0.3);
-}
-
-.submit-button:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 5px rgba(255, 140, 0, 0.2);
-}
-
-.submit-status {
-    margin-top: 15px;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: 500;
-}
-
-.submit-status.success {
-    background-color: #d4edda;
-    color: #28a745;
-    border: 1px solid #c3e6cb;
-}
-
-.submit-status.error {
-    background-color: #f8d7da;
-    color: #dc3545;
-    border: 1px solid #f5c6cb;
-}
-
-
-/* --- 목록 버튼 스타일 --- */
-.list-button-container {
-    text-align: center;
-    margin-top: 50px;
-    padding-bottom: 40px; /* 컨테이너 하단 여백 추가 */
-}
-
-.list-button {
-    background-color: #6c757d;
-    color: white;
-    padding: 12px 28px;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.list-button:hover {
-    background-color: #5a6268;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* 로딩 및 오류 메시지 */
-.board-status-message {
-    text-align: center;
-    padding: 50px;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
     font-size: 1.2rem;
     color: var(--text-medium);
 }
+.spinner { /* (이전 CSS에서 가져옴) */
+    width: 40px; height: 40px; border: 4px solid rgba(0,0,0,0.1);
+    border-top-color: var(--primary-color); border-radius: 50%;
+    animation: spin 1s linear infinite; margin-bottom: 20px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
 
-.board-status-message.error {
-    color: #dc3545;
+
+/* --- Question Header --- */
+.question-header {
+    border-bottom: 2px solid var(--border-light);
+    padding-bottom: 24px;
+    margin-bottom: 32px;
 }
 
-.retry-button {
-    background-color: var(--button-bg);
-    color: var(--button-text);
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.question-subject {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: var(--text-dark);
+    line-height: 1.4;
+    margin: 0;
+}
+
+.meta-and-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.question-meta-group { display: flex; gap: 20px; }
+.question-meta { display: flex; align-items: center; gap: 8px; font-size: 0.95rem; color: var(--text-medium); }
+.meta-icon { color: var(--primary-color); }
+
+.question-action-buttons { display: flex; gap: 12px; }
+.action-btn { background: none; border: none; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 6px; transition: all 0.2s ease; }
+.action-btn.modify { color: var(--text-medium); }
+.action-btn.modify:hover { background-color: #e0e7ff; color: var(--primary-color); }
+.action-btn.delete { color: var(--secondary-color); }
+.action-btn.delete:hover { background-color: #fff1f2; color: #be123c; }
+
+/* --- Question Body --- */
+.question-body {
+    padding: 32px 0;
+    min-height: 200px;
+}
+.question-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-dark);
+    white-space: pre-wrap; /* 줄바꿈 및 공백 유지 */
+    word-break: break-word;
+}
+
+/* --- Answers Section --- */
+.answers-section {
+    border-top: 1px solid var(--border-light);
+    padding-top: 24px;
+    margin-top: 24px;
+}
+
+.answers-heading {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--text-dark);
+}
+
+.answer-list { display: flex; flex-direction: column; gap: 16px; }
+.answer-item {
+    background-color: var(--bg-light);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.answer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.answer-author { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--text-dark); }
+.answer-date { font-size: 0.85rem; color: var(--text-medium); }
+.answer-content { margin: 0; line-height: 1.7; color: #334155; }
+
+.no-answers {
+    text-align: center;
+    padding: 40px;
+    background-color: var(--bg-light);
+    border-radius: 12px;
+    color: var(--text-medium);
+}
+
+/* --- Answer Form --- */
+.answer-form-section {
+    border-top: 1px solid var(--border-light);
+    padding-top: 24px;
+    margin-top: 32px;
+}
+.answer-textarea {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
     font-size: 1rem;
-    transition: background-color 0.3s ease;
+    font-family: inherit;
+    resize: vertical;
+    transition: all 0.2s ease;
 }
-
-.retry-button:hover {
-    background-color: #0056b3;
+.answer-textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(106, 130, 251, 0.2);
 }
+.answer-textarea:disabled { background-color: #f9fafb; cursor: not-allowed; }
 
-
-/* --- 반응형 디자인 수정 (필요 시) --- */
-@media (max-width: 768px) {
-    .board-detail-container {
-        padding: 20px; /* 모바일에서 내부 패딩 줄임 */
-    }
-
-    .community-nav-bar {
-        height: auto; /* 높이 자동 조절 */
-        flex-wrap: wrap; /* 줄바꿈 허용 */
-        padding: 10px; /* 패딩 조정 */
-        border-radius: 0; /* 모바일에서는 둥근 모서리 제거 */
-    }
-
-    .nav-item {
-        padding: 10px 10px;
-        font-size: 1rem;
-    }
-
-    .question-subject {
-        font-size: 1.8rem;
-    }
-
-    .question-meta-group {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-        margin-bottom: 15px;
-    }
-
-    .question-action-buttons {
-        position: static;
-        justify-content: flex-start;
-        margin-top: 15px;
-        width: 100%;
-        gap: 8px;
-    }
-
-    .board-action-btn {
-        padding: 6px 12px;
-        font-size: 0.85rem;
-    }
-
-    .answer-textarea {
-        min-height: 100px;
-    }
-
-    .submit-button {
-        width: 100%; /* 모바일에서 버튼 너비 100% */
-        align-self: center; /* 중앙 정렬 */
-    }
-
-    .list-button {
-        width: 100%; /* 모바일에서 버튼 너비 100% */
-        padding: 10px 20px;
-    }
+.form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    gap: 16px;
 }
+.submit-status { flex-grow: 1; font-size: 0.9rem; font-weight: 500; }
+.submit-status.success { color: #16a34a; }
+.submit-status.error { color: #dc2626; }
+
+.submit-answer-btn {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+.submit-answer-btn:hover:not(:disabled) { background-color: #4a48d3; transform: translateY(-2px); }
+.submit-answer-btn:disabled { background-color: #a5b4fc; cursor: not-allowed; }
+
+/* --- List Button --- */
+.list-button-container { text-align: center; margin-top: 40px; }
+.list-button {
+    background-color: var(--bg-white);
+    color: var(--text-medium);
+    border: 1px solid var(--border-light);
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+.list-button:hover { background-color: var(--bg-light); color: var(--text-dark); }
