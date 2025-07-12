@@ -1,0 +1,46 @@
+[
+  {
+    "day": 1,
+    "caseId": "D1-C1",
+    "isFraud": false,
+    "reason": null,
+    "documents": {
+      "idCard": { "name": "김안전", "address": "서울시 동작구 상도로 123" },
+      "register": { "ownerName": "김안전", "address": "서울시 동작구 상도로 123", "liens": "없음" },
+      "contract": { "landlordName": "김안전", "deposit": "250,000,000", "address": "서울시 동작구 상도로 123" }
+    }
+  },
+  {
+    "day": 1,
+    "caseId": "D1-C2",
+    "isFraud": true,
+    "reason": "신분증과 등기부등본의 소유자 명의가 다릅니다. (가짜 임대인 사기)",
+    "documents": {
+      "idCard": { "name": "최사기", "address": "인천시 중구 인중로 456" },
+      "register": { "ownerName": "박진홍", "address": "인천시 중구 인중로 456", "liens": "없음" },
+      "contract": { "landlordName": "최사기", "deposit": "180,000,000", "address": "인천시 중구 인중로 456" }
+    }
+  },
+  {
+    "day": 1,
+    "caseId": "D1-C3",
+    "isFraud": true,
+    "reason": "등기부등본에 '신탁' 등기가 되어있으나, 계약 상대방이 신탁회사가 아닙니다. (신탁 사기)",
+    "documents": {
+      "idCard": { "name": "이위탁", "address": "마산시 합포구 월영동 789" },
+      "register": { "ownerName": "대한신탁 주식회사", "address": "마산시 합포구 월영동 789", "liens": "'신탁' 등기, 신탁원부 제2025-1호" },
+      "contract": { "landlordName": "이위탁", "deposit": "150,000,000", "address": "마산시 합포구 월영동 789" }
+    }
+  },
+  {
+    "day": 1,
+    "caseId": "D1-C4",
+    "isFraud": true,
+    "reason": "선순위 대출금과 보증금을 합한 금액이 시세를 초과하는 '깡통전세'입니다.",
+    "documents": {
+      "idCard": { "name": "장갭투", "address": "대구시 남구 대명로 101" },
+      "register": { "ownerName": "장갭투", "address": "대구시 남구 대명로 101", "liens": "근저당권 채권최고액 200,000,000원" },
+      "contract": { "landlordName": "장갭투", "deposit": "150,000,000", "address": "대구시 남구 대명로 101", "marketPrice": "300,000,000" }
+    }
+  }
+]

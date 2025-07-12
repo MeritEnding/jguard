@@ -1,0 +1,16 @@
+[
+    { "region_sub": "청주 상당구", "apt_1yr": 81.8, "apt_3m": 82.2, "multi_1yr": 70.7, "multi_3m": null },
+    { "region_sub": "청주 서원구", "apt_1yr": 83.5, "apt_3m": 87.2, "multi_1yr": 80.3, "multi_3m": null },
+    { "region_sub": "청주 흥덕구", "apt_1yr": 79.5, "apt_3m": 79.1, "multi_1yr": 67.5, "multi_3m": null },
+    { "region_sub": "청주 청원구", "apt_1yr": 82.2, "apt_3m": 94.6, "multi_1yr": 69.7, "multi_3m": null },
+    { "region_sub": "충주시", "apt_1yr": 78.7, "apt_3m": 75.6, "multi_1yr": 82.5, "multi_3m": null },
+    { "region_sub": "제천시", "apt_1yr": 80.6, "apt_3m": 81.1, "multi_1yr": 98.1, "multi_3m": null },
+    { "region_sub": "보은군", "apt_1yr": 54.9, "apt_3m": null, "multi_1yr": null, "multi_3m": null },
+    { "region_sub": "옥천군", "apt_1yr": 69.9, "apt_3m": 70.1, "multi_1yr": 59.6, "multi_3m": null },
+    { "region_sub": "영동군", "apt_1yr": 57.5, "apt_3m": null, "multi_1yr": null, "multi_3m": null },
+    { "region_sub": "증평군", "apt_1yr": 80.5, "apt_3m": 79.9, "multi_1yr": null, "multi_3m": null },
+    { "region_sub": "진천군", "apt_1yr": 77.8, "apt_3m": 74.8, "multi_1yr": 74.8, "multi_3m": null },
+    { "region_sub": "괴산군", "apt_1yr": null, "apt_3m": null, "multi_1yr": null, "multi_3m": null },
+    { "region_sub": "음성군", "apt_1yr": 73.4, "apt_3m": 74.5, "multi_1yr": 73.1, "multi_3m": null },
+    { "region_sub": "단양군", "apt_1yr": 81.2, "apt_3m": null, "multi_1yr": null, "multi_3m": null }
+]

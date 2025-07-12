@@ -1,0 +1,16 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    { "type": "Feature", "properties": { "name": "청주시" }, "geometry": { "type": "Polygon", "coordinates": [[[127.4,36.5],[127.6,36.5],[127.5,36.8],[127.4,36.7],[127.4,36.5]]] }},
+    { "type": "Feature", "properties": { "name": "충주시" }, "geometry": { "type": "Polygon", "coordinates": [[[127.8,36.8],[128.0,36.8],[128.0,37.0],[127.8,37.0],[127.8,36.8]]] }},
+    { "type": "Feature", "properties": { "name": "제천시" }, "geometry": { "type": "Polygon", "coordinates": [[[128.1,37.0],[128.3,37.0],[128.3,37.2],[128.1,37.2],[128.1,37.0]]] }},
+    { "type": "Feature", "properties": { "name": "보은군" }, "geometry": { "type": "Polygon", "coordinates": [[[127.6,36.4],[127.8,36.4],[127.8,36.6],[127.6,36.6],[127.6,36.4]]] }},
+    { "type": "Feature", "properties": { "name": "옥천군" }, "geometry": { "type": "Polygon", "coordinates": [[[127.5,36.2],[127.7,36.2],[127.7,36.4],[127.5,36.4],[127.5,36.2]]] }},
+    { "type": "Feature", "properties": { "name": "영동군" }, "geometry": { "type": "Polygon", "coordinates": [[[127.7,36.1],[127.9,36.1],[127.9,36.3],[127.7,36.3],[127.7,36.1]]] }},
+    { "type": "Feature", "properties": { "name": "증평군" }, "geometry": { "type": "Polygon", "coordinates": [[[127.55,36.75],[127.65,36.75],[127.65,36.85],[127.55,36.85],[127.55,36.75]]] }},
+    { "type": "Feature", "properties": { "name": "진천군" }, "geometry": { "type": "Polygon", "coordinates": [[[127.3,36.8],[127.5,36.8],[127.5,37.0],[127.3,37.0],[127.3,36.8]]] }},
+    { "type": "Feature", "properties": { "name": "괴산군" }, "geometry": { "type": "Polygon", "coordinates": [[[127.8,36.6],[128.0,36.6],[128.0,36.8],[127.8,36.8],[127.8,36.6]]] }},
+    { "type": "Feature", "properties": { "name": "음성군" }, "geometry": { "type": "Polygon", "coordinates": [[[127.5,37.0],[127.7,37.0],[127.7,37.2],[127.5,37.2],[127.5,37.0]]] }},
+    { "type": "Feature", "properties": { "name": "단양군" }, "geometry": { "type": "Polygon", "coordinates": [[[128.3,36.8],[128.5,36.8],[128.5,37.0],[128.3,37.0],[128.3,36.8]]] }}
+  ]
+}

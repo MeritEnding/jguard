@@ -14,6 +14,11 @@ import FraudCaseLookup from './FraudCaseLookup';
 import FraudStates from "./FraudStates";
 import Risk_Analysis from "./Risk_Analysis";
 import Chungbuk_news from './Chungbuk_news';
+import Property_check from './Property_check';
+import Acident_check from './Acident_check';
+import Police_check from './Police_check';
+import JeonsePreventionGame from './JeonsePreventionGame';
+import ContractInspectorGame from './ContractInspectorGame';
 
 const router = createBrowserRouter([
     {
@@ -86,7 +91,33 @@ const router = createBrowserRouter([
         id:14,
         path: '/chungbuk_news',
         element: <Chungbuk_news/>
+    },
+    {
+        id:15,
+        path: '/property_check',
+        element: <Property_check/>
+    },
+    {
+        id:16,
+        path: '/acident_check',
+        element: <Acident_check/>
+    },
+    {
+        id:17,
+        path: '/police_check',
+        element: <Police_check/>
+    },
+    {
+        id:18,
+        path: '/jprevention_game',
+        element: <JeonsePreventionGame/>
+    },
+    {
+        id:19,
+        path:'/contract_inspectorgame',
+        element: <ContractInspectorGame/>
     }
+
 
 ]);
 export default router;

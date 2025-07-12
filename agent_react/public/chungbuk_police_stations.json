@@ -1,0 +1,62 @@
+[
+    {
+        "station_name": "청주 흥덕 경찰서",
+        "address": "청주시 흥덕구 월명로236 번길 15",
+        "region_sub": "청주시 흥덕구"
+    },
+    {
+        "station_name": "청주 상당 경찰서",
+        "address": "청주시 상당구 목련로 266",
+        "region_sub": "청주시 상당구"
+    },
+    {
+        "station_name": "청주 청원 경찰서",
+        "address": "청주시 청원구 향군로 60",
+        "region_sub": "청주시 청원구"
+    },
+    {
+        "station_name": "충주 경찰서",
+        "address": "충주시 예성로 218",
+        "region_sub": "충주시"
+    },
+    {
+        "station_name": "제천 경찰서",
+        "address": "제천시 용두대로 27",
+        "region_sub": "제천시"
+    },
+    {
+        "station_name": "영동 경찰서",
+        "address": "영동군 영동읍 영산로 32",
+        "region_sub": "영동군"
+    },
+    {
+        "station_name": "괴산 경찰서",
+        "address": "괴산군 괴산읍 읍내로11길 26",
+        "region_sub": "괴산군"
+    },
+    {
+        "station_name": "단양 경찰서",
+        "address": "단양군 단양읍 중앙1로 3",
+        "region_sub": "단양군"
+    },
+    {
+        "station_name": "보은 경찰서",
+        "address": "보은군 보은읍 장신로 8",
+        "region_sub": "보은군"
+    },
+    {
+        "station_name": "옥천 경찰서",
+        "address": "옥천군 옥천읍 중앙로 20",
+        "region_sub": "옥천군"
+    },
+    {
+        "station_name": "음성 경찰서",
+        "address": "음성군 음성읍 중앙로 26",
+        "region_sub": "음성군"
+    },
+    {
+        "station_name": "진천 경찰서",
+        "address": "진천군 진천읍 중앙동로 68",
+        "region_sub": "진천군"
+    }
+]

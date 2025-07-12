@@ -60,20 +60,23 @@ const Header = () => {
                             <span className="dropdown-toggle">AI 서비스</span>
                             {isAiServiceMenuOpen && (
                                 <ul className="dropdown-menu">
-                                    <li><Link to="/chatbot">전세 계약 사전 진단</Link></li>
-                                    <li><Link to="/chatbot1">자동 대응 서류 생성</Link></li>
-                                    <li><Link to="/chatbot2">전문 변호사 매칭</Link></li>
+                                    <li><Link to="/chatbot">AI 계약서 위험 분석</Link></li>
+                                    <li><Link to="/chatbot1">AI 계약 준비수준 진단</Link></li>
                                 </ul>
                             )}
                         </li>
 
                         {/* 내 지역 전세사기 조회 드롭다운 */}
                         <li className="dropdown" onMouseEnter={() => setIsFraudLookupMenuOpen(true)} onMouseLeave={() => setIsFraudLookupMenuOpen(false)}>
-                            <span className="dropdown-toggle">전세사기 조회</span>
+                            <span className="dropdown-toggle">지역별 전세사기 조회</span>
                             {isFraudLookupMenuOpen && (
                                 <ul className="dropdown-menu">
-                                    <li><Link to="/FraudCaseLookup">내 지역 전세사기 조회</Link></li>
-                                    <li><Link to="/risk_analysis">전세가율 기반 위험도</Link></li>
+                                    <li><Link to="/acident_check">우리동네 안심리포트</Link></li>
+                                    <li><Link to="/risk_analysis">우리동네 전세사기 위험도 지도</Link></li>
+                                    <li><Link to="/FraudCaseLookup">우리동네 전세사기 상세조회</Link></li>
+                                    <li><Link to="/property_check">우리동네 정식 중개업소</Link></li>
+                                    <li><Link to="/police_check">우리동네 경찰서</Link></li>
+                
                                 </ul>
                             )}
                         </li>
@@ -83,17 +86,27 @@ const Header = () => {
                             <span className="dropdown-toggle">뉴스/알림</span>
                             {isNewsMenuOpen && (
                                 <ul className="dropdown-menu">
-                                    <li><Link to="/chungbuk_news">지역별 뉴스</Link></li>
+                                    <li><Link to="/chungbuk_news">충청북도 전세 뉴스</Link></li>
                                     <li><Link to="/news">전체 뉴스</Link></li>
                                 </ul>
                             )}
                         </li>
-            
-                     
+                        
+                        <li className="dropdown" onMouseEnter={() => setIsNewsMenuOpen(true)} onMouseLeave={() => setIsNewsMenuOpen(false)}>
+                            <span className="dropdown-toggle">전세사기예방 게임</span>
+                            {isNewsMenuOpen && (
+                                <ul className="dropdown-menu">
+                                    <li><Link to="/jprevention_game">전세사기 예방: 사건 서류철</Link></li>
+                                    <li><Link to="/contract_inspectorgame">안심부동산: 계약심사관</Link></li>
+                                </ul>
+                            )}
+                        </li>
                         <li><Link to="/board">사기 매물 공유</Link></li>
-                             
+                        
                    
-
+                                
+                            
+                            
                         {isLoggedIn && <li><Link to="/mypage">마이페이지</Link></li>}
                     </ul>
                      {/* 모바일 화면에서만 보이는 로그인/로그아웃 버튼 */}

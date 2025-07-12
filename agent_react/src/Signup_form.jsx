@@ -1,7 +1,7 @@
 // SignupForm.jsx
 import React, { useState } from 'react';
 import './Signup_form.css'; // CSS는 별도 파일로 분리
-
+import Header from './Header';
 const SignupForm = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -53,6 +53,7 @@ const SignupForm = () => {
 
   return (
     <div className="signup-container">
+      <Header/>
       <h2 className="signup-title">회원가입</h2>
 
       {errors.length > 0 && (

@@ -78,7 +78,7 @@ const FraudCaseLookup = () => {
         <div className="lookup-page-container">
             <Header />
             <div className="lookup-hero-section">
-                <h1>내 지역 전세사기 조회</h1>
+                <h1>우리동네 전세사기 상세조회</h1>
                 <p>지역을 선택하여 해당 지역에 등록된 사기 사례를 미리 확인하고 피해를 예방하세요.</p>
             </div>
 

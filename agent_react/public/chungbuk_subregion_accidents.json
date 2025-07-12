@@ -1,0 +1,100 @@
+[
+    {
+        "region_main": "충북",
+        "region_sub": "청주 상당구",
+        "accidents": 8,
+        "amount_krw": 1550000000,
+        "rate_percent": 4.3
+    },
+    {
+        "region_main": "충북",
+        "region_sub": "청주 서원구",
+        "accidents": 7,
+        "amount_krw": 1910000000,
+        "rate_percent": 3.3
+    },
+    {
+        "region_main": "충북",
+        "region_sub": "청주 흥덕구",
+        "accidents": 9,
+        "amount_krw": 1569000000,
+        "rate_percent": 2.2
+    },
+    {
+        "region_main": "충북",
+        "region_sub": "청주 청원구",
+        "accidents": 4,
+        "amount_krw": 976500000,
+        "rate_percent": 2.9
+    },
+    {
+        "region_main": "충북",
+        "region_sub": "충주시",
+        "accidents": 11,
+        "amount_krw": 1966000000,
+        "rate_percent": 8.8
+    },
+    {
+        "region_main": "충북",
+        "region_sub": "제천시",
+        "accidents": 0,
+        "amount_krw": 0,
+        "rate_percent": 0.0
+    },
+    {
+        "region_main": "충북",
+        "region_sub": "보은군",
+        "accidents": 0,
+        "amount_krw": 0,
+        "rate_percent": 0.0
+    },
+    {
+        "region_main": "충북",
+        "region_sub": "옥천군",
+        "accidents": 0,
+        "amount_krw": 0,
+        "rate_percent": 0.0
+    },
+    {
+        "region_main": "충북",
+        "region_sub": "영동군",
+        "accidents": 0,
+        "amount_krw": 0,
+        "rate_percent": 0.0
+    },
+    {
+        "region_main": "충북",
+        "region_sub": "증평군",
+        "accidents": 0,
+        "amount_krw": 0,
+        "rate_percent": 0.0
+    },
+    {
+        "region_main": "충북",
+        "region_sub": "진천군",
+        "accidents": 0,
+        "amount_krw": 0,
+        "rate_percent": 0.0
+    },
+    {
+        "region_main": "충북",
+        "region_sub": "괴산군",
+        "accidents": 0,
+        "amount_krw": 0,
+        "rate_percent": 0.0
+    },
+    {
+        "region_main": "충북",
+        "region_sub": "음성군",
+        "accidents": 7,
+        "amount_krw": 705000000,
+        "rate_percent": 30.1
+    },
+    {
+        "region_main": "충북",
+        "region_sub": "단양군",
+        "accidents": 0,
+        "amount_krw": 0,
+        "rate_percent": 0.0
+    }
+]

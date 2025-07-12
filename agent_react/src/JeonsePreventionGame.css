@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700&display=swap');
+
+/* 모든 스타일이 이 클래스 아래에서만 적용되도록 변경하여
+  다른 페이지에 영향을 주지 않습니다.
+*/
+.game-container-sherlock {
+  /* :root에 있던 변수들을 이곳으로 이동 */
+  --font-title: 'Nanum Myeongjo', serif;
+  --font-body: 'Gowun Batang', serif;
+  --color-parchment: #f5f0e1;
+  --color-dark-wood: #4a3f35;
+  --color-ink: #3a3a3a;
+  --color-border: #c8bca9;
+  --color-danger: #9a2a2a;
+  --color-safe: #3d5530;
+
+  /* body에 있던 기본 스타일을 이곳으로 이동 */
+  font-family: var(--font-body);
+
+  /* 기존 컨테이너 스타일 */
+  max-width: 850px;
+  margin: 40px auto;
+  background-color: var(--color-parchment);
+  border: 10px solid var(--color-dark-wood);
+  border-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><path d="M0 0h30v30H0z" fill="%23f5f0e1"/><path d="M0 0h1v30H0zm2 0h1v30H2zm2 0h1v30H4zm2 0h1v30H6zm2 0h1v30H8zm2 0h1v30H10zm2 0h1v30h-1zm2 0h1v30h-1zm2 0h1v30h-1zm2 0h1v30h-1zm2 0h1v30h-1zm2 0h1v30h-1zm2 0h1v30h-1zm2 0h1v30h-1zM0 0h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0z" stroke="%234a3f35" stroke-width="1"/></svg>') 10;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  min-height: 500px;
+}
+
+/* --- 각 화면 공통 --- */
+.game-container-sherlock button {
+  font-family: var(--font-title);
+  font-weight: 700;
+  background-color: var(--color-dark-wood);
+  color: var(--color-parchment);
+  border: 1px solid #2e251c;
+  padding: 10px 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+.game-container-sherlock button:hover {
+  background-color: #2e251c;
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+}
+
+/* --- Menu Screen --- */
+.game-container-sherlock .menu-screen { text-align: center; }
+.game-container-sherlock .title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+.game-container-sherlock .detective-silhouette {
+    height: 100px;
+    filter: drop-shadow(3px 3px 3px rgba(0,0,0,0.3));
+}
+.game-container-sherlock .game-title { 
+    font-family: var(--font-title); 
+    font-size: 2.5em; 
+    color: var(--color-ink);
+    margin: 0;
+}
+.game-container-sherlock .game-subtitle { font-size: 1.1em; color: #5a4f46; }
+.game-container-sherlock .case-selection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+.game-container-sherlock .case-card {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 20px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.game-container-sherlock .case-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+.game-container-sherlock .case-card h3 { margin-top: 0; color: var(--color-danger); font-family: var(--font-title); }
+.game-container-sherlock .case-card p { font-size: 0.9em; color: var(--color-ink); flex-grow: 1; }
+.game-container-sherlock .case-card-footer {
+  margin-top: 15px;
+  text-align: right;
+  font-weight: bold;
+  font-family: var(--font-title);
+  color: var(--color-safe);
+}
+
+/* --- Briefing Screen & Common --- */
+.game-container-sherlock .case-title-header { text-align: center; font-family: var(--font-title); }
+.game-container-sherlock .scenario {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+  border: 1px dashed var(--color-border);
+  margin: 20px 0;
+  text-align: left;
+  line-height: 1.8;
+  font-size: 1.1em;
+}
+.game-container-sherlock .briefing-screen button {
+  background-color: #7d634d;
+  padding: 12px 30px;
+  font-size: 1.1em;
+}
+.game-container-sherlock .briefing-screen button:hover {
+  background-color: var(--color-dark-wood);
+}
+
+/* --- Investigation Screen --- */
+.game-container-sherlock .investigation-layout { display: flex; flex-wrap: wrap; gap: 30px; margin-top: 20px; text-align: left; }
+.game-container-sherlock .toolkit-panel, .game-container-sherlock .log-panel {
+  flex: 1;
+  min-width: 300px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+}
+.game-container-sherlock .toolkit-panel h3, .game-container-sherlock .log-panel h3 { margin-top: 0; text-align: left; color: #495057; }
+.game-container-sherlock .toolkit-btn {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  text-align: left;
+  background-color: #856a54;
+  font-size: 0.95em;
+  padding: 10px 15px;
+}
+.game-container-sherlock .toolkit-btn:hover {
+  background-color: var(--color-dark-wood);
+}
+.game-container-sherlock .toolkit-btn:disabled {
+  background-color: #d1c7bc;
+  color: #856a54;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.game-container-sherlock .checked-mark { float: right; color: var(--color-safe); font-size: 1.2em; }
+.game-container-sherlock .log-panel ul {
+  padding-left: 20px;
+  margin: 0;
+}
+.game-container-sherlock .log-panel li {
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.game-container-sherlock .log-panel li strong { color: var(--color-danger); font-family: var(--font-title); }
+.game-container-sherlock .log-placeholder { color: #6c757d; font-style: italic; }
+
+/* --- Decision & Outcome --- */
+.game-container-sherlock .decision-panel {
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid var(--color-dark-wood);
+}
+.game-container-sherlock .decision-panel button {
+  margin: 0 10px;
+}
+.game-container-sherlock .safe-btn { background-color: var(--color-safe); }
+.game-container-sherlock .safe-btn:hover { background-color: #314227; }
+.game-container-sherlock .danger-btn { background-color: var(--color-danger); }
+.game-container-sherlock .danger-btn:hover { background-color: #7a2121; }
+
+.game-container-sherlock .outcome-screen { text-align: center; }
+.game-container-sherlock .result-box {
+  padding: 20px;
+  border-radius: 2px;
+  margin: 20px 0;
+  border: 2px solid;
+}
+.game-container-sherlock .result-box.safe { background-color: #f0fff0; border-color: var(--color-safe); }
+.game-container-sherlock .result-box.safe h3 { color: var(--color-safe); }
+.game-container-sherlock .result-box.unsafe { background-color: #fff0f0; border-color: var(--color-danger); }
+.game-container-sherlock .result-box.unsafe h3 { color: var(--color-danger); }
+.game-container-sherlock .checklist-box {
+  text-align: left;
+  background: #fff;
+  padding: 20px;
+  margin-top: 20px;
+  border: 1px dashed var(--color-border);
+}
+.game-container-sherlock .checklist-box h4 { margin-top: 0; font-family: var(--font-title); }
+.game-container-sherlock .checklist-box .icon { font-size: 1.5em; vertical-align: middle; margin-right: 5px; }
+.game-container-sherlock .checklist-box ul { padding-left: 20px; margin: 10px 0 0 0; }
+.game-container-sherlock .checklist-box li { margin-bottom: 8px; }
+.game-container-sherlock .outcome-screen button { margin-top: 20px; }

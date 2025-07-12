@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+/* 다른 페이지에 영향을 주지 않도록 모든 스타일을 이 컨테이너 내부에 적용 */
+.report-pro-container {
+  /* 제공된 Home.css의 변수를 기반으로 테마 재설정 */
+  --primary-color: #5E5DF0;
+  --secondary-color: #8E2DE2;
+  --accent-yellow: #FFC947;
+  --text-dark: #1A1A2E;
+  --text-medium: #555;
+  --text-light: #FDFDFD;
+  --bg-light: #F7F7F9;
+  --bg-white: #FFFFFF;
+  --border-light: #EAEAEA;
+  --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.04);
+  --shadow-medium: 0 8px 16px rgba(0, 0, 0, 0.08);
+  --shadow-strong: 0 15px 30px rgba(0, 0, 0, 0.12);
+  
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  padding: 60px 20px;
+}
+
+.report-pro-container .loading-text {
+  text-align: center;
+  font-size: 1.2em;
+  color: var(--text-medium);
+  padding: 50px;
+}
+
+.report-pro-container .report-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.report-pro-container .report-header h1 {
+  font-size: 2.8em;
+  font-weight: 800;
+  margin-bottom: 15px;
+  color: var(--text-dark);
+}
+.report-pro-container .report-header p {
+  font-size: 1.2em;
+  color: var(--text-medium);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.report-pro-container .report-generator {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: transparent;
+}
+
+.report-pro-container .region-select {
+  width: 100%;
+  padding: 18px 25px;
+  font-size: 1.2em;
+  font-weight: 500;
+  border-radius: 15px;
+  border: 2px solid var(--border-light);
+  background-color: var(--bg-white);
+  color: var(--text-dark);
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%235E5DF0%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.8z%22/%3E%3C/svg%3E');
+  background-repeat: no-repeat;
+  background-position: right 25px top 50%;
+  background-size: .8em auto;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-soft);
+}
+.report-pro-container .region-select:hover {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-medium);
+}
+
+.report-pro-container .report-card { margin-top: 50px; }
+.report-pro-container .report-title {
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: 800;
+  font-size: 2.2em;
+}
+.report-pro-container .gradient-text {
+  background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.report-pro-container .report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.report-pro-container .report-item {
+  background: var(--bg-white);
+  padding: 25px 30px;
+  border-radius: 20px;
+  border: 1px solid var(--border-light);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  box-shadow: var(--shadow-medium);
+}
+
+.report-pro-container .report-item:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-strong);
+}
+
+.report-pro-container .item-label {
+  font-size: 1rem;
+  color: var(--text-medium);
+  margin-bottom: 10px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+.report-pro-container .item-value { font-size: 2.2rem; font-weight: 700; color: var(--text-dark); margin-top: auto; }
+.report-pro-container .item-value .unit { font-size: 0.5em; font-weight: 500; margin-left: 5px; color: var(--text-medium); }
+.report-pro-container .item-value.amount { color: var(--primary-color); }
+
+.report-pro-container .item-action {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  margin-top: 15px;
+  font-weight: 700;
+  font-size: 0.9em;
+  color: var(--primary-color);
+  align-self: flex-start;
+}
+.report-pro-container .report-item.clickable:hover .item-action {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.report-pro-container .item-value-small {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: auto;
+}
+.report-pro-container .item-value-small p {
+  margin: 0;
+  font-size: 1em;
+  display: flex;
+  justify-content: space-between;
+}
+.report-pro-container .year-label { color: var(--text-medium); }
+.report-pro-container .count-value { font-weight: 700; color: var(--text-dark); }
+
+.report-pro-container .jeonse-rate-card {
+  grid-column: span 2; /* 넓은 카드 */
+}
+.rate-breakdown {
+  display: flex;
+  width: 100%;
+  gap: 30px;
+  margin-top: auto;
+}
+.rate-column { flex: 1; }
+.rate-column h4 { margin: 0 0 10px 0; font-size: 1.1em; font-weight: 700; color: var(--text-dark); padding-bottom: 8px; border-bottom: 2px solid var(--border-light); }
+.rate-column p { margin: 8px 0; font-size: 1em; }
+.rate-label { color: var(--text-medium); }
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+.contact-info strong { font-weight: 700; font-size: 1.2em; color: var(--text-dark); }
+.contact-info span { color: var(--text-medium); font-size: 0.9em; }
+.contact-info a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.2s;
+}
+.contact-info a:hover { color: var(--secondary-color); }
+
+/* 아이콘 스타일 추가 */
+.report-pro-container .item-icon {
+    font-size: 1.5rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+    color: white;
+    box-shadow: 0 4px 8px rgba(94, 93, 240, 0.2);
+}
+
+/* 반응형 그리드 조정 */
+@media (max-width: 992px) {
+    .report-pro-container .jeonse-rate-card {
+        grid-column: span 1;
+    }
+}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from './api/axiosInstance';
 import './Login.css';
+import Header from './Header';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -42,6 +43,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      <Header/>
       <div className='login-body'>
         <h2>로그인</h2>
         <form onSubmit={handleSubmit} className="login-form">

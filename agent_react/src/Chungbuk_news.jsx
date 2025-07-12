@@ -70,7 +70,7 @@ const Chungcheong = () => {
       <Header />
       <main className="news-main-content">
         <div className="news-header">
-          <h1 className="news-page-title">충청북도 지역 뉴스</h1>
+          <h1 className="news-page-title">충청북도 전세 뉴스</h1>
           <p className="news-page-subtitle">AI가 분석한 충북 지역의 최신 전세 관련 소식을 확인하세요.</p>
         </div>
 

@@ -1,0 +1,186 @@
+/* ----- 기본 & 레이아웃 설정 ----- */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+:root {
+  --primary-color: #4A90E2; /* 전문적인 느낌의 파란색 */
+  --light-primary-color: #EAF2FB;
+  --text-color: #333333;
+  --subtle-text-color: #767676;
+  --border-color: #EAEAEA;
+  --background-color: #F7F9FC;
+  --card-background-color: #FFFFFF;
+  --shadow-color: rgba(0, 0, 0, 0.08);
+}
+
+body {
+  margin: 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.container {
+  max-width: 768px;
+  margin: 50px auto;
+  padding: 40px;
+  background-color: var(--card-background-color);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px var(--shadow-color);
+}
+
+/* ----- 헤더 & 타이틀 ----- */
+h1 {
+  font-size: 2.2em;
+  font-weight: 700;
+  text-align: center;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.container > p {
+  text-align: center;
+  color: var(--subtle-text-color);
+  margin-bottom: 40px;
+  font-size: 1.1em;
+}
+
+/* ----- 검색창 ----- */
+.search-box {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 16px 20px 16px 50px; /* 아이콘을 위한 왼쪽 패딩 */
+  font-size: 1em;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--light-primary-color);
+}
+
+/* CSS로 돋보기 아이콘 추가 */
+.search-box::before {
+  content: '🔍';
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2em;
+  color: var(--subtle-text-color);
+}
+
+
+/* ----- 결과 리스트 ----- */
+.list-container {
+  max-height: 65vh;
+  overflow-y: auto;
+  padding-right: 10px; /* 스크롤바 공간 */
+}
+
+.result-count {
+  font-size: 0.9em;
+  color: var(--subtle-text-color);
+  margin-bottom: 15px;
+  padding-left: 5px;
+}
+
+.list-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* ----- 중개업소 카드 ----- */
+.realtor-card {
+  background: var(--card-background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 16px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.realtor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px var(--shadow-color);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.card-header strong {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.realtor-type {
+  background-color: var(--light-primary-color);
+  color: var(--primary-color);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
+.card-body p {
+  font-size: 0.95em;
+  text-align: left;
+  margin: 10px 0;
+  line-height: 1.7;
+  color: var(--subtle-text-color);
+  display: flex;
+}
+
+.card-body p strong {
+  font-weight: 500;
+  color: var(--text-color);
+  width: 80px; /* 라벨 너비 고정 */
+  flex-shrink: 0;
+}
+
+/* ----- 스크롤바 디자인 (웹킷 브라우저용) ----- */
+.list-container::-webkit-scrollbar {
+  width: 6px;
+}
+.list-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+.list-container::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 10px;
+}
+
+/* ----- 모바일 반응형 디자인 ----- */
+@media (max-width: 768px) {
+  body {
+    background-color: var(--card-background-color);
+  }
+  .container {
+    margin: 0;
+    padding: 20px;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  h1 {
+    font-size: 1.8em;
+  }
+  .list-container {
+    max-height: none;
+    overflow-y: visible;
+  }
+}

@@ -1,0 +1,12 @@
+[
+  { "region_sub": "청주", "incidents_23": 121, "incidents_24": 236, "incidents_25": 49 },
+  { "region_sub": "충주", "incidents_23": 7, "incidents_24": 15, "incidents_25": 1 },
+  { "region_sub": "제천", "incidents_23": 3, "incidents_24": 2, "incidents_25": 0 },
+  { "region_sub": "보은", "incidents_23": 32, "incidents_24": 16, "incidents_25": 2 },
+  { "region_sub": "옥천", "incidents_23": 0, "incidents_24": 1, "incidents_25": 0 },
+  { "region_sub": "영동", "incidents_23": 2, "incidents_24": 5, "incidents_25": 1 },
+  { "region_sub": "증평", "incidents_23": 18, "incidents_24": 5, "incidents_25": 0 },
+  { "region_sub": "진천", "incidents_23": 1, "incidents_24": 2, "incidents_25": 1 },
+  { "region_sub": "괴산", "incidents_23": 1, "incidents_24": 1, "incidents_25": 0 },
+  { "region_sub": "음성", "incidents_23": 2, "incidents_24": 20, "incidents_25": 5 }
+]

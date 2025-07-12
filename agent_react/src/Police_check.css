@@ -1,0 +1,11 @@
+/* --- 이 부분만 복사해서 App.css 맨 아래에 추가하세요 --- */
+
+/* --- PoliceCheck Page --- */
+.police-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 5px solid #2980b9; /* 경찰서 카드는 파란색으로 강조 */
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 15px;
+}

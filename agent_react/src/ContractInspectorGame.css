@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700&display=swap');
+
+/* 모든 스타일이 이 클래스 아래에서만 적용되도록 설정 */
+.game-container-sherlock {
+  --font-title: 'Nanum Myeongjo', serif;
+  --font-body: 'Gowun Batang', serif;
+  --color-parchment: #f5f0e1;
+  --color-dark-wood: #4a3f35;
+  --color-ink: #3a3a3a;
+  --color-border: #c8bca9;
+  --color-danger: #9a2a2a;
+  --color-safe: #3d5530;
+  --color-highlight: #f7e491; /* 낡은 형광펜 느낌 */
+
+  width: 950px;
+  margin: 40px auto;
+  font-family: var(--font-body);
+  background-color: var(--color-parchment);
+  border: 10px solid var(--color-dark-wood);
+  border-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><path d="M0 0h30v30H0z" fill="%23f5f0e1"/><path d="M0 0h1v30H0zm2 0h1v30H2zm2 0h1v30H4zm2 0h1v30H6zm2 0h1v30H8zm2 0h1v30H10zm2 0h1v30h-1zm2 0h1v30h-1zm2 0h1v30h-1zm2 0h1v30h-1zm2 0h1v30h-1zm2 0h1v30h-1zm2 0h1v30h-1zm2 0h1v30h-1zM0 0h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0zm0 2h30v1H0z" stroke="%234a3f35" stroke-width="1"/></svg>') 10;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* --- Menu & Day End --- */
+.game-container-sherlock .menu-screen, 
+.game-container-sherlock .day-end-screen {
+  text-align: center;
+  color: var(--color-ink);
+  padding: 50px 0;
+}
+.game-container-sherlock .menu-screen h1, 
+.game-container-sherlock .day-end-screen h1 {
+  font-family: var(--font-title);
+  font-size: 2.8em;
+}
+.game-container-sherlock .menu-screen button, 
+.game-container-sherlock .day-end-screen button {
+  font-family: var(--font-title);
+  font-size: 1.2em;
+  padding: 15px 30px;
+  border-radius: 2px;
+  background-color: var(--color-dark-wood);
+  color: var(--color-parchment);
+  border: 1px solid #2e251c;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+/* --- In Game --- */
+.game-container-sherlock .desk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--color-border);
+}
+.game-container-sherlock .desk-header h2 {
+  font-family: var(--font-title);
+  margin: 0;
+  color: var(--color-ink);
+}
+.game-container-sherlock .status-bar {
+  display: flex;
+  align-items: center;
+  background: var(--color-dark-wood);
+  color: var(--color-parchment);
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.9em;
+}
+.game-container-sherlock .status-light {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #2e251c;
+  margin-right: 10px;
+  transition: background-color 0.3s;
+}
+.game-container-sherlock .status-light.active {
+  background: var(--color-danger);
+  box-shadow: 0 0 10px var(--color-danger);
+}
+
+.game-container-sherlock .desk-layout {
+  display: flex;
+  justify-content: center;
+}
+
+.game-container-sherlock .document-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+.game-container-sherlock .document {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  padding: 20px;
+  box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
+}
+.game-container-sherlock .document h3 {
+  margin-top: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  font-family: var(--font-title);
+  color: var(--color-dark-wood);
+}
+.game-container-sherlock .document ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.game-container-sherlock .document li {
+  padding: 8px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 1em;
+  line-height: 1.5;
+}
+.game-container-sherlock .document li:hover {
+  background: var(--color-parchment);
+}
+.game-container-sherlock .field-label {
+  display: inline-block;
+  width: 90px;
+  color: #555;
+  font-weight: 700;
+}
+.game-container-sherlock .document li.highlighted {
+  background: var(--color-highlight);
+  border-bottom: 2px solid var(--color-danger);
+}
+
+/* --- Stamp Area --- */
+.game-container-sherlock .stamp-area {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid var(--color-border);
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.game-container-sherlock .stamp {
+  width: 140px;
+  height: 70px;
+  border: 4px double;
+  font-size: 1.8em;
+  font-family: var(--font-title);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+}
+.game-container-sherlock .stamp.approve {
+  background: var(--color-safe);
+  color: white;
+  border-color: #c8e6c9;
+}
+.game-container-sherlock .stamp.reject {
+  background: var(--color-danger);
+  color: white;
+  border-color: #ffcdd2;
+}
+.game-container-sherlock .stamp:disabled {
+  background: #b0a99c;
+  border-color: #948b7f;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
