@@ -1,22 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import './Chatbot.css'; // 모든 스타일이 포함된 CSS 파일을 임포트합니다.
+import Header from './Header';
 
-// [헬퍼 함수] 보고서 텍스트를 파싱하여 구조화된 객체로 변환합니다. (수정된 버전)
+// [헬퍼 함수] 보고서 텍스트를 파싱하여 구조화된 객체로 변환합니다.
 function parseReportText(text) {
     try {
-        // "### \d. " 패턴으로 섹션을 나눕니다. 맨 앞은 빈 문자열이므로 제거합니다.
         const sections = text.split(/###\s*\d\.\s*/).slice(1);
-
-        if (sections.length < 4) {
-            throw new Error("보고서의 모든 섹션을 찾을 수 없습니다.");
-        }
+        if (sections.length < 4) throw new Error("보고서의 모든 섹션을 찾을 수 없습니다.");
 
         // --- 1. 자료 요약 및 핵심 정보 파싱 ---
         const summaryContent = sections[0].replace(/^자료 요약 및 핵심 정보\s*-\s*/, '');
         const summaryItems = summaryContent.split(/\s*-\s*/).filter(item => item.includes(':'));
         const summary = summaryItems.reduce((obj, item) => {
             const [key, ...valueParts] = item.split(':');
-            const value = valueParts.join(':').trim();
+            // 👇 value에서 ** 제거
+            const value = valueParts.join(':').trim().replace(/\*\*/g, '');
             if (key && value) {
                 obj[key.replace(/\*\*/g, '').trim()] = value;
             }
@@ -28,7 +26,8 @@ function parseReportText(text) {
         const riskItems = riskContent.split(/\s*-\s*/).filter(item => item.includes(':'));
         const risks = riskItems.map(item => {
             const [category, ...descriptionParts] = item.split(':');
-            const description = descriptionParts.join(':').trim();
+            // 👇 description에서 ** 제거
+            const description = descriptionParts.join(':').trim().replace(/\*\*/g, '');
             return {
                 category: category.replace(/\*\*/g, '').trim(),
                 description: description
@@ -41,7 +40,8 @@ function parseReportText(text) {
         const descriptionParts = assessmentContent.split(/\s*-\s*/);
         const assessment = {
             level: levelMatch ? levelMatch[1] : "알 수 없음",
-            description: descriptionParts.length > 1 ? descriptionParts.slice(1).join(' ').trim() : "상세 설명이 없습니다."
+            // 👇 description에서 ** 제거
+            description: descriptionParts.length > 1 ? descriptionParts.slice(1).join(' ').trim().replace(/\*\*/g, '') : "상세 설명이 없습니다."
         };
 
         // --- 4. 핵심 예방 조치 및 권고 사항 파싱 ---
@@ -49,7 +49,8 @@ function parseReportText(text) {
         const recommendationItems = recommendationContent.split(/\s*-\s*/).filter(item => item.includes(':'));
         const recommendations = recommendationItems.map(item => {
             const [category, ...descriptionParts] = item.split(':');
-            const description = descriptionParts.join(':').trim();
+            // 👇 description에서 ** 제거
+            const description = descriptionParts.join(':').trim().replace(/\*\*/g, '');
             return {
                 category: category.replace(/\*\*/g, '').trim(),
                 description: description
@@ -57,23 +58,19 @@ function parseReportText(text) {
         });
 
         return { summary, risks, assessment, recommendations };
-
     } catch (error) {
         console.error("Failed to parse report text:", error);
-        return { 
-            summary: { "오류": "보고서 내용을 분석하는 데 실패했습니다." }, 
-            risks: [], 
-            assessment: { level: "오류", description: "보고서 형식이 올바르지 않아 내용을 표시할 수 없습니다." }, 
-            recommendations: [] 
+        return {
+            summary: { "오류": "보고서 내용을 분석하는 데 실패했습니다." },
+            risks: [],
+            assessment: { level: "오류", description: "보고서 형식이 올바르지 않아 내용을 표시할 수 없습니다." },
+            recommendations: []
         };
     }
 }
-
-
 // [내부 컴포넌트] 최종 분석 보고서를 표시하는 컴포넌트입니다.
 function AnalysisReport({ data, onReset }) {
     if (!data) return null;
-
     return (
         <div className="report-viewer-container">
             <header className="report-header">
@@ -113,8 +110,8 @@ function AnalysisReport({ data, onReset }) {
                         ))}
                     </ul>
                 </section>
-                 {/* 3. 위험 수준 평가 */}
-                 <section className="report-section">
+                {/* 3. 위험 수준 평가 */}
+                <section className="report-section">
                     <div className="section-title">
                         <span className="icon">📊</span>
                         <h2>전반적인 위험 수준 평가</h2>
@@ -131,15 +128,15 @@ function AnalysisReport({ data, onReset }) {
                         <h2>핵심 예방 조치 및 권고 사항</h2>
                     </div>
                     <ul className="recommendation-list">
-                       {data.recommendations.map((rec, index) => (
-                           <li className="recommendation-item" key={index}>
-                               <span className="icon">✔️</span>
-                               <div className="text">
-                                   <span className="category">{rec.category}</span>
-                                   <p className="description">{rec.description}</p>
-                               </div>
-                           </li>
-                       ))}
+                        {data.recommendations.map((rec, index) => (
+                            <li className="recommendation-item" key={index}>
+                                <span className="icon">✔️</span>
+                                <div className="text">
+                                    <span className="category">{rec.category}</span>
+                                    <p className="description">{rec.description}</p>
+                                </div>
+                            </li>
+                        ))}
                     </ul>
                 </section>
             </main>
@@ -158,7 +155,7 @@ function Chatbot() {
     const [reportData, setReportData] = useState(null);
     const wsRef = useRef(null);
 
-    const BASE_URL = "https://e4e4-34-45-25-177.ngrok-free.app";
+    const BASE_URL = "https://0cf0f95a89b1.ngrok-free.app";
 
     const handleFileAnalysis = async () => {
         if (!file) {
@@ -174,29 +171,25 @@ function Chatbot() {
             if (!initResponse.ok) throw new Error('세션 초기화 실패');
             const { session_id } = await initResponse.json();
 
-            const wsProtocol = BASE_URL.startsWith('https') ? 'wss:' : 'ws:';
-            const wsHost = BASE_URL.split('//')[1];
-            const wsUrl = `${wsProtocol}//${wsHost}/ws/${session_id}`;
+            const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${wsProtocol}//${BASE_URL.split('//')[1]}/ws/${session_id}`;
             wsRef.current = new WebSocket(wsUrl);
 
             wsRef.current.onopen = async () => {
-                console.log('WebSocket connected for analysis.');
                 const formData = new FormData();
                 formData.append('file', file);
-                const uploadResponse = await fetch(`${BASE_URL}/upload_and_analyze/?session_id=${session_id}`, {
+                await fetch(`${BASE_URL}/upload_and_analyze/?session_id=${session_id}`, {
                     method: 'POST',
                     body: formData,
                 });
-                if (!uploadResponse.ok) throw new Error('파일 업로드 및 분석 요청 실패');
             };
 
             wsRef.current.onmessage = (event) => {
                 const messageData = JSON.parse(event.data);
                 if (messageData.type === 'analysis_report') {
-                    const parsedData = parseReportText(messageData.message);
-                    setReportData(parsedData);
+                    setReportData(parseReportText(messageData.message));
                     setIsAnalyzing(false);
-                    if(wsRef.current) wsRef.current.close();
+                    wsRef.current?.close();
                 } else if (messageData.type === 'error') {
                     throw new Error(`분석 오류: ${messageData.message}`);
                 }
@@ -221,32 +214,38 @@ function Chatbot() {
         setIsAnalyzing(false);
     };
 
-    // reportData가 있으면 보고서 컴포넌트를, 없으면 파일 업로드 UI를 렌더링합니다.
-    if (reportData) {
-        return <AnalysisReport data={reportData} onReset={handleReset} />;
-    }
-
     return (
-        <div className="initial-view-container">
-            <h1>AI 전세사기<br />위험 분석</h1>
-            <p>계약서 등 관련 자료를 업로드하시면, AI가 자동으로 문서를 분석하여 최종 위험 보고서를 생성해 드립니다.</p>
-            <div className="file-upload-section">
-                <input 
-                    type="file" 
-                    id="fileUploadInput" 
-                    accept=".pdf,.docx" 
-                    onChange={(e) => setFile(e.target.files[0])} 
-                    disabled={isAnalyzing}
-                />
-                <label htmlFor="fileUploadInput">
-                    {file ? `✔️ ${file.name}` : "📁 분석할 파일 선택하기"}
-                </label>
-                <button onClick={handleFileAnalysis} disabled={isAnalyzing || !file}>
-                    {isAnalyzing ? "분석 중..." : "🚀 분석 시작하기"}
-                </button>
-                {uploadMessage && <p className="upload-message">{uploadMessage}</p>}
+        // 👇 이 부분이 핵심입니다. 모든 화면을 이 div로 감싸줍니다.
+        <>
+        <Header/>
+        
+            <div className="chatbot-wrapper">
+                {reportData ? (
+                    <AnalysisReport data={reportData} onReset={handleReset} />
+                ) : (
+                    <div className="initial-view-container">
+                        <h1>AI 전세사기<br />위험 분석</h1>
+                        <p>계약서 등 관련 자료를 업로드하시면, AI가 자동으로 문서를 분석하여 최종 위험 보고서를 생성해 드립니다.</p>
+                        <div className="file-upload-section">
+                            <input
+                                type="file"
+                                id="fileUploadInput"
+                                accept=".pdf,.docx"
+                                onChange={(e) => setFile(e.target.files[0])}
+                                disabled={isAnalyzing}
+                            />
+                            <label htmlFor="fileUploadInput">
+                                {file ? `✔️ ${file.name}` : "📁 분석할 파일 선택하기"}
+                            </label>
+                            <button onClick={handleFileAnalysis} disabled={isAnalyzing || !file}>
+                                {isAnalyzing ? "분석 중..." : "🚀 분석 시작하기"}
+                            </button>
+                            {uploadMessage && <p className="upload-message">{uploadMessage}</p>}
+                        </div>
+                    </div>
+                )}
             </div>
-        </div>
+        </>
     );
 }
 

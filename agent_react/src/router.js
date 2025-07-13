@@ -19,6 +19,7 @@ import Acident_check from './Acident_check';
 import Police_check from './Police_check';
 import JeonsePreventionGame from './JeonsePreventionGame';
 import ContractInspectorGame from './ContractInspectorGame';
+import Cb from './Cb';
 
 const router = createBrowserRouter([
     {
@@ -116,6 +117,11 @@ const router = createBrowserRouter([
         id:19,
         path:'/contract_inspectorgame',
         element: <ContractInspectorGame/>
+    },
+    {
+        id:20,
+        path: '/cb',
+        element: <Cb/>
     }
 
 

@@ -62,6 +62,7 @@ const Header = () => {
                                 <ul className="dropdown-menu">
                                     <li><Link to="/chatbot">AI 계약서 위험 분석</Link></li>
                                     <li><Link to="/chatbot1">AI 계약 준비수준 진단</Link></li>
+                                    <li><Link to="/Cb">AI 지역 특화 전세 분석 </Link></li>
                                 </ul>
                             )}
                         </li>
@@ -76,7 +77,6 @@ const Header = () => {
                                     <li><Link to="/FraudCaseLookup">우리동네 전세사기 상세조회</Link></li>
                                     <li><Link to="/property_check">우리동네 정식 중개업소</Link></li>
                                     <li><Link to="/police_check">우리동네 경찰서</Link></li>
-                
                                 </ul>
                             )}
                         </li>

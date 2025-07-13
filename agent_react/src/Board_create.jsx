@@ -37,7 +37,7 @@ const Board_create = () => {
             });
 
             if (response.status === 200 || response.status === 201) {
-                setSubmitStatus({ message: "질문이 성공적으로 등록되었습니다! 곧 목록으로 이동합니다.", type: 'success' });
+                setSubmitStatus({ message: "글이 성공적으로 등록되었습니다! 곧 목록으로 이동합니다.", type: 'success' });
                 setTimeout(() => {
                     navigate("/board");
                 }, 1500);
