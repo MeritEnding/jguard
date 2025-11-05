@@ -1,0 +1,66 @@
+### Node ###
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+.yarn-integrity
+.pnpm-debug.log
+
+### Build ###
+build/
+dist/
+coverage/
+*.tsbuildinfo
+
+### Environment ###
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+### Editor ###
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+### OS ###
+.DS_Store
+Thumbs.db
+desktop.ini
+
+### Others ###
+*.log
+*.tmp
+*.bak
+*.cache
+.cache/
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
