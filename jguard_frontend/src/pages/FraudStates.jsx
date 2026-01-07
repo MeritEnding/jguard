@@ -1,29 +1,26 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { MapContainer, TileLayer, Popup, CircleMarker } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css'; // Leaflet 기본 CSS는 유지
+import 'leaflet/dist/leaflet.css';
+import {
+    BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, Legend,
+    ResponsiveContainer, CartesianGrid, LabelList,
+} from 'recharts';
+import { FaChartBar, FaMapMarkerAlt, FaArrowUp, FaArrowDown, FaMinus } from 'react-icons/fa';
+import './FraudStates.css';
 
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
-// 생성할 FraudMapAndChart.css 파일을 임포트합니다.
-import './FraudStates.css'; 
-
-// Leaflet 기본 마커 아이콘 설정 (필수!)
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconRetina from 'leaflet/dist/images/marker-icon-2x.png';
 import shadow from 'leaflet/dist/images/marker-shadow.png';
 
-let DefaultIcon = L.icon({
+L.Marker.prototype.options.icon = L.icon({
     iconRetinaUrl: iconRetina,
     iconUrl: icon,
     shadowUrl: shadow,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    tooltipAnchor: [16, -28],
-    shadowSize: [41, 41]
+    iconSize: [25, 41], iconAnchor: [12, 41],
+    popupAnchor: [1, -34], tooltipAnchor: [16, -28],
+    shadowSize: [41, 41],
 });
-L.Marker.prototype.options.icon = DefaultIcon;
 
 const regionData = [
     { year: '2023', data: { 청주: 55, 충주: 7, 제천: 3, 보은: 32, 옥천: 0, 영동: 2, 증평: 18, 진천: 1, 괴산: 1, 음성: 2 } },
@@ -44,94 +41,171 @@ const regionCoords = {
     음성: { lat: 36.983, lng: 127.689 },
 };
 
-const getColor = (count) => {
-    if (count >= 100) return 'red';
-    if (count >= 10) return 'orange';
-    if (count > 0) return 'yellow';
-    return 'green';
+// 발생 건수 구간별 지도 마커 색 (디자인 토큰의 semantic 색상)
+const getMarkerColor = (count) => {
+    if (count >= 100) return '#DC2640';
+    if (count >= 10) return '#F59E0B';
+    if (count > 0) return '#FBBF24';
+    return '#10B981';
 };
 
-export default function FraudMap() {
+// 추이 차트 고정 시리즈 (누적 발생 건수 상위 3개 지역, 색상 순서 고정)
+const TREND_REGIONS = [
+    { region: '청주', color: '#4F46E5' },
+    { region: '보은', color: '#F59E0B' },
+    { region: '음성', color: '#10B981' },
+];
+
+const chartTooltipStyle = {
+    borderRadius: 12,
+    border: '1px solid var(--border)',
+    boxShadow: 'var(--shadow-md)',
+    fontSize: 13,
+};
+
+export default function FraudStates() {
     const [year, setYear] = useState('2024');
-    const selectedYearData = regionData.find((d) => d.year === year)?.data || {};
 
-    const barData = Object.entries(selectedYearData).map(([region, count]) => ({ region, count }));
+    const { barData, total, topRegion, yoyDiff, trendData } = useMemo(() => {
+        const selected = regionData.find((d) => d.year === year)?.data || {};
+        const bar = Object.entries(selected)
+            .map(([region, count]) => ({ region, count }))
+            .sort((a, b) => b.count - a.count);
 
-    const initialCenter = { lat: 36.8, lng: 127.7 };
-    const initialZoom = 9;
+        const sum = (data) => Object.values(data).reduce((acc, v) => acc + v, 0);
+        const totalCount = sum(selected);
+        const top = bar[0];
+
+        const prev = regionData.find((d) => d.year === String(Number(year) - 1));
+        const diff = prev ? totalCount - sum(prev.data) : null;
+
+        const trend = regionData.map((d) => ({
+            year: d.year,
+            ...TREND_REGIONS.reduce((obj, { region }) => ({ ...obj, [region]: d.data[region] }), {}),
+        }));
+
+        return { barData: bar, total: totalCount, topRegion: top, yoyDiff: diff, trendData: trend };
+    }, [year]);
 
     return (
-        <div className="fraud-layout-container"> {/* 전체 레이아웃 컨테이너 */}
-            <h1 className="fraud-layout-main-title">전세 사기 위험 알림 서비스</h1> {/* 메인 타이틀 추가 */}
-            
-            <div className="fraud-layout-content-wrapper"> {/* 양 옆으로 배치될 콘텐츠 래퍼 */}
-                {/* 지도 카드 */}
-                <div className="fraud-layout-card fraud-layout-map-card">
-                    <h2 className="fraud-layout-card-title">지역별 사기 발생 지도</h2> {/* 지도 섹션 제목 */}
+        <div className="fraud-states-page">
+            <div className="page-head">
+                <span className="page-eyebrow"><FaChartBar /> 피해 현황 통계</span>
+                <h1>충북 전세사기 피해 현황</h1>
+                <p>연도별·지역별 전세사기 발생 건수를 지도와 차트로 확인하세요.</p>
+            </div>
 
-                    <div className="fraud-layout-year-select-container">
-                        <label htmlFor="year-select" className="fraud-layout-year-select-label">조회 연도 선택:</label>
-                        <select
-                            id="year-select"
-                            value={year}
-                            onChange={(e) => setYear(e.target.value)}
-                            className="fraud-layout-year-select"
-                        >
-                            {regionData.map((d) => (
-                                <option key={d.year} value={d.year} className="fraud-layout-year-option">{d.year}년</option>
-                            ))}
-                        </select>
-                    </div>
+            <div className="fs-year-toggle" role="tablist" aria-label="조회 연도">
+                {regionData.map((d) => (
+                    <button
+                        key={d.year}
+                        role="tab"
+                        aria-selected={year === d.year}
+                        className={`fs-year-btn ${year === d.year ? 'active' : ''}`}
+                        onClick={() => setYear(d.year)}
+                    >
+                        {d.year}년
+                    </button>
+                ))}
+            </div>
 
-                    <div className="fraud-layout-map-wrapper">
-                        <MapContainer center={initialCenter} zoom={initialZoom} className="fraud-layout-map">
+            <div className="fs-stat-row">
+                <div className="fs-stat-tile card">
+                    <span className="fs-stat-label">{year}년 총 발생 건수</span>
+                    <strong className="fs-stat-value">{total.toLocaleString()}건</strong>
+                </div>
+                <div className="fs-stat-tile card">
+                    <span className="fs-stat-label">최다 발생 지역</span>
+                    <strong className="fs-stat-value"><FaMapMarkerAlt className="fs-stat-icon" /> {topRegion?.region} ({topRegion?.count}건)</strong>
+                </div>
+                <div className="fs-stat-tile card">
+                    <span className="fs-stat-label">전년 대비</span>
+                    <strong className={`fs-stat-value ${yoyDiff > 0 ? 'up' : yoyDiff < 0 ? 'down' : ''}`}>
+                        {yoyDiff === null ? <><FaMinus className="fs-stat-icon" /> 데이터 없음</>
+                            : yoyDiff > 0 ? <><FaArrowUp className="fs-stat-icon" /> +{yoyDiff}건</>
+                            : yoyDiff < 0 ? <><FaArrowDown className="fs-stat-icon" /> {yoyDiff}건</>
+                            : <><FaMinus className="fs-stat-icon" /> 변동 없음</>}
+                    </strong>
+                </div>
+            </div>
+
+            <div className="fs-grid">
+                <div className="fs-card card">
+                    <h2 className="fs-card-title">지역별 발생 지도</h2>
+                    <div className="fs-map-wrapper">
+                        <MapContainer center={{ lat: 36.8, lng: 127.7 }} zoom={9} className="fs-map">
                             <TileLayer
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
                             />
-
-                            {Object.entries(selectedYearData).map(([region, count]) => (
+                            {barData.map(({ region, count }) => (
                                 regionCoords[region] && (
                                     <CircleMarker
                                         key={region}
                                         center={regionCoords[region]}
                                         radius={Math.max(8, Math.min(25, count / 10))}
-                                        pathOptions={{ color: getColor(count), fillColor: getColor(count), fillOpacity: 0.7, weight: 1 }}
+                                        pathOptions={{
+                                            color: getMarkerColor(count),
+                                            fillColor: getMarkerColor(count),
+                                            fillOpacity: 0.65,
+                                            weight: 2,
+                                        }}
                                     >
                                         <Popup>
-                                            <div className="fraud-layout-popup-content">
-                                                {region}: <span className="fraud-layout-popup-count">{count}건</span>
-                                            </div>
+                                            <div className="fs-popup">{region}: <strong>{count}건</strong></div>
                                         </Popup>
                                     </CircleMarker>
                                 )
                             ))}
                         </MapContainer>
                     </div>
+                    <div className="fs-legend">
+                        <span><i style={{ background: '#DC2640' }} /> 100건 이상</span>
+                        <span><i style={{ background: '#F59E0B' }} /> 10~99건</span>
+                        <span><i style={{ background: '#FBBF24' }} /> 1~9건</span>
+                        <span><i style={{ background: '#10B981' }} /> 0건</span>
+                    </div>
                 </div>
 
-                {/* 차트 카드 */}
-                <div className="fraud-layout-card fraud-layout-chart-card">
-                    <h2 className="fraud-layout-card-title">연도별 지역별 사기 발생 건수</h2> {/* 차트 섹션 제목 */}
-                    <ResponsiveContainer width="100%" height={400}> {/* 차트 높이 조정 */}
-                        <BarChart data={barData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                            <XAxis dataKey="region" axisLine={false} tickLine={false} />
-                            <YAxis allowDecimals={false} />
-                            <Tooltip
-                                cursor={{ fill: 'rgba(0, 0, 0, 0.1)' }}
-                                contentStyle={{ borderRadius: '8px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}
-                                labelStyle={{ color: '#333' }}
-                            />
-                            <Legend wrapperStyle={{ paddingTop: '20px' }} />
-                            <Bar
-                                dataKey="count"
-                                fill="#f97316"
-                                name="발생 건수"
-                                radius={[10, 10, 0, 0]}
-                            />
+                <div className="fs-card card">
+                    <h2 className="fs-card-title">{year}년 지역별 발생 건수</h2>
+                    <ResponsiveContainer width="100%" height={360}>
+                        <BarChart data={barData} margin={{ top: 24, right: 16, left: -16, bottom: 0 }}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                            <XAxis dataKey="region" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--text-muted)' }} />
+                            <YAxis allowDecimals={false} axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--text-muted)' }} />
+                            <Tooltip cursor={{ fill: 'rgba(79, 70, 229, 0.06)' }} contentStyle={chartTooltipStyle} formatter={(v) => [`${v}건`, '발생 건수']} />
+                            <Bar dataKey="count" fill="#4F46E5" name="발생 건수" radius={[4, 4, 0, 0]} maxBarSize={36}>
+                                <LabelList dataKey="count" position="top" formatter={(v) => (v >= 10 ? v : '')} style={{ fontSize: 12, fill: 'var(--text-body)' }} />
+                            </Bar>
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
+            </div>
+
+            <div className="fs-card card fs-trend-card">
+                <h2 className="fs-card-title">주요 지역 연도별 추이</h2>
+                <p className="fs-card-desc">누적 발생 건수 상위 3개 지역의 연도별 변화입니다.</p>
+                <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={trendData} margin={{ top: 12, right: 32, left: -16, bottom: 0 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                        <XAxis dataKey="year" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--text-muted)' }} />
+                        <YAxis allowDecimals={false} axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--text-muted)' }} />
+                        <Tooltip contentStyle={chartTooltipStyle} formatter={(v, name) => [`${v}건`, name]} />
+                        <Legend wrapperStyle={{ fontSize: 13 }} />
+                        {TREND_REGIONS.map(({ region, color }) => (
+                            <Line
+                                key={region}
+                                type="monotone"
+                                dataKey={region}
+                                stroke={color}
+                                strokeWidth={2}
+                                dot={{ r: 4, fill: color, strokeWidth: 0 }}
+                                activeDot={{ r: 6 }}
+                            />
+                        ))}
+                    </LineChart>
+                </ResponsiveContainer>
             </div>
         </div>
     );
