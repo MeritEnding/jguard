@@ -158,7 +158,7 @@ function Chatbot() {
     const [reportData, setReportData] = useState(null);
     const wsRef = useRef(null);
 
-    const BASE_URL = "https://e4e4-34-45-25-177.ngrok-free.app";
+    const BASE_URL = process.env.REACT_APP_CHATBOT_API_URL || "http://localhost:8000";
 
     const handleFileAnalysis = async () => {
         if (!file) {
