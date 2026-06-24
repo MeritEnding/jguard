@@ -26,6 +26,7 @@ const NAV_GROUPS = [
         label: '뉴스/정보',
         items: [
             { to: '/guide', label: '예방 가이드', desc: '단계별 체크리스트와 트렌드' },
+            { to: '/games', label: '예방 게임', desc: '게임으로 배우는 사기 예방' },
             { to: '/chungbuk_news', label: '지역별 뉴스', desc: '내 지역 전세 소식' },
             { to: '/news', label: '전체 뉴스', desc: '전국 전세사기 최신 뉴스' },
         ],
