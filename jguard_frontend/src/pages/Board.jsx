@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Board.css"; // ✨ 완전히 새로워진 CSS 파일
-import Header from './Header';
-import axiosInstance from "./api/axiosInstance";
+import Header from '../components/Header';
+import axiosInstance from "../api/axiosInstance";
 import { FaPen, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 // 로딩 중일 때 보여줄 스켈레톤 행(row) 컴포넌트

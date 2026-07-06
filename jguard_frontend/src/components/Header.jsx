@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import axiosInstance from './api/axiosInstance';
+import axiosInstance from '../api/axiosInstance';
 import './Header.css';
 import { FaBars, FaTimes } from 'react-icons/fa'; // 모바일 메뉴 아이콘
 

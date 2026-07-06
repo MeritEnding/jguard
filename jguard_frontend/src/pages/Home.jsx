@@ -1,10 +1,10 @@
 import React from "react";
-import aiImage from './assets/ai_ill1.png';
+import aiImage from '../assets/ai_ill1.png';
 import { useNavigate } from "react-router-dom";
 // ✨ FIX: 사용된 모든 아이콘을 react-icons/fa에서 import 합니다.
 import { FaRocket, FaBook, FaBrain, FaClipboardList, FaBullhorn, FaUser } from 'react-icons/fa';
-import Header from './Header';
-import './App.css';
+import Header from '../components/Header';
+import '../App.css';
 
 const Home = () => {
     const navigate = useNavigate();

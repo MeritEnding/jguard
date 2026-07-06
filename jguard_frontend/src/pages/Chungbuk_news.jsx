@@ -1,8 +1,8 @@
 // News.jsx
 import React, { useEffect, useState } from "react";
 import "./News.css"; // 개선된 CSS 파일을 임포트합니다.
-import Header from './Header';
-import axiosInstance from './api/axiosInstance';
+import Header from '../components/Header';
+import axiosInstance from '../api/axiosInstance';
 import { FaExclamationTriangle, FaArrowRight } from 'react-icons/fa'; // 아이콘 추가
 
 // ✨ New: 스켈레톤 카드 컴포넌트

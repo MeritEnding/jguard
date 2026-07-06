@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import './Guide.css';
-import Header from './Header';
-import axiosInstance from './api/axiosInstance';
+import Header from '../components/Header';
+import axiosInstance from '../api/axiosInstance';
 import { FaAngleDown, FaExclamationTriangle, FaArrowUp, FaArrowDown, FaMinus } from 'react-icons/fa';
 
 // Chart.js 필수 모듈 등록

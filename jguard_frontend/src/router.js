@@ -1,19 +1,19 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Home from './Home';
-import Board from './Board';
-import News from './News';
+import Home from './pages/Home';
+import Board from './pages/Board';
+import News from './pages/News';
 
-import Board_detail from './Board_detail';
-import Board_create from './Board_create';
-import Signup_form from './Signup_form';
-import Login from './Login';
-import Board_update from './Board_update';
-import Chungbuk_news from './Chungbuk_news';
-import Guide from './Guide';
-import FraudCaseLookup from './FraudCaseLookup';
-import FraudStates from "./FraudStates";
-import Risk_Analysis from "./Risk_Analysis";
-import Chatbot from './Chatbot';
+import Board_detail from './pages/Board_detail';
+import Board_create from './pages/Board_create';
+import Signup_form from './pages/Signup_form';
+import Login from './pages/Login';
+import Board_update from './pages/Board_update';
+import Chungbuk_news from './pages/Chungbuk_news';
+import Guide from './pages/Guide';
+import FraudCaseLookup from './pages/FraudCaseLookup';
+import FraudStates from "./pages/FraudStates";
+import Risk_Analysis from "./pages/Risk_Analysis";
+import Chatbot from './pages/Chatbot';
 
 const router = createBrowserRouter([
     {

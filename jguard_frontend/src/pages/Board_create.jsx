@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Board_create.css"; // ✨ 새로 만들 CSS 파일
-import Header from './Header'; // ✨ Header 추가
-import axiosInstance from "./api/axiosInstance";
+import Header from '../components/Header'; // ✨ Header 추가
+import axiosInstance from "../api/axiosInstance";
 import { FaSave, FaTimes } from 'react-icons/fa'; // ✨ 아이콘 추가
 
 const Board_create = () => {

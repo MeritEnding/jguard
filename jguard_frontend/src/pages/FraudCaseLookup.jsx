@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Header from './Header';
-import regions from './data/regions';
+import Header from '../components/Header';
+import regions from '../data/regions';
 import './FraudCaseLookup.css'; // ✨ 완전히 새로워진 CSS
 // ✨ axiosInstance를 사용하도록 수정
-import axiosInstance from './api/axiosInstance'; 
+import axiosInstance from '../api/axiosInstance'; 
 import { FaSearch, FaExclamationTriangle, FaFileAlt } from 'react-icons/fa';
 
 // 로딩 스피너 컴포넌트

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react"; // ✨ useCallback 임포트 추가
 import { useParams, useNavigate } from "react-router-dom";
 import "./Board_detail.css";
-import Header from './Header';
-import axiosInstance from "./api/axiosInstance";
+import Header from '../components/Header';
+import axiosInstance from "../api/axiosInstance";
 import { jwtDecode } from 'jwt-decode';
 import { FaUser, FaCalendarAlt, FaEdit, FaTrash, FaList, FaPaperPlane, FaRedo } from 'react-icons/fa'; // ✨ 아이콘 추가
 
