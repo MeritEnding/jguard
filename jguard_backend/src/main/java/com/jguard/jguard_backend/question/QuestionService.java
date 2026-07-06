@@ -1,6 +1,6 @@
 package com.jguard.jguard_backend.question;
 
-import com.jguard.jguard_backend.DataNotFoundException;
+import com.jguard.jguard_backend.common.exception.DataNotFoundException;
 import com.jguard.jguard_backend.user.SiteUser;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

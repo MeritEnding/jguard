@@ -1,6 +1,6 @@
 package com.jguard.jguard_backend.user;
 
-import com.jguard.jguard_backend.DataNotFoundException;
+import com.jguard.jguard_backend.common.exception.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
