@@ -1,0 +1,193 @@
+/* src/components/FraudMapAndChart.css */
+
+/* 전체 레이아웃 컨테이너 */
+.fraud-layout-container {
+    padding: 32px;
+    background-color: #f9fafb; /* 배경색 */
+    min-height: 100vh; /* 최소 화면 높이 */
+    display: flex;
+    flex-direction: column; /* 기본은 세로 방향 (제목 포함) */
+    align-items: center; /* 가로 중앙 정렬 */
+    box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+    width: 100%; /* 전체 너비 사용 */
+}
+
+/* 메인 타이틀 */
+.fraud-layout-main-title {
+    font-size: 48px; /* 더 큰 제목 */
+    font-weight: 800;
+    color: #1a202c; /* 진한 색상 */
+    margin-bottom: 40px; /* 아래 여백 */
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.05); /* 약간의 그림자 */
+}
+
+/* 양 옆으로 배치될 콘텐츠 래퍼 */
+.fraud-layout-content-wrapper {
+    display: flex; /* Flexbox 활성화 */
+    flex-direction: row; /* 기본적으로 가로 방향으로 배치 */
+    flex-wrap: wrap; /* 공간이 부족하면 다음 줄로 넘어감 */
+    justify-content: center; /* 가운데 정렬 */
+    align-items: flex-start; /* 상단 정렬 */
+    gap: 32px; /* 항목들 사이의 간격 */
+    width: 100%;
+    max-width: 1400px; /* 전체 콘텐츠의 최대 너비 확장 */
+    margin-bottom: 32px; /* 하단 여백 */
+}
+
+/* 개별 카드 (지도 카드, 차트 카드) */
+.fraud-layout-card {
+    background-color: #ffffff;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* 더 강한 그림자 */
+    border-radius: 16px; /* 더 둥근 모서리 */
+    padding: 30px;
+    box-sizing: border-box;
+    flex: 1; /* 가용 공간을 균등하게 분배 */
+    min-width: 450px; /* 카드의 최소 너비 설정 (너무 작아지지 않게) */
+}
+
+/* 카드 내부 제목 */
+.fraud-layout-card-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2d3748; /* 더 어두운 회색 */
+    margin-bottom: 24px;
+    text-align: center;
+    border-bottom: 2px solid #edf2f7; /* 아래 밑줄 */
+    padding-bottom: 15px;
+}
+
+/* 연도 선택 드롭다운 컨테이너 */
+.fraud-layout-year-select-container {
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+/* 연도 선택 레이블 */
+.fraud-layout-year-select-label {
+    display: block;
+    color: #4b5563;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+/* 연도 선택 드롭다운 */
+.fraud-layout-year-select {
+    padding: 12px;
+    border: 1px solid #cbd5e0; /* 연한 회색 테두리 */
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    outline: none;
+    font-size: 18px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 200px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-6.5%200-12.3%203.2-15.6%208.1-3.3%204.9-3.3%2011.6%200%2016.5l128%20128c3.3%203.3%207.5%204.9%2011.6%204.9s8.3-1.6%2011.6-4.9l128-128c3.3-4.9%203.3-11.6%200-16.5z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px auto;
+    cursor: pointer;
+}
+
+.fraud-layout-year-select:hover {
+    border-color: #a0aec0; /* 호버 시 테두리 색상 변경 */
+}
+
+.fraud-layout-year-select:focus {
+    border-color: #4299e1; /* 포커스 시 파란색 테두리 */
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5); /* 파란색 그림자 */
+}
+
+/* 지도 래퍼 */
+.fraud-layout-map-wrapper {
+    border: 1px solid #e2e8f0; /* 테두리 */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); /* 약간의 그림자 */
+}
+
+/* 지도 컨테이너 */
+.fraud-layout-map {
+    width: 100%;
+    height: 600px; /* 지도 높이 유지 */
+    border-radius: 8px;
+}
+
+/* 팝업 내용 */
+.fraud-layout-popup-content {
+    font-weight: bold;
+    font-size: 16px; /* 팝업 폰트 사이즈 조정 */
+    color: #1f2937;
+}
+
+/* 팝업 내 건수 강조 */
+.fraud-layout-popup-count {
+    color: #2563eb;
+}
+
+/* Recharts 툴팁 기본 스타일 오버라이드 (React 컴포넌트에 직접 적용된 부분은 여기서 오버라이드 안됨) */
+/* Recharts 내부 스타일은 직접 전달된 contentStyle, labelStyle로 제어됩니다. */
+
+/* Recharts 범례 래퍼 */
+.recharts-legend-wrapper {
+    padding-top: 20px;
+    text-align: center; /* 범례 중앙 정렬 */
+}
+
+/* 미디어 쿼리: 작은 화면에서는 다시 세로로 쌓이도록 */
+@media (max-width: 1024px) {
+    .fraud-layout-content-wrapper {
+        flex-direction: column; /* 세로 방향으로 변경 */
+        align-items: center; /* 중앙 정렬 */
+        gap: 24px; /* 간격 조정 */
+    }
+    .fraud-layout-card {
+        width: 95%; /* 작은 화면에서 너비 증가 */
+        min-width: unset; /* 최소 너비 제한 해제 */
+        margin-bottom: 0; /* 세로 배치 시 개별 카드 하단 여백 제거 (gap으로 대체) */
+    }
+    .fraud-layout-main-title {
+        font-size: 36px;
+        margin-bottom: 30px;
+    }
+    .fraud-layout-card-title {
+        font-size: 26px;
+    }
+    .fraud-layout-map {
+        height: 450px; /* 작은 화면에서 지도 높이 조정 */
+    }
+    .fraud-layout-year-select {
+        width: 180px;
+    }
+}
+
+/* 더 작은 화면을 위한 추가 미디어 쿼리 */
+@media (max-width: 768px) {
+    .fraud-layout-container {
+        padding: 20px;
+    }
+    .fraud-layout-main-title {
+        font-size: 30px;
+        margin-bottom: 25px;
+    }
+    .fraud-layout-card {
+        padding: 20px;
+        border-radius: 12px;
+    }
+    .fraud-layout-card-title {
+        font-size: 22px;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+    }
+    .fraud-layout-map {
+        height: 350px;
+    }
+    .fraud-layout-year-select-label,
+    .fraud-layout-year-select {
+        font-size: 16px;
+        padding: 10px;
+    }
+}

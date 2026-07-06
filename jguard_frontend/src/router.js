@@ -9,12 +9,21 @@ import Signup_form from './Signup_form';
 import Login from './Login';
 import Board_update from './Board_update';
 import Chungbuk_news from './Chungbuk_news';
+import Guide from './Guide';
+import FraudCaseLookup from './FraudCaseLookup';
+import FraudStates from "./FraudStates";
+import Risk_Analysis from "./Risk_Analysis";
 
 const router = createBrowserRouter([
     {
         id: 0,
         path: '/',
         element: <Home />,
+    },
+    {
+        id: 2,
+        path: '/guide',
+        element: <Guide/>,
     },
     {
         id: 3,
@@ -50,6 +59,21 @@ const router = createBrowserRouter([
         id:10,
         path: '/question/modify/:id',
         element: <Board_update/>
+    },
+    {
+        id:11,
+        path: '/FraudCaseLookup',
+        element: <FraudCaseLookup/>
+    },
+    {
+        id:12,
+        path: '/FraudStates',
+        element: <FraudStates/>
+    },
+    {
+        id:13,
+        path: '/risk_analysis',
+        element: <Risk_Analysis/>
     },
     {
         id:14,
