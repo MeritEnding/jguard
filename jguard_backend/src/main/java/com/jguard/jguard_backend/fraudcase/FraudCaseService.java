@@ -1,4 +1,4 @@
-package com.jguard.jguard_backend.FraudCase;
+package com.jguard.jguard_backend.fraudcase;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

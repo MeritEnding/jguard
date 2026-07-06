@@ -1,4 +1,4 @@
-package com.jguard.jguard_backend.ChungbukNews;
+package com.jguard.jguard_backend.chungbuknews;
 
 import jakarta.persistence.*;
 import lombok.Getter;
