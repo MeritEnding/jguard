@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MapContainer, TileLayer, Popup, GeoJSON } from 'react-leaflet';
+import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import './Risk_Analysis.css';
-import Header from './Header';
-import axiosInstance from './api/axiosInstance';
+import './RiskAnalysis.css';
+import Header from '../components/Header';
 import { FaMapMarkedAlt, FaChevronDown, FaExclamationTriangle } from 'react-icons/fa';
 
 // Leaflet 기본 마커 아이콘 설정 (필수!)

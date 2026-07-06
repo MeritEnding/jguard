@@ -1,8 +1,8 @@
 // News.jsx
 import React, { useEffect, useState } from "react";
 import "./News.css";
-import Header from './Header';
-import axiosInstance from './api/axiosInstance'; // 🟢 axiosInstance 임포트 추가
+import Header from '../components/Header';
+import axiosInstance from '../api/axiosInstance'; // 🟢 axiosInstance 임포트 추가
 
 const News = () => {
   const [newsList, setNewsList] = useState([]);

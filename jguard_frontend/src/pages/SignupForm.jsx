@@ -1,6 +1,6 @@
 // SignupForm.jsx
 import React, { useState } from 'react';
-import './Signup_form.css'; // CSS는 별도 파일로 분리
+import './SignupForm.css'; // CSS는 별도 파일로 분리
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
