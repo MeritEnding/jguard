@@ -10,6 +10,7 @@ import Login from './Login';
 import Board_update from './Board_update';
 import Chungbuk_news from './Chungbuk_news';
 import Guide from './Guide';
+import FraudCaseLookup from './FraudCaseLookup';
 
 const router = createBrowserRouter([
     {
@@ -56,6 +57,11 @@ const router = createBrowserRouter([
         id:10,
         path: '/question/modify/:id',
         element: <Board_update/>
+    },
+    {
+        id:11,
+        path: '/FraudCaseLookup',
+        element: <FraudCaseLookup/>
     },
     {
         id:14,
