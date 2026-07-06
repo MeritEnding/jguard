@@ -1,122 +1,142 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { logout } from '../api/userApi';
 import './Header.css';
-import { FaBars, FaTimes } from 'react-icons/fa'; // 모바일 메뉴 아이콘
+import { FaBars, FaTimes, FaShieldAlt, FaRobot } from 'react-icons/fa';
+
+const NAV_GROUPS = [
+    {
+        label: 'AI 서비스',
+        items: [
+            { to: '/risk_check', label: 'AI 위험 진단', desc: '딥러닝이 예측하는 내 계약 위험도' },
+            { to: '/chatbot', label: 'AI 문서 분석', desc: '계약서 업로드로 위험 요소 분석' },
+        ],
+    },
+    {
+        label: '위험 조회',
+        items: [
+            { to: '/risk_map', label: '전국 위험지도', desc: '시도별 위험지수 한눈에 보기' },
+            { to: '/FraudStates', label: '피해 현황 통계', desc: '지도·차트로 보는 피해 통계' },
+            { to: '/FraudCaseLookup', label: '내 지역 사기 조회', desc: '우리 동네 사기 이력 확인' },
+            { to: '/risk_analysis', label: '전세가율 위험도', desc: '지역별 깡통전세 위험 분석' },
+        ],
+    },
+    {
+        label: '뉴스/정보',
+        items: [
+            { to: '/guide', label: '예방 가이드', desc: '단계별 체크리스트와 트렌드' },
+            { to: '/chungbuk_news', label: '지역별 뉴스', desc: '내 지역 전세 소식' },
+            { to: '/news', label: '전체 뉴스', desc: '전국 전세사기 최신 뉴스' },
+        ],
+    },
+];
 
 const Header = () => {
     const navigate = useNavigate();
-    const location = useLocation(); // ✨ 현재 경로를 감지하기 위해 추가
+    const location = useLocation();
     const isLoggedIn = sessionStorage.getItem('accessToken') !== null;
 
-    // ✨ 각 드롭다운 메뉴를 위한 독립적인 상태
-    const [isAiServiceMenuOpen, setIsAiServiceMenuOpen] = useState(false);
-    const [isFraudLookupMenuOpen, setIsFraudLookupMenuOpen] = useState(false);
-    const [isNewsMenuOpen, setIsNewsMenuOpen] = useState(false); // ✨ 뉴스 메뉴 상태 추가 (버그 수정)
-
-    // ✨ 모바일 메뉴를 위한 상태
+    const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    // ✨ 페이지 이동 시 모바일 메뉴가 자동으로 닫히도록 설정
+    useEffect(() => {
+        const onScroll = () => setIsScrolled(window.scrollY > 8);
+        onScroll();
+        window.addEventListener('scroll', onScroll);
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
+
     useEffect(() => {
         setIsMobileMenuOpen(false);
     }, [location]);
 
+    useEffect(() => {
+        document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
+        return () => { document.body.style.overflow = ''; };
+    }, [isMobileMenuOpen]);
+
     const handleLogout = async () => {
-        // ... (기존 로그아웃 로직은 그대로 사용)
         try {
             await logout();
             alert('로그아웃되었습니다.');
         } catch (error) {
             console.error('로그아웃 요청 중 오류 발생:', error);
-            alert('로그아웃 처리 중 오류가 발생했으나, 클라이언트에서 로그아웃합니다.');
         } finally {
             sessionStorage.removeItem('accessToken');
             navigate('/user/login');
         }
     };
 
-    // ✨ 모바일 메뉴 토글 함수
-    const toggleMobileMenu = () => {
-        setIsMobileMenuOpen(!isMobileMenuOpen);
-    };
-
     return (
-        // ✨ 모바일 메뉴가 열렸을 때를 구분하기 위한 클래스 추가
-        <header className={`header-fixed ${isMobileMenuOpen ? 'mobile-menu-open' : ''}`}>
-            <div className="header-container">
-                <div className="header-logo">
-                    <Link to="/">JGuard</Link>
-                </div>
+        <header className={`site-header ${isScrolled ? 'scrolled' : ''} ${isMobileMenuOpen ? 'menu-open' : ''}`}>
+            <div className="header-inner">
+                <Link to="/" className="brand" aria-label="JGuard 홈으로">
+                    <span className="brand-mark"><FaShieldAlt /></span>
+                    <span className="brand-name">JGuard</span>
+                </Link>
 
-                {/* ✨ isMobileMenuOpen 상태에 따라 클래스 동적 부여 */}
-                <nav className={`main-nav ${isMobileMenuOpen ? 'active' : ''}`}>
+                <nav className="gnb" aria-label="주요 메뉴">
                     <ul>
-                        <li><Link to="/guide">예방법 가이드</Link></li>
-
-                        {/* AI 서비스 드롭다운 */}
-                        <li className="dropdown" onMouseEnter={() => setIsAiServiceMenuOpen(true)} onMouseLeave={() => setIsAiServiceMenuOpen(false)}>
-                            <span className="dropdown-toggle">AI 서비스</span>
-                            {isAiServiceMenuOpen && (
-                                <ul className="dropdown-menu">
-                                    <li><Link to="/chatbot">전세 계약 사전 진단</Link></li>
-                                    <li><Link to="/chatbot1">자동 대응 서류 생성</Link></li>
-                                    <li><Link to="/chatbot2">전문 변호사 매칭</Link></li>
-                                </ul>
-                            )}
+                        {NAV_GROUPS.map((group) => (
+                            <li className="gnb-item has-dropdown" key={group.label}>
+                                <span className="gnb-link">{group.label}</span>
+                                <div className="dropdown-panel">
+                                    {group.items.map((item) => (
+                                        <Link to={item.to} className="dropdown-link" key={item.to}>
+                                            <strong>{item.label}</strong>
+                                            <span>{item.desc}</span>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </li>
+                        ))}
+                        <li className="gnb-item">
+                            <NavLink to="/board" className="gnb-link">커뮤니티</NavLink>
                         </li>
-
-                        {/* 내 지역 전세사기 조회 드롭다운 */}
-                        <li className="dropdown" onMouseEnter={() => setIsFraudLookupMenuOpen(true)} onMouseLeave={() => setIsFraudLookupMenuOpen(false)}>
-                            <span className="dropdown-toggle">전세사기 조회</span>
-                            {isFraudLookupMenuOpen && (
-                                <ul className="dropdown-menu">
-                                    <li><Link to="/FraudCaseLookup">내 지역 전세사기 조회</Link></li>
-                                    <li><Link to="/risk_analysis">전세가율 기반 위험도</Link></li>
-                                </ul>
-                            )}
-                        </li>
-                        
-                        {/* 뉴스 드롭다운 (버그 수정) */}
-                        <li className="dropdown" onMouseEnter={() => setIsNewsMenuOpen(true)} onMouseLeave={() => setIsNewsMenuOpen(false)}>
-                            <span className="dropdown-toggle">뉴스/알림</span>
-                            {isNewsMenuOpen && (
-                                <ul className="dropdown-menu">
-                                    <li><Link to="/chungbuk_news">지역별 뉴스</Link></li>
-                                    <li><Link to="/news">전체 뉴스</Link></li>
-                                </ul>
-                            )}
-                        </li>
-            
-                     
-                        <li><Link to="/board">사기 매물 공유</Link></li>
-                             
-                   
-
-                        {isLoggedIn && <li><Link to="/mypage">마이페이지</Link></li>}
                     </ul>
-                     {/* 모바일 화면에서만 보이는 로그인/로그아웃 버튼 */}
-                    <div className="mobile-auth-buttons">
-                        {isLoggedIn ? (
-                            <button onClick={handleLogout} className="logout-btn">로그아웃</button>
-                        ) : (
-                            <Link to='/user/login' className="login-btn">로그인</Link>
-                        )}
-                    </div>
                 </nav>
 
-                <div className="header-util">
-                    <div className="auth-buttons">
-                        {isLoggedIn ? (
-                            <button onClick={handleLogout} className="logout-btn">로그아웃</button>
-                        ) : (
-                            <Link to='/user/login' className="login-btn">로그인</Link>
-                        )}
-                    </div>
-                    {/* ✨ 모바일 메뉴 토글 버튼 */}
-                    <button className="menu-toggle" onClick={toggleMobileMenu}>
+                <div className="header-actions">
+                    <Link to="/risk_check" className="header-cta">
+                        <FaRobot /> AI 진단
+                    </Link>
+                    {isLoggedIn ? (
+                        <button onClick={handleLogout} className="auth-link">로그아웃</button>
+                    ) : (
+                        <Link to="/user/login" className="auth-link">로그인</Link>
+                    )}
+                    <button
+                        className="menu-toggle"
+                        onClick={() => setIsMobileMenuOpen((v) => !v)}
+                        aria-label={isMobileMenuOpen ? '메뉴 닫기' : '메뉴 열기'}
+                    >
                         {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
                     </button>
+                </div>
+            </div>
+
+            {/* 모바일 전체 메뉴 */}
+            <div className={`mobile-panel ${isMobileMenuOpen ? 'open' : ''}`}>
+                {NAV_GROUPS.map((group) => (
+                    <div className="mobile-group" key={group.label}>
+                        <div className="mobile-group-label">{group.label}</div>
+                        {group.items.map((item) => (
+                            <Link to={item.to} className="mobile-link" key={item.to}>
+                                {item.label}
+                            </Link>
+                        ))}
+                    </div>
+                ))}
+                <div className="mobile-group">
+                    <div className="mobile-group-label">커뮤니티</div>
+                    <Link to="/board" className="mobile-link">사기 매물 공유</Link>
+                </div>
+                <div className="mobile-auth">
+                    {isLoggedIn ? (
+                        <button onClick={handleLogout} className="btn btn-outline">로그아웃</button>
+                    ) : (
+                        <Link to="/user/login" className="btn btn-primary">로그인</Link>
+                    )}
                 </div>
             </div>
         </header>

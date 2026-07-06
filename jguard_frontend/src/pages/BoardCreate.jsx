@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./BoardCreate.css"; // ✨ 새로 만들 CSS 파일
-import Header from '../components/Header'; // ✨ Header 추가
 import { createQuestion } from "../api/boardApi";
 import { FaSave, FaTimes } from 'react-icons/fa'; // ✨ 아이콘 추가
 
@@ -52,7 +51,6 @@ const BoardCreate = () => {
 
     return (
         <>
-            <Header />
             <div className="create-page-container">
                 <div className="create-form-wrapper">
                     <header className="create-form-header">

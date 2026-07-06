@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import Layout from './components/Layout';
 import Home from './pages/Home';
 import Chatbot from './pages/Chatbot';
 import Guide from './pages/Guide';
@@ -14,22 +15,31 @@ import Login from './pages/Login';
 import FraudCaseLookup from './pages/FraudCaseLookup';
 import FraudStates from './pages/FraudStates';
 import RiskAnalysis from './pages/RiskAnalysis';
+import RiskMap from './pages/RiskMap';
+import RiskCheck from './pages/RiskCheck';
 
 const router = createBrowserRouter([
-    { path: '/', element: <Home /> },
-    { path: '/chatbot', element: <Chatbot /> },
-    { path: '/guide', element: <Guide /> },
-    { path: '/board', element: <Board /> },
-    { path: '/board/detail/:id', element: <BoardDetail /> },
-    { path: '/board/question/create', element: <BoardCreate /> },
-    { path: '/question/modify/:id', element: <BoardUpdate /> },
-    { path: '/news', element: <News /> },
-    { path: '/chungbuk_news', element: <ChungbukNews /> },
-    { path: '/signup', element: <SignupForm /> },
-    { path: '/user/login', element: <Login /> },
-    { path: '/FraudCaseLookup', element: <FraudCaseLookup /> },
-    { path: '/FraudStates', element: <FraudStates /> },
-    { path: '/risk_analysis', element: <RiskAnalysis /> },
+    {
+        element: <Layout />,
+        children: [
+            { path: '/', element: <Home /> },
+            { path: '/chatbot', element: <Chatbot /> },
+            { path: '/guide', element: <Guide /> },
+            { path: '/board', element: <Board /> },
+            { path: '/board/detail/:id', element: <BoardDetail /> },
+            { path: '/board/question/create', element: <BoardCreate /> },
+            { path: '/question/modify/:id', element: <BoardUpdate /> },
+            { path: '/news', element: <News /> },
+            { path: '/chungbuk_news', element: <ChungbukNews /> },
+            { path: '/signup', element: <SignupForm /> },
+            { path: '/user/login', element: <Login /> },
+            { path: '/FraudCaseLookup', element: <FraudCaseLookup /> },
+            { path: '/FraudStates', element: <FraudStates /> },
+            { path: '/risk_analysis', element: <RiskAnalysis /> },
+            { path: '/risk_map', element: <RiskMap /> },
+            { path: '/risk_check', element: <RiskCheck /> },
+        ],
+    },
 ]);
 
 export default router;
