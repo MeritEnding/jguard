@@ -13,12 +13,18 @@ import Guide from './Guide';
 import FraudCaseLookup from './FraudCaseLookup';
 import FraudStates from "./FraudStates";
 import Risk_Analysis from "./Risk_Analysis";
+import Chatbot from './Chatbot';
 
 const router = createBrowserRouter([
     {
         id: 0,
         path: '/',
         element: <Home />,
+    },
+    {
+        id: 1,
+        path: '/chatbot',
+        element: <Chatbot/>,
     },
     {
         id: 2,
