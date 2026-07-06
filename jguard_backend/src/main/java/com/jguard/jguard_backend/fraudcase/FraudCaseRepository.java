@@ -1,4 +1,3 @@
-// src/main/java/com/jguard/jguard_backend/FraudCase/FraudStatsRepository.java
 package com.jguard.jguard_backend.fraudcase;
 
 import org.springframework.data.jpa.repository.JpaRepository;
