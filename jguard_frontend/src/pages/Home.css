@@ -261,6 +261,32 @@
     50%      { transform: translateY(-10px); }
 }
 
+/* 히어로 마스코트 (리포트 카드 옆에서 방패 들고 서 있음) */
+.hero-mascot {
+    position: absolute;
+    bottom: -34px;
+    left: -78px;
+    width: 168px;
+    filter: drop-shadow(0 14px 24px rgba(4, 8, 24, 0.5));
+    animation: floaty 5s ease-in-out infinite;
+    z-index: 2;
+}
+
+/* 섹션 상단 마스코트 */
+.section-mascot {
+    display: block;
+    width: 110px;
+    margin: 0 auto 14px;
+}
+
+/* CTA 밴드 마스코트 (망토) */
+.cta-mascot {
+    width: 130px;
+    margin: 0 auto 18px;
+    filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.4));
+    animation: floaty 4.5s ease-in-out infinite;
+}
+
 /* --- 통계 스트립 --- */
 .hero-stats {
     position: relative;
@@ -508,6 +534,12 @@
 
     .float-chip {
         display: none;
+    }
+
+    .hero-mascot {
+        left: -12px;
+        width: 120px;
+        bottom: -24px;
     }
 
     .hero-stats {
