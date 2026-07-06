@@ -55,7 +55,7 @@ const Board = () => {
         };
 
         fetchQuestions(page);
-    }, [page]);
+    }, [page, navigate]);
 
     const handleRowClick = (id) => navigate(`detail/${id}`);
     const registerRowClick = () => navigate("question/create");

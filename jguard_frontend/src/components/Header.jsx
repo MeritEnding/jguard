@@ -13,7 +13,6 @@ const Header = () => {
     const [isAiServiceMenuOpen, setIsAiServiceMenuOpen] = useState(false);
     const [isFraudLookupMenuOpen, setIsFraudLookupMenuOpen] = useState(false);
     const [isNewsMenuOpen, setIsNewsMenuOpen] = useState(false); // ✨ 뉴스 메뉴 상태 추가 (버그 수정)
-    const [isCommunityMenuOpen, setIsCommunityMenuOpen] = useState(false);
 
     // ✨ 모바일 메뉴를 위한 상태
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
