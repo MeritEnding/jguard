@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react"; // ✨ useCallback 임포트 추가
 import { useParams, useNavigate } from "react-router-dom";
 import "./BoardDetail.css";
-import Header from '../components/Header';
 import { fetchQuestion, deleteQuestion, createAnswer } from "../api/boardApi";
 import { jwtDecode } from 'jwt-decode';
 import { FaUser, FaCalendarAlt, FaEdit, FaTrash, FaList, FaPaperPlane, FaRedo } from 'react-icons/fa'; // ✨ 아이콘 추가
@@ -131,7 +130,6 @@ const BoardDetail = () => {
 
     return (
         <>
-            <Header />
             <div className="detail-page-wrapper">
                 <div className="detail-container">
                     <header className="question-header">

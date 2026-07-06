@@ -111,7 +111,7 @@ export default function FraudMap() {
                 </div>
 
                 {/* 차트 카드 */}
-                <div className="fraud-layout-card-fraud-layout-chart-card">
+                <div className="fraud-layout-card fraud-layout-chart-card">
                     <h2 className="fraud-layout-card-title">연도별 지역별 사기 발생 건수</h2> {/* 차트 섹션 제목 */}
                     <ResponsiveContainer width="100%" height={400}> {/* 차트 높이 조정 */}
                         <BarChart data={barData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
