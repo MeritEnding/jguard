@@ -1,151 +1,131 @@
-/* Board_create.css - '글 수정' 페이지와 일관된 디자인 */
+/* 게시글 작성 페이지 */
 
-/* --- Global Variables (일관성 유지) --- */
-:root {
-    --primary-color: #6a82fb;
-    --secondary-color: #fc5c7d;
-    --text-dark: #2c3e50;
-    --text-medium: #555;
-    --bg-light: #f0f2f5;
-    --bg-white: #ffffff;
-    --border-light: #e0e0e0;
-    --border-focus: #6a82fb;
-    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.06);
-    --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.1);
-    --success-color: #22c55e;
-    --error-color: #ef4444;
-}
-
-/* --- Page Layout --- */
 .create-page-container {
-    background-color: var(--bg-light);
-    padding: 60px 24px;
-    min-height: calc(100vh - var(--header-height)); /* Header 높이 제외 */
-    display: flex;
-    align-items: center; /* 수직 중앙 정렬 (내용이 적을 경우) */
+    padding: 56px 24px 96px;
 }
 
 .create-form-wrapper {
-    width: 100%;
-    max-width: 800px;
+    max-width: 760px;
     margin: 0 auto;
-    background-color: var(--bg-white);
-    padding: clamp(24px, 5vw, 48px);
-    border-radius: 16px;
-    box-shadow: var(--shadow-medium);
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    padding: 44px 48px;
 }
 
 .create-form-header {
     text-align: center;
-    margin-bottom: 40px;
-    border-bottom: 1px solid var(--border-light);
-    padding-bottom: 24px;
-}
-.create-form-header h1 {
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: var(--text-dark);
-}
-.create-form-header p {
-    margin-top: 8px;
-    font-size: 1.1rem;
-    color: var(--text-medium);
+    margin-bottom: 36px;
 }
 
-/* --- Form Elements Styling (update.css와 동일) --- */
+.create-form-header h1 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.create-form-header p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
 .create-form .form-group {
-    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 22px;
 }
 
 .create-form label {
-    display: block;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-strong);
 }
 
-.form-control {
+.create-form .form-control {
     width: 100%;
-    padding: 16px;
+    padding: 13px 16px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    background: var(--bg-surface);
     font-size: 1rem;
-    font-family: inherit;
-    line-height: 1.6;
-    color: var(--text-dark);
-    background-color: var(--bg-white);
-    border: 1px solid var(--border-light);
-    border-radius: 10px;
-    transition: all 0.2s ease-in-out;
-}
-
-.form-control::placeholder {
-    color: #94a3b8;
-}
-
-.form-control:focus {
+    color: var(--text-strong);
     outline: none;
-    border-color: var(--border-focus);
-    box-shadow: 0 0 0 4px rgba(106, 130, 251, 0.2);
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-textarea.form-control {
+.create-form textarea.form-control {
+    min-height: 280px;
     resize: vertical;
+    line-height: 1.7;
 }
 
-/* --- Action Buttons (update.css와 동일) --- */
+.create-form .form-control:focus {
+    border-color: var(--brand-500);
+    box-shadow: 0 0 0 4px rgba(86, 97, 236, 0.14);
+}
+
 .form-actions {
     display: flex;
     justify-content: flex-end;
     gap: 12px;
-    margin-top: 32px;
+    margin-top: 8px;
 }
 
-.cancel-btn, .submit-btn {
+.form-actions .cancel-btn {
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-strong);
+    background: var(--bg-surface);
+    color: var(--text-muted);
+    font-weight: 700;
+    transition: all 0.2s;
+}
+
+.form-actions .cancel-btn:hover {
+    color: var(--text-strong);
+    border-color: var(--text-faint);
+}
+
+.form-actions .submit-btn {
     padding: 12px 28px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
+    border-radius: var(--radius-md);
+    background: var(--grad-brand);
+    color: #fff;
+    font-weight: 700;
+    box-shadow: var(--shadow-brand);
+    display: inline-flex;
     align-items: center;
     gap: 8px;
+    transition: transform 0.2s var(--ease-out), box-shadow 0.2s;
 }
 
-.cancel-btn {
-    background-color: #f1f5f9;
-    color: var(--text-medium);
-    border: 1px solid #e2e8f0;
-}
-.cancel-btn:hover {
-    background-color: #e2e8f0;
-    color: var(--text-dark);
-}
-
-.submit-btn {
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    color: white;
-    box-shadow: var(--shadow-soft);
-}
-.submit-btn:hover {
+.form-actions .submit-btn:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* --- Submit Status Message (update.css와 동일) --- */
-.submit-status {
-    margin-top: 20px;
-    padding: 12px;
-    border-radius: 8px;
-    font-weight: 500;
+.form-actions .submit-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.form-status-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 64px 24px;
     text-align: center;
+    color: var(--text-muted);
 }
-.submit-status.success {
-    background-color: rgba(34, 197, 94, 0.1);
-    color: var(--success-color);
+
+.form-status-container.error {
+    color: var(--danger-600);
 }
-.submit-status.error {
-    background-color: rgba(239, 68, 68, 0.1);
-    color: var(--error-color);
+
+@media (max-width: 640px) {
+    .create-form-wrapper {
+        padding: 32px 24px;
+    }
 }

@@ -1,177 +1,226 @@
-/* Guide.css - 전문가의 터치로 재탄생한 디자인 */
+/* 예방 가이드 페이지 */
 
-/* --- Global Variables (일관성 유지) --- */
-:root {
-    --primary-color: #6a82fb;
-    --secondary-color: #fc5c7d;
-    --text-dark: #2c3e50;
-    --text-medium: #555;
-    --bg-light: #f0f2f5;
-    --bg-white: #ffffff;
-    --border-light: #e9ecef;
-    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.06);
-    --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.1);
-    --color-up: #D63031;
-    --color-down: #00B894;
-    --color-stable: #636E72;
-    --warning-bg: #fffbeb;
-    --warning-border: #fde68a;
-    --warning-text: #92400e;
-}
-
-/* --- Page Layout & Header --- */
 .guide-page-container {
-    background-color: var(--bg-light);
-    min-height: calc(100vh - 80px);
+    padding-bottom: 96px;
 }
+
 .guide-main-content {
-    max-width: 1100px;
+    max-width: var(--container-max);
     margin: 0 auto;
-    padding: 40px 24px 60px;
+    padding: 0 24px;
 }
 
 .guide-header {
     text-align: center;
-    margin-bottom: 48px;
+    padding: 64px 0 24px;
 }
+
 .guide-header h1 {
-    font-size: 2.8rem;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
     font-weight: 800;
-    color: var(--text-dark);
+    margin-bottom: 12px;
 }
+
 .guide-header p {
-    font-size: 1.1rem;
-    color: var(--text-medium);
-    margin-top: 12px;
+    color: var(--text-muted);
+    max-width: 560px;
+    margin: 0 auto;
 }
 
 .guide-section {
-    background-color: var(--bg-white);
-    padding: 32px 40px;
-    border-radius: 16px;
-    box-shadow: var(--shadow-soft);
-    margin-bottom: 40px;
-}
-.guide-section h2 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin: 0 0 24px 0;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border-light);
+    margin-top: 56px;
 }
 
-/* --- Trend Dashboard Styling --- */
-.status-message { text-align: center; padding: 40px; color: var(--text-medium); font-size: 1.1rem; }
-.status-message.error { color: var(--color-up); }
+.guide-section > h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 24px;
+    padding-left: 14px;
+    border-left: 4px solid var(--brand-600);
+}
 
+/* --- 트렌드 경고 --- */
 .trend-warning-message {
     display: flex;
-    align-items: flex-start;
     gap: 16px;
-    background-color: var(--warning-bg);
-    border: 1px solid var(--warning-border);
-    color: var(--warning-text);
-    padding: 20px;
-    border-radius: 12px;
+    align-items: flex-start;
+    background: var(--warn-bg);
+    border: 1px solid #F5D9A8;
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
     margin-bottom: 24px;
+    color: var(--warn-600);
 }
-.trend-warning-message svg { font-size: 1.5rem; flex-shrink: 0; margin-top: 4px; }
-.warning-content strong { display: block; margin-bottom: 8px; font-size: 1.1rem; }
-.warning-content ul { padding-left: 20px; margin: 0; }
 
+.trend-warning-message svg {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.warning-content strong {
+    display: block;
+    color: var(--text-strong);
+    margin-bottom: 6px;
+}
+
+.warning-content ul {
+    margin-left: 18px;
+    color: var(--text-body);
+    font-size: 0.92rem;
+}
+
+/* --- 트렌드 카드 --- */
 .trend-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
 }
 
 .trend-card {
-    border: 1px solid var(--border-light);
-    border-radius: 12px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px 22px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s var(--ease-out), box-shadow 0.25s;
 }
-.trend-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-medium); }
 
-.trend-card-header { display: flex; justify-content: space-between; align-items: center; }
-.trend-keyword { font-size: 1.2rem; font-weight: 700; color: var(--text-dark); }
-.trend-indicator { font-size: 0.9rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 6px; }
-.trend-indicator.up { background-color: rgba(214, 48, 49, 0.1); color: var(--color-up); }
-.trend-indicator.down { background-color: rgba(0, 184, 148, 0.1); color: var(--color-down); }
-.trend-indicator.stable { background-color: rgba(99, 110, 114, 0.1); color: var(--color-stable); }
-
-.trend-card-body { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin: 12px 0; }
-.current-ratio { font-size: 2.2rem; font-weight: 800; color: var(--text-dark); line-height: 1; }
-.ratio-unit { font-size: 1rem; font-weight: 600; color: var(--text-medium); }
-.trend-sparkline { width: 120px; height: 40px; }
-
-.trend-card-footer {
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-align: right;
-    border-top: 1px dashed var(--border-light);
-    padding-top: 12px;
+.trend-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
 }
-.trend-card.up .trend-card-footer { color: var(--color-up); }
-.trend-card.down .trend-card-footer { color: var(--color-down); }
-.trend-card.stable .trend-card-footer { color: var(--color-stable); }
 
-
-/* --- Accordion Styling --- */
-.accordion-container { display: flex; flex-direction: column; gap: 12px; }
-.accordion-item { border: 1px solid var(--border-light); border-radius: 12px; overflow: hidden; transition: background-color 0.2s ease; }
-.accordion-item.open { background-color: #f8f7ff; border-color: var(--primary-color);}
-
-.accordion-header {
+.trend-card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 14px;
+}
+
+.trend-keyword {
+    font-weight: 800;
+    color: var(--text-strong);
+}
+
+.trend-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+}
+
+.trend-indicator.up     { color: var(--danger-600); background: var(--danger-bg); }
+.trend-indicator.down   { color: var(--safe-600);   background: var(--safe-bg); }
+.trend-indicator.stable { color: var(--text-muted); background: var(--bg-subtle); }
+
+.trend-card-body {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.trend-ratio {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+}
+
+.current-ratio {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-strong);
+}
+
+.ratio-unit {
+    color: var(--text-faint);
+    font-weight: 700;
+}
+
+.trend-sparkline {
+    width: 110px;
+    height: 44px;
+}
+
+.trend-card-footer {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* --- 아코디언 체크리스트 --- */
+.accordion-container {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.accordion-item {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.accordion-item.open {
+    border-color: var(--brand-300);
+    box-shadow: var(--shadow-md);
+}
+
+.accordion-header {
     width: 100%;
-    padding: 20px;
-    background: none;
-    border: none;
-    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
     text-align: left;
 }
-.accordion-title { font-size: 1.2rem; font-weight: 600; color: var(--text-dark); }
-.accordion-item.open .accordion-title { color: var(--primary-color); }
 
-.accordion-icon { font-size: 1.2rem; color: var(--text-medium); transition: transform 0.3s ease; }
-.accordion-item.open .accordion-icon { transform: rotate(180deg); color: var(--primary-color); }
+.accordion-title {
+    font-size: 1.08rem;
+    font-weight: 700;
+    color: var(--text-strong);
+}
+
+.accordion-item.open .accordion-title {
+    color: var(--brand-600);
+}
+
+.accordion-icon {
+    color: var(--text-faint);
+    font-size: 1.2rem;
+    transition: transform 0.3s var(--ease-out);
+    flex-shrink: 0;
+}
+
+.accordion-item.open .accordion-icon {
+    transform: rotate(180deg);
+    color: var(--brand-600);
+}
 
 .accordion-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    transition: max-height 0.4s var(--ease-out);
 }
-.accordion-item.open .accordion-content { max-height: 1000px; }
-.accordion-content-inner { padding: 0 20px 20px 20px; }
 
-.accordion-content ul { list-style-type: none; padding-left: 0; margin: 0; }
-.accordion-content li {
-    padding: 12px 0 12px 24px;
-    position: relative;
-    border-bottom: 1px dashed var(--border-light);
-    line-height: 1.7;
-    color: var(--text-medium);
+.accordion-item.open .accordion-content {
+    max-height: 800px;
 }
-.accordion-content li:last-child { border-bottom: none; }
-.accordion-content li::before {
-    content: '✔️';
-    position: absolute;
-    left: 0;
-    color: var(--primary-color);
-}
-.accordion-content strong { color: var(--text-dark); font-weight: 700; }
 
-/* --- Responsive --- */
-@media (max-width: 768px) {
-    .guide-main-content, .guide-section { padding: 24px; }
-    .guide-header h1 { font-size: 2rem; }
-    .guide-section h2 { font-size: 1.5rem; }
-    .trend-grid { grid-template-columns: 1fr; }
+.accordion-content ul {
+    padding: 0 24px 24px 42px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 0.95rem;
+}
+
+.accordion-content li strong {
+    color: var(--text-strong);
 }
