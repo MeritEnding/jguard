@@ -6,6 +6,8 @@ import com.jguard.jguard_backend.fraudcase.FraudCase;
 import com.jguard.jguard_backend.fraudcase.FraudCaseRepository;
 import com.jguard.jguard_backend.fraudcase.FraudRegionStat;
 import com.jguard.jguard_backend.fraudcase.FraudRegionStatRepository;
+import com.jguard.jguard_backend.risk.RegionMarketStat;
+import com.jguard.jguard_backend.risk.RegionMarketStatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -26,11 +28,15 @@ public class DataInitializer implements CommandLineRunner {
     private final FraudCaseRepository fraudCaseRepository;
     private final FraudRegionStatRepository fraudRegionStatRepository;
     private final ChungbukNewsRepository chungbukNewsRepository;
+    private final RegionMarketStatRepository regionMarketStatRepository;
 
     @Override
     public void run(String... args) {
         if (fraudRegionStatRepository.count() == 0) {
             seedRegionStats();
+        }
+        if (regionMarketStatRepository.count() == 0) {
+            seedMarketStats();
         }
         if (fraudCaseRepository.count() == 0) {
             seedFraudCases();
@@ -69,6 +75,43 @@ public class DataInitializer implements CommandLineRunner {
                 .share(share)
                 .lat(lat)
                 .lng(lng)
+                .basisDate(BASIS_DATE)
+                .build();
+    }
+
+    /**
+     * 시도별 전세 시장 지표.
+     * 전세가율은 한국부동산원 임대차시장 사이렌(아파트/연립·다세대 최근 3개월),
+     * 사고율은 HUG 전세보증금 반환보증 지역별 사고 통계 비율을 따른 표본값.
+     */
+    private void seedMarketStats() {
+        regionMarketStatRepository.saveAll(List.of(
+                market("서울", 63.2, 70.4, 4.1),
+                market("경기", 68.5, 80.1, 6.3),
+                market("인천", 74.3, 83.6, 8.9),
+                market("부산", 72.1, 77.2, 5.6),
+                market("대전", 73.4, 78.3, 6.9),
+                market("대구", 70.6, 76.1, 4.8),
+                market("광주", 71.2, 74.0, 3.9),
+                market("울산", 73.8, 72.5, 3.4),
+                market("세종", 55.7, 60.2, 1.8),
+                market("강원", 77.9, 72.3, 2.7),
+                market("충북", 79.1, 75.6, 3.6),
+                market("충남", 78.2, 76.4, 4.2),
+                market("전북", 80.3, 74.1, 3.1),
+                market("전남", 76.0, 70.2, 2.4),
+                market("경북", 78.8, 73.4, 2.9),
+                market("경남", 76.4, 72.8, 3.3),
+                market("제주", 61.8, 65.3, 1.6)
+        ));
+    }
+
+    private RegionMarketStat market(String sido, double ratioApt, double ratioVilla, double accidentRate) {
+        return RegionMarketStat.builder()
+                .sido(sido)
+                .jeonseRatioApt(ratioApt)
+                .jeonseRatioVilla(ratioVilla)
+                .hugAccidentRate(accidentRate)
                 .basisDate(BASIS_DATE)
                 .build();
     }
