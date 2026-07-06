@@ -2,6 +2,7 @@ package com.jguard.jguard_backend.news;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper; // ObjectMapper 임포트 추가
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -17,7 +18,8 @@ import java.nio.charset.StandardCharsets; // StandardCharsets 임포트 추가 (
 
 @Component
 class GnewsClient {
-    private static final String API_KEY = "api키";
+    @Value("${jguard.api.gnews.key:}")
+    private String apiKey;
     private static final String BASE_URL = "https://gnews.io/api/v4/search";
 
     private final HttpClient httpClient = HttpClient.newHttpClient(); // HttpClient 인스턴스 재사용
@@ -30,7 +32,7 @@ class GnewsClient {
         try {
             // --- 여기를 수정했습니다: max=5로 설정하여 기사 5개만 가져오도록 변경 ---
             var url = String.format("%s?q=%s&token=%s&lang=ko&max=5", // max를 5로 변경
-                    BASE_URL, URLEncoder.encode(keyword, StandardCharsets.UTF_8), API_KEY); // UTF-8 인코딩 명시
+                    BASE_URL, URLEncoder.encode(keyword, StandardCharsets.UTF_8), apiKey); // UTF-8 인코딩 명시
 
             var request = HttpRequest.newBuilder().uri(URI.create(url)).build();
             var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
