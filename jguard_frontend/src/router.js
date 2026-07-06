@@ -9,12 +9,18 @@ import Signup_form from './Signup_form';
 import Login from './Login';
 import Board_update from './Board_update';
 import Chungbuk_news from './Chungbuk_news';
+import Guide from './Guide';
 
 const router = createBrowserRouter([
     {
         id: 0,
         path: '/',
         element: <Home />,
+    },
+    {
+        id: 2,
+        path: '/guide',
+        element: <Guide/>,
     },
     {
         id: 3,
