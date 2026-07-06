@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../api/axiosInstance';
+import { login } from '../api/userApi';
 import './Login.css';
 
 const Login = () => {
@@ -11,10 +11,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axiosInstance.post('/api/user/login', {
-        username,
-        password,
-      });
+      const response = await login(username, password);
 
       // ✅ 수정: axios는 헤더를 일반 객체로 다룹니다.
       const accessToken = response.headers['access']; 

@@ -1,7 +1,7 @@
 // src/components/BoardUpdate.jsx
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axiosInstance from "../api/axiosInstance";
+import { fetchQuestion, updateQuestion } from "../api/boardApi";
 import Header from '../components/Header'; // ✨ Header 추가
 import './BoardUpdate.css'; // ✨ 새로 만들 CSS 파일
 import { FaSave, FaTimes, FaRedo } from 'react-icons/fa'; // ✨ 아이콘 추가
@@ -20,7 +20,7 @@ const BoardUpdate = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axiosInstance.get(`/api/board/detail/${id}`);
+            const response = await fetchQuestion(id);
             const questionData = response.data;
             setSubject(questionData.subject);
             setContent(questionData.content);
@@ -59,7 +59,7 @@ const BoardUpdate = () => {
         }
 
         try {
-            await axiosInstance.put(`/api/question/modify/${id}`, { subject, content });
+            await updateQuestion(id, { subject, content });
             setSubmitStatus({ message: "게시글이 성공적으로 수정되었습니다!", type: 'success' });
             setTimeout(() => {
                 navigate(`/board/detail/${id}`);

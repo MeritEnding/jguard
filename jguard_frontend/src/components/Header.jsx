@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import axiosInstance from '../api/axiosInstance';
+import { logout } from '../api/userApi';
 import './Header.css';
 import { FaBars, FaTimes } from 'react-icons/fa'; // 모바일 메뉴 아이콘
 
@@ -25,7 +25,7 @@ const Header = () => {
     const handleLogout = async () => {
         // ... (기존 로그아웃 로직은 그대로 사용)
         try {
-            await axiosInstance.post('/logout');
+            await logout();
             alert('로그아웃되었습니다.');
         } catch (error) {
             console.error('로그아웃 요청 중 오류 발생:', error);
