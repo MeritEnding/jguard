@@ -1,4 +1,4 @@
-package com.jguard.jguard_backend.FraudCase;
+package com.jguard.jguard_backend.fraudcase;
 
 import jakarta.persistence.*;
 import lombok.*;

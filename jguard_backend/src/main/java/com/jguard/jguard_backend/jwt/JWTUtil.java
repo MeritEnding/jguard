@@ -1,4 +1,3 @@
-// JWTUtil.java
 
 package com.jguard.jguard_backend.jwt;
 

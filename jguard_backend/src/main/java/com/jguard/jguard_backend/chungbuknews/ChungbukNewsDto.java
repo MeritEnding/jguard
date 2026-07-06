@@ -1,4 +1,4 @@
-package com.jguard.jguard_backend.ChungbukNews;
+package com.jguard.jguard_backend.chungbuknews;
 
 import java.time.LocalDateTime; // LocalDateTime을 사용하기 위해 추가
 
