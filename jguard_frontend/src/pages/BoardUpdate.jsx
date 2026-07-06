@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchQuestion, updateQuestion } from "../api/boardApi";
-import Header from '../components/Header'; // ✨ Header 추가
 import './BoardUpdate.css'; // ✨ 새로 만들 CSS 파일
 import { FaSave, FaTimes, FaRedo } from 'react-icons/fa'; // ✨ 아이콘 추가
 
@@ -84,7 +83,6 @@ const BoardUpdate = () => {
 
     return (
         <>
-            <Header />
             <div className="update-page-container">
                 <div className="update-form-wrapper">
                     <header className="update-form-header">

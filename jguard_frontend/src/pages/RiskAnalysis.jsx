@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import './RiskAnalysis.css';
-import Header from '../components/Header';
 import { FaMapMarkedAlt, FaChevronDown, FaExclamationTriangle } from 'react-icons/fa';
 
 // Leaflet 기본 마커 아이콘 설정 (필수!)
@@ -134,7 +133,6 @@ const RiskAnalysis = () => {
     return (
         // ✨ FIX: 최상위 div에 고유 클래스 이름 적용
         <div className="risk-analysis-page">
-            <Header />
             <div className="risk-analysis-header">
                 <h1>전세가율 위험도 분석</h1>
                 <p>지도와 데이터를 통해 전국 각 지역의 전세 위험도를 한눈에 파악하세요.</p>

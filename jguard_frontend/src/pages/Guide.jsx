@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import './Guide.css';
-import Header from '../components/Header';
 import { fetchKeywordTrend } from '../api/newsApi';
 import { FaAngleDown, FaExclamationTriangle, FaArrowUp, FaArrowDown, FaMinus } from 'react-icons/fa';
 
@@ -140,7 +139,6 @@ const Guide = () => {
 
     return (
         <div className="guide-page-container">
-            <Header />
             <main className="guide-main-content">
                 <div className="guide-header">
                     <h1>전세 사기 예방 가이드</h1>

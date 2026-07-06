@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Board.css"; // ✨ 완전히 새로워진 CSS 파일
-import Header from '../components/Header';
 import { fetchQuestions } from "../api/boardApi";
 import { FaPen, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
@@ -75,7 +74,6 @@ const Board = () => {
 
     return (
         <div className="board-page-container">
-            <Header />
             <main className="board-main-content">
                 <div className="board-header">
                     <h1>사기 매물 공유</h1>
