@@ -1,0 +1,257 @@
+/* Header.css */
+
+/* --- Global Variables (다른 CSS 파일과 동일하게 유지) --- */
+:root {
+    --header-height: 70px; /* 헤더 높이 통일 */
+    --primary-color: #5E5DF0;
+    --text-dark: #1A1A2E;
+    --text-medium: #555;
+    --bg-white: #FFFFFF;
+    --border-light: #EAEAEA;
+    --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.04);
+    --shadow-medium: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* --- Header Base --- */
+.header-fixed {
+    width: 100%;
+    height: var(--header-height);
+    background-color: var(--bg-white);
+    box-shadow: var(--shadow-soft);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+
+.header-container {
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo a {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+/* --- Main Navigation (Desktop) --- */
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.main-nav ul a, .main-nav ul .dropdown-toggle {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 8px 4px;
+    position: relative;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.main-nav ul a::after, .main-nav ul .dropdown-toggle::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.main-nav ul a:hover, .main-nav ul .dropdown-toggle:hover {
+    color: var(--primary-color);
+}
+.main-nav ul a:hover::after, .main-nav ul .dropdown-toggle:hover::after {
+    width: 100%;
+}
+
+/* --- Dropdown Menu --- */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 140%; /* 드롭다운 메뉴 위치 */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--bg-white);
+    border-radius: 8px;
+    box-shadow: var(--shadow-medium);
+    list-style: none;
+    padding: 8px 0;
+    margin: 0;
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transform-origin: top center;
+    animation: fadeOutUp 0.3s ease forwards;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    animation: fadeInDown 0.3s ease forwards;
+}
+
+.dropdown-menu li {
+    padding: 0;
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    color: var(--text-medium);
+    white-space: nowrap;
+}
+
+.dropdown-menu li a:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+.dropdown-menu li a::after { display: none; } /* 드롭다운 내부 링크에는 밑줄 제거 */
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translate(-50%, -10px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}
+@keyframes fadeOutUp {
+    from { opacity: 1; transform: translate(-50%, 0); }
+    to { opacity: 0; transform: translate(-50%, -10px); }
+}
+
+/* --- Header Utils (Login/Logout, Toggle) --- */
+.header-util {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.auth-buttons .login-btn, .auth-buttons .logout-btn {
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: 1px solid var(--primary-color);
+    background-color: transparent;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.auth-buttons .login-btn:hover, .auth-buttons .logout-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.menu-toggle {
+    display: none; /* 데스크톱에서는 숨김 */
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    cursor: pointer;
+}
+.mobile-auth-buttons {
+    display: none; /* 데스크톱에서는 숨김 */
+}
+
+/* --- Responsive Design (Mobile) --- */
+@media (max-width: 1024px) {
+    .menu-toggle {
+        display: block;
+    }
+    .auth-buttons {
+        display: none; /* 데스크톱용 로그인 버튼 숨김 */
+    }
+    .main-nav {
+        position: fixed;
+        top: var(--header-height);
+        right: 0;
+        width: 100%;
+        max-width: 320px; /* 모바일 메뉴 최대 너비 */
+        height: calc(100vh - var(--header-height));
+        background-color: var(--bg-white);
+        transform: translateX(100%);
+        transition: transform 0.4s ease-in-out;
+        padding: 40px;
+        box-shadow: -5px 0px 15px rgba(0, 0, 0, 0.1);
+    }
+    .main-nav.active {
+        transform: translateX(0);
+    }
+    .main-nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+    }
+    .main-nav ul li {
+        width: 100%;
+        border-bottom: 1px solid var(--border-light);
+    }
+    .main-nav ul a, .main-nav ul .dropdown-toggle {
+        display: block;
+        width: 100%;
+        padding: 20px 0;
+        font-size: 1.2rem;
+    }
+    .main-nav ul a::after, .main-nav ul .dropdown-toggle::after {
+        display: none;
+    }
+    /* 모바일 드롭다운 스타일 */
+    .dropdown-menu {
+        position: static;
+        transform: none;
+        box-shadow: none;
+        opacity: 1;
+        visibility: visible;
+        animation: none;
+        display: none; /* 기본적으로 숨김 */
+        min-width: 100%;
+        padding-left: 20px;
+        border-top: 1px solid var(--border-light);
+    }
+    .dropdown:hover .dropdown-menu { /* 모바일에서는 hover가 아닌 click으로 제어해야 이상적 */
+        display: block; /* 예시로 hover 유지, 실제론 onClick으로 상태관리 필요 */
+    }
+    .dropdown-menu li {
+        border-bottom: none;
+    }
+     .dropdown-menu li a {
+        padding: 15px 0;
+        font-size: 1rem;
+    }
+    /* 모바일 메뉴 하단 로그인 버튼 */
+    .mobile-auth-buttons {
+        display: block;
+        margin-top: 40px;
+        text-align: center;
+    }
+    .mobile-auth-buttons .login-btn, .mobile-auth-buttons .logout-btn {
+         display: block;
+         width: 100%;
+         padding: 12px;
+         border-radius: 8px;
+         background-color: var(--primary-color);
+         color: white;
+         border: none;
+         font-size: 1.1rem;
+    }
+}
