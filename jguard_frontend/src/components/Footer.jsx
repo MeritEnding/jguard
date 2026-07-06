@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaShieldAlt } from 'react-icons/fa';
 import './Footer.css';
+import logoMark from '../assets/brand/logo_mark.png';
+import mascotWatch from '../assets/mascot/watch.png';
 
 const Footer = () => {
     return (
@@ -9,7 +10,7 @@ const Footer = () => {
             <div className="footer-inner">
                 <div className="footer-brand">
                     <div className="footer-logo">
-                        <span className="footer-logo-mark"><FaShieldAlt /></span>
+                        <img src={logoMark} alt="" className="footer-logo-img" />
                         <span className="footer-logo-name">JGuard</span>
                     </div>
                     <p className="footer-desc">
@@ -20,6 +21,7 @@ const Footer = () => {
                     <p className="footer-helpline">
                         전세피해지원센터 <strong>☎ 1533-8119</strong>
                     </p>
+                    <img src={mascotWatch} alt="지켜보고 있는 제이가드 마스코트" className="footer-mascot" />
                 </div>
 
                 <div className="footer-col">
