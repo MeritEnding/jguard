@@ -11,6 +11,7 @@ import Board_update from './Board_update';
 import Chungbuk_news from './Chungbuk_news';
 import Guide from './Guide';
 import FraudCaseLookup from './FraudCaseLookup';
+import FraudStates from "./FraudStates";
 
 const router = createBrowserRouter([
     {
@@ -62,6 +63,11 @@ const router = createBrowserRouter([
         id:11,
         path: '/FraudCaseLookup',
         element: <FraudCaseLookup/>
+    },
+    {
+        id:12,
+        path: '/FraudStates',
+        element: <FraudStates/>
     },
     {
         id:14,
