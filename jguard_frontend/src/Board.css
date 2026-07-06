@@ -1,0 +1,248 @@
+/* src/Board.css - 더 넓고 시원한 레이아웃으로 개선 */
+
+/* --- 폰트 및 전역 변수 (그대로 유지) --- */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+:root {
+    --primary-color: #6a82fb;
+    --secondary-color: #fc5c7d;
+    --accent-yellow: #f7b731;
+    --text-dark: #2c3e50;
+    --text-medium: #555;
+    --text-light: #f8f9fa;
+    --bg-light: #f0f2f5;
+    --bg-white: #ffffff;
+    --border-light: #e9ecef; /* 좀 더 부드러운 색으로 변경 */
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.1);
+    --shadow-strong: 0 12px 35px rgba(106, 130, 251, 0.3);
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* --- ✨ 레이아웃 구조 변경 --- */
+.board-container {
+    /* 전체 페이지의 흐름만 제어 */
+}
+
+.board-header-wrapper {
+    padding: 60px 24px;
+    text-align: center;
+}
+
+.board-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    position: relative;
+    padding-bottom: 15px;
+    display: inline-block; /* ::after 요소 너비 맞춤 */
+}
+
+.board-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 5px;
+    background-color: var(--secondary-color);
+    border-radius: 3px;
+}
+
+.board-description {
+    font-size: 1.1rem;
+    color: var(--text-medium);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* ✨ 넓어진 콘텐츠 영역 */
+.board-content-area {
+    max-width: 1200px; /* ✨ 최대 너비 1200px로 확장 */
+    width: 95%; /* 화면 너비에 따라 유동적으로 조절 */
+    margin: 0 auto; /* 중앙 정렬 */
+}
+
+/* --- 게시판 테이블 스타일 (디테일 개선) --- */
+.board-table {
+    width: 100%;
+    background-color: var(--bg-white);
+    border-collapse: collapse;
+    border-radius: 16px; /* ✨ 모서리 반경 증가 */
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    margin-bottom: 30px;
+}
+
+.board-table thead th {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 18px 24px; /* ✨ 좌우 여백 증가 */
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.board-table tbody tr {
+    border-bottom: 1px solid var(--border-light);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+.board-table tbody tr:last-child { border-bottom: none; }
+
+.board-table tbody tr:hover {
+    background-color: #f8f7ff;
+    transform: scale(1.005);
+}
+
+.board-table tbody td {
+    padding: 16px 24px; /* ✨ 좌우 여백 증가 */
+    font-size: 1rem;
+    color: var(--text-dark);
+    text-align: center;
+    vertical-align: middle;
+}
+
+.board-table tbody td:nth-child(2) {
+    text-align: left;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+.board-table tbody td:nth-child(3),
+.board-table tbody td:nth-child(4) {
+    color: var(--text-medium);
+    font-size: 0.95rem;
+}
+
+.answer-count {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 3px 8px;
+    background-color: var(--accent-yellow);
+    color: var(--bg-white);
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+.board-table tbody tr td[colspan="4"] {
+    padding: 60px 20px;
+    color: var(--text-medium);
+    font-style: italic;
+}
+
+/* --- ✨ 하단 컨트롤 (페이지네이션, 글쓰기 버튼) --- */
+.board-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1; /* ✨ 중앙 공간 차지 */
+}
+
+.pagination button {
+    background-color: var(--bg-white);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 45px;
+}
+.pagination button:hover:not(:disabled) {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.pagination button.active {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border-color: var(--primary-color);
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.pagination button:disabled {
+    background-color: var(--bg-light);
+    color: #aaa;
+    border-color: var(--border-light);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.pagination span {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    font-weight: 500;
+    margin: 0 10px;
+}
+
+.board-register-btn {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 15px 35px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+.board-register-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+
+/* --- 반응형 디자인 --- */
+@media (max-width: 1200px) {
+    .board-content-area {
+        width: 95%; /* 화면이 1200px보다 작아지면 비율로 너비 조절 */
+    }
+}
+
+@media (max-width: 768px) {
+    .board-header-wrapper { padding: 40px 20px; }
+    .board-title { font-size: 2rem; }
+    .board-description { font-size: 0.95rem; }
+    
+    .board-footer {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .pagination {
+        order: 2; /* 페이지네이션을 버튼 아래로 */
+    }
+    .board-register-btn {
+        order: 1; /* 글쓰기 버튼을 위로 */
+        width: 100%;
+    }
+}
+
+/* 테이블의 모바일 반응형은 기존 스타일 유지 */
+@media (max-width: 480px) {
+    .board-table tbody td:nth-child(2) {
+        text-align: center; /* 모바일에서 제목도 중앙 정렬 */
+    }
+}
