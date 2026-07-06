@@ -1,12 +1,12 @@
-// src/components/Board_update.jsx
+// src/components/BoardUpdate.jsx
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axiosInstance from "./api/axiosInstance";
-import Header from './Header'; // ✨ Header 추가
-import './Board_update.css'; // ✨ 새로 만들 CSS 파일
+import { fetchQuestion, updateQuestion } from "../api/boardApi";
+import Header from '../components/Header'; // ✨ Header 추가
+import './BoardUpdate.css'; // ✨ 새로 만들 CSS 파일
 import { FaSave, FaTimes, FaRedo } from 'react-icons/fa'; // ✨ 아이콘 추가
 
-const Board_update = () => {
+const BoardUpdate = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [subject, setSubject] = useState("");
@@ -20,7 +20,7 @@ const Board_update = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axiosInstance.get(`/api/board/detail/${id}`);
+            const response = await fetchQuestion(id);
             const questionData = response.data;
             setSubject(questionData.subject);
             setContent(questionData.content);
@@ -59,7 +59,7 @@ const Board_update = () => {
         }
 
         try {
-            await axiosInstance.put(`/api/question/modify/${id}`, { subject, content });
+            await updateQuestion(id, { subject, content });
             setSubmitStatus({ message: "게시글이 성공적으로 수정되었습니다!", type: 'success' });
             setTimeout(() => {
                 navigate(`/board/detail/${id}`);
@@ -134,4 +134,4 @@ const Board_update = () => {
     );
 };
 
-export default Board_update;
+export default BoardUpdate;

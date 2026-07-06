@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Board.css"; // ✨ 완전히 새로워진 CSS 파일
-import Header from './Header';
-import axiosInstance from "./api/axiosInstance";
+import Header from '../components/Header';
+import { fetchQuestions } from "../api/boardApi";
 import { FaPen, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 // 로딩 중일 때 보여줄 스켈레톤 행(row) 컴포넌트
@@ -25,16 +25,14 @@ const Board = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchQuestions = async (pageToFetch) => {
+        const loadQuestions = async (pageToFetch) => {
             setIsLoading(true);
             setError(null);
             try {
                 // 시각적 확인을 위한 딜레이 (배포 시 제거)
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 
-                const res = await axiosInstance.get(`/api/questions`, {
-                    params: { page: pageToFetch }
-                });
+                const res = await fetchQuestions(pageToFetch);
                 const data = res.data;
                 setQuestions(data.content);
                 setTotalPages(data.totalPages);
@@ -54,8 +52,8 @@ const Board = () => {
             }
         };
 
-        fetchQuestions(page);
-    }, [page]);
+        loadQuestions(page);
+    }, [page, navigate]);
 
     const handleRowClick = (id) => navigate(`detail/${id}`);
     const registerRowClick = () => navigate("question/create");

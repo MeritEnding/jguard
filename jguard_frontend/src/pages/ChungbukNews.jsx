@@ -1,8 +1,8 @@
 // News.jsx
 import React, { useEffect, useState } from "react";
 import "./News.css"; // 개선된 CSS 파일을 임포트합니다.
-import Header from './Header';
-import axiosInstance from './api/axiosInstance';
+import Header from '../components/Header';
+import { fetchChungbukNews } from '../api/newsApi';
 import { FaExclamationTriangle, FaArrowRight } from 'react-icons/fa'; // 아이콘 추가
 
 // ✨ New: 스켈레톤 카드 컴포넌트
@@ -16,20 +16,20 @@ const SkeletonCard = () => (
   </div>
 );
 
-const Chungcheong = () => {
+const ChungbukNews = () => {
   const [newsList, setNewsList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchNews = async () => {
+    const loadNews = async () => {
       setLoading(true);
       setError(null);
       try {
         // 1.5초 딜레이를 주어 로딩 효과를 시각적으로 확인 (실제 배포 시에는 제거)
         await new Promise(resolve => setTimeout(resolve, 1500)); 
         
-        const res = await axiosInstance.get("/api/chungbuk_news"); // 상대 경로 사용 권장
+        const res = await fetchChungbukNews();
         const data = res.data;
 
         if (!Array.isArray(data)) {
@@ -62,7 +62,7 @@ const Chungcheong = () => {
       }
     };
 
-    fetchNews();
+    loadNews();
   }, []);
 
   return (
@@ -115,4 +115,4 @@ const Chungcheong = () => {
   );
 };
 
-export default Chungcheong;
+export default ChungbukNews;

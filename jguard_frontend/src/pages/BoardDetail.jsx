@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react"; // ✨ useCallback 임포트 추가
 import { useParams, useNavigate } from "react-router-dom";
-import "./Board_detail.css";
-import Header from './Header';
-import axiosInstance from "./api/axiosInstance";
+import "./BoardDetail.css";
+import Header from '../components/Header';
+import { fetchQuestion, deleteQuestion, createAnswer } from "../api/boardApi";
 import { jwtDecode } from 'jwt-decode';
 import { FaUser, FaCalendarAlt, FaEdit, FaTrash, FaList, FaPaperPlane, FaRedo } from 'react-icons/fa'; // ✨ 아이콘 추가
 
-const Board_detail = () => {
+const BoardDetail = () => {
     const { id } = useParams();
     const [question, setQuestion] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -37,7 +37,7 @@ const Board_detail = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axiosInstance.get(`/api/board/detail/${id}`);
+            const response = await fetchQuestion(id);
             setQuestion(response.data);
         } catch (err) {
             console.error("Error fetching board detail:", err);
@@ -72,7 +72,7 @@ const Board_detail = () => {
             return;
         }
         try {
-            await axiosInstance.post(`/api/answer/create/${id}`, { content: answerContent });
+            await createAnswer(id, answerContent);
             setSubmitStatus({ message: "댓글이 성공적으로 등록되었습니다!", type: "success" });
             setAnswerContent("");
             fetchDetail();
@@ -100,7 +100,7 @@ const Board_detail = () => {
         if (!window.confirm("정말로 이 질문을 삭제하시겠습니까? 되돌릴 수 없습니다.")) return;
 
         try {
-            await axiosInstance.delete(`/api/question/delete/${id}`);
+            await deleteQuestion(id);
             alert("질문이 성공적으로 삭제되었습니다."); // 삭제 성공은 명확한 알림이 좋을 수 있음
             navigate("/board");
         } catch (err) {
@@ -199,4 +199,4 @@ const Board_detail = () => {
     );
 };
 
-export default Board_detail;
+export default BoardDetail;

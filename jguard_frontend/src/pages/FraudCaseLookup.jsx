@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Header from './Header';
-import regions from './data/regions';
+import Header from '../components/Header';
+import regions from '../data/regions';
 import './FraudCaseLookup.css'; // ✨ 완전히 새로워진 CSS
-// ✨ axiosInstance를 사용하도록 수정
-import axiosInstance from './api/axiosInstance'; 
+
+import { fetchFraudCasesByRegion } from '../api/fraudApi';
 import { FaSearch, FaExclamationTriangle, FaFileAlt } from 'react-icons/fa';
 
 // 로딩 스피너 컴포넌트
@@ -45,7 +45,7 @@ const FraudCaseLookup = () => {
         setSearchAttempted(false);
     }, [selectedCity, selectedDistrict]);
 
-    // ✨ handleSubmit 함수를 axiosInstance를 사용하도록 수정
+    // 전세 사기 이력 조회
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!selectedCity || !selectedDistrict || !selectedNeighborhood) {
@@ -58,13 +58,7 @@ const FraudCaseLookup = () => {
         setSearchAttempted(true);
 
         try {
-            const response = await axiosInstance.get('/api/fraud/region', {
-                params: {
-                    city: selectedCity,
-                    district: selectedDistrict,
-                    neighborhood: selectedNeighborhood
-                }
-            });
+            const response = await fetchFraudCasesByRegion(selectedCity, selectedDistrict, selectedNeighborhood);
             setFraudCases(response.data);
         } catch (err) {
             console.error("전세 사기 이력 조회 중 오류 발생:", err);

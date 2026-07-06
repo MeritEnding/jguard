@@ -1,8 +1,8 @@
 // News.jsx
 import React, { useEffect, useState } from "react";
 import "./News.css";
-import Header from './Header';
-import axiosInstance from './api/axiosInstance'; // 🟢 axiosInstance 임포트 추가
+import Header from '../components/Header';
+import { fetchNews } from '../api/newsApi';
 
 const News = () => {
   const [newsList, setNewsList] = useState([]);
@@ -10,13 +10,12 @@ const News = () => {
   const [error, setError] = useState(null);     // 🟢 에러 상태 추가
 
   useEffect(() => {
-    const fetchNews = async () => {
+    const loadNews = async () => {
       setLoading(true); // 로딩 시작
       setError(null);   // 이전 에러 초기화
 
       try {
-        // 🟢 fetch 대신 axiosInstance.get() 사용
-        const res = await axiosInstance.get("http://localhost:8080/api/news");
+        const res = await fetchNews();
         const data = res.data; // axios는 응답 데이터를 res.data에 담습니다.
 
         if (!Array.isArray(data)) {
@@ -52,7 +51,7 @@ const News = () => {
       }
     };
 
-    fetchNews();
+    loadNews();
   }, []);
 
   return (

@@ -1,12 +1,12 @@
-// src/components/Board_create.jsx
+// src/components/BoardCreate.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Board_create.css"; // ✨ 새로 만들 CSS 파일
-import Header from './Header'; // ✨ Header 추가
-import axiosInstance from "./api/axiosInstance";
+import "./BoardCreate.css"; // ✨ 새로 만들 CSS 파일
+import Header from '../components/Header'; // ✨ Header 추가
+import { createQuestion } from "../api/boardApi";
 import { FaSave, FaTimes } from 'react-icons/fa'; // ✨ 아이콘 추가
 
-const Board_create = () => {
+const BoardCreate = () => {
     const navigate = useNavigate();
     const [subject, setSubject] = useState("");
     const [content, setContent] = useState("");
@@ -31,10 +31,7 @@ const Board_create = () => {
         }
 
         try {
-            const response = await axiosInstance.post("/api/question/create", { 
-                subject, 
-                content 
-            });
+            const response = await createQuestion({ subject, content });
 
             if (response.status === 200 || response.status === 201) {
                 setSubmitStatus({ message: "질문이 성공적으로 등록되었습니다! 곧 목록으로 이동합니다.", type: 'success' });
@@ -110,4 +107,4 @@ const Board_create = () => {
     );
 };
 
-export default Board_create;
+export default BoardCreate;

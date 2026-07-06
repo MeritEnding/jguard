@@ -1,10 +1,9 @@
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 // 1. Axios 인스턴스 생성
 const axiosInstance = axios.create({
   // 백엔드 서버 주소로 설정
-  baseURL: 'http://localhost:8080', 
+  baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080',
   // 다른 도메인으로 쿠키를 전송하기 위한 설정 (Refresh Token)
   withCredentials: true, 
 });

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import './Chatbot.css'; // 모든 스타일이 포함된 CSS 파일을 임포트합니다.
 
 // [헬퍼 함수] 보고서 텍스트를 파싱하여 구조화된 객체로 변환합니다. (수정된 버전)
