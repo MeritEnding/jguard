@@ -24,7 +24,8 @@ const Footer = () => {
 
                 <div className="footer-col">
                     <h4>서비스</h4>
-                    <Link to="/chatbot">AI 챗봇 진단</Link>
+                    <Link to="/risk_check">AI 위험 진단</Link>
+                    <Link to="/risk_map">전국 위험지도</Link>
                     <Link to="/FraudStates">피해 현황 통계</Link>
                     <Link to="/FraudCaseLookup">내 지역 사기 조회</Link>
                     <Link to="/risk_analysis">전세가율 위험도</Link>

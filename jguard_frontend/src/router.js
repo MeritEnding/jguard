@@ -15,6 +15,8 @@ import Login from './pages/Login';
 import FraudCaseLookup from './pages/FraudCaseLookup';
 import FraudStates from './pages/FraudStates';
 import RiskAnalysis from './pages/RiskAnalysis';
+import RiskMap from './pages/RiskMap';
+import RiskCheck from './pages/RiskCheck';
 
 const router = createBrowserRouter([
     {
@@ -34,6 +36,8 @@ const router = createBrowserRouter([
             { path: '/FraudCaseLookup', element: <FraudCaseLookup /> },
             { path: '/FraudStates', element: <FraudStates /> },
             { path: '/risk_analysis', element: <RiskAnalysis /> },
+            { path: '/risk_map', element: <RiskMap /> },
+            { path: '/risk_check', element: <RiskCheck /> },
         ],
     },
 ]);

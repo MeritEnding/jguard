@@ -8,12 +8,14 @@ const NAV_GROUPS = [
     {
         label: 'AI 서비스',
         items: [
-            { to: '/chatbot', label: 'AI 챗봇 진단', desc: '대화로 알아보는 내 계약 위험도' },
+            { to: '/risk_check', label: 'AI 위험 진단', desc: '딥러닝이 예측하는 내 계약 위험도' },
+            { to: '/chatbot', label: 'AI 문서 분석', desc: '계약서 업로드로 위험 요소 분석' },
         ],
     },
     {
         label: '위험 조회',
         items: [
+            { to: '/risk_map', label: '전국 위험지도', desc: '시도별 위험지수 한눈에 보기' },
             { to: '/FraudStates', label: '피해 현황 통계', desc: '지도·차트로 보는 피해 통계' },
             { to: '/FraudCaseLookup', label: '내 지역 사기 조회', desc: '우리 동네 사기 이력 확인' },
             { to: '/risk_analysis', label: '전세가율 위험도', desc: '지역별 깡통전세 위험 분석' },
@@ -95,7 +97,7 @@ const Header = () => {
                 </nav>
 
                 <div className="header-actions">
-                    <Link to="/chatbot" className="header-cta">
+                    <Link to="/risk_check" className="header-cta">
                         <FaRobot /> AI 진단
                     </Link>
                     {isLoggedIn ? (

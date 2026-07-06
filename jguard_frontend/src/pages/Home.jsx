@@ -11,14 +11,14 @@ const FEATURES = [
     {
         icon: <FaRobot />,
         title: 'AI 위험 진단',
-        desc: '보증금·시세·권리관계 정보를 입력하면 AI가 계약 위험도를 점수로 알려드립니다.',
-        to: '/chatbot',
+        desc: '보증금·시세·권리관계 정보를 입력하면 딥러닝 AI가 계약 위험도를 점수로 알려드립니다.',
+        to: '/risk_check',
     },
     {
         icon: <FaMapMarkedAlt />,
-        title: '전국 피해 현황 지도',
-        desc: '전국 시도별 전세사기 피해 현황을 지도와 차트로 한눈에 확인하세요.',
-        to: '/FraudStates',
+        title: '전국 위험지도',
+        desc: '전국 17개 시도의 위험지수와 피해 현황을 지도와 차트로 한눈에 확인하세요.',
+        to: '/risk_map',
     },
     {
         icon: <FaSearchLocation />,
@@ -106,10 +106,10 @@ const Home = () => {
                             지역 위험도를 종합해 내 계약의 위험 신호를 미리 알려드립니다.
                         </p>
                         <div className="hero-actions">
-                            <button className="btn btn-primary btn-lg" onClick={() => navigate('/chatbot')}>
+                            <button className="btn btn-primary btn-lg" onClick={() => navigate('/risk_check')}>
                                 <FaRobot /> 무료 AI 진단 시작
                             </button>
-                            <button className="btn btn-hero-ghost btn-lg" onClick={() => navigate('/FraudStates')}>
+                            <button className="btn btn-hero-ghost btn-lg" onClick={() => navigate('/risk_map')}>
                                 전국 피해 현황 보기 <FaArrowRight />
                             </button>
                         </div>
@@ -233,7 +233,7 @@ const Home = () => {
                 <div className="cta-inner">
                     <h2>내 보증금, 지금 바로 점검해 보세요</h2>
                     <p>회원가입 없이도 AI 진단을 무료로 이용할 수 있습니다.</p>
-                    <button className="btn btn-lg cta-btn" onClick={() => navigate('/chatbot')}>
+                    <button className="btn btn-lg cta-btn" onClick={() => navigate('/risk_check')}>
                         <FaRobot /> AI 진단 시작하기
                     </button>
                 </div>
