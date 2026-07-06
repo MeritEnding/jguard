@@ -1,0 +1,177 @@
+/* Guide.css - 전문가의 터치로 재탄생한 디자인 */
+
+/* --- Global Variables (일관성 유지) --- */
+:root {
+    --primary-color: #6a82fb;
+    --secondary-color: #fc5c7d;
+    --text-dark: #2c3e50;
+    --text-medium: #555;
+    --bg-light: #f0f2f5;
+    --bg-white: #ffffff;
+    --border-light: #e9ecef;
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.1);
+    --color-up: #D63031;
+    --color-down: #00B894;
+    --color-stable: #636E72;
+    --warning-bg: #fffbeb;
+    --warning-border: #fde68a;
+    --warning-text: #92400e;
+}
+
+/* --- Page Layout & Header --- */
+.guide-page-container {
+    background-color: var(--bg-light);
+    min-height: calc(100vh - 80px);
+}
+.guide-main-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+}
+
+.guide-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+.guide-header h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+.guide-header p {
+    font-size: 1.1rem;
+    color: var(--text-medium);
+    margin-top: 12px;
+}
+
+.guide-section {
+    background-color: var(--bg-white);
+    padding: 32px 40px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 40px;
+}
+.guide-section h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 24px 0;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* --- Trend Dashboard Styling --- */
+.status-message { text-align: center; padding: 40px; color: var(--text-medium); font-size: 1.1rem; }
+.status-message.error { color: var(--color-up); }
+
+.trend-warning-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background-color: var(--warning-bg);
+    border: 1px solid var(--warning-border);
+    color: var(--warning-text);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+}
+.trend-warning-message svg { font-size: 1.5rem; flex-shrink: 0; margin-top: 4px; }
+.warning-content strong { display: block; margin-bottom: 8px; font-size: 1.1rem; }
+.warning-content ul { padding-left: 20px; margin: 0; }
+
+.trend-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.trend-card {
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.trend-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-medium); }
+
+.trend-card-header { display: flex; justify-content: space-between; align-items: center; }
+.trend-keyword { font-size: 1.2rem; font-weight: 700; color: var(--text-dark); }
+.trend-indicator { font-size: 0.9rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 6px; }
+.trend-indicator.up { background-color: rgba(214, 48, 49, 0.1); color: var(--color-up); }
+.trend-indicator.down { background-color: rgba(0, 184, 148, 0.1); color: var(--color-down); }
+.trend-indicator.stable { background-color: rgba(99, 110, 114, 0.1); color: var(--color-stable); }
+
+.trend-card-body { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin: 12px 0; }
+.current-ratio { font-size: 2.2rem; font-weight: 800; color: var(--text-dark); line-height: 1; }
+.ratio-unit { font-size: 1rem; font-weight: 600; color: var(--text-medium); }
+.trend-sparkline { width: 120px; height: 40px; }
+
+.trend-card-footer {
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: right;
+    border-top: 1px dashed var(--border-light);
+    padding-top: 12px;
+}
+.trend-card.up .trend-card-footer { color: var(--color-up); }
+.trend-card.down .trend-card-footer { color: var(--color-down); }
+.trend-card.stable .trend-card-footer { color: var(--color-stable); }
+
+
+/* --- Accordion Styling --- */
+.accordion-container { display: flex; flex-direction: column; gap: 12px; }
+.accordion-item { border: 1px solid var(--border-light); border-radius: 12px; overflow: hidden; transition: background-color 0.2s ease; }
+.accordion-item.open { background-color: #f8f7ff; border-color: var(--primary-color);}
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+}
+.accordion-title { font-size: 1.2rem; font-weight: 600; color: var(--text-dark); }
+.accordion-item.open .accordion-title { color: var(--primary-color); }
+
+.accordion-icon { font-size: 1.2rem; color: var(--text-medium); transition: transform 0.3s ease; }
+.accordion-item.open .accordion-icon { transform: rotate(180deg); color: var(--primary-color); }
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+}
+.accordion-item.open .accordion-content { max-height: 1000px; }
+.accordion-content-inner { padding: 0 20px 20px 20px; }
+
+.accordion-content ul { list-style-type: none; padding-left: 0; margin: 0; }
+.accordion-content li {
+    padding: 12px 0 12px 24px;
+    position: relative;
+    border-bottom: 1px dashed var(--border-light);
+    line-height: 1.7;
+    color: var(--text-medium);
+}
+.accordion-content li:last-child { border-bottom: none; }
+.accordion-content li::before {
+    content: '✔️';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+}
+.accordion-content strong { color: var(--text-dark); font-weight: 700; }
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .guide-main-content, .guide-section { padding: 24px; }
+    .guide-header h1 { font-size: 2rem; }
+    .guide-section h2 { font-size: 1.5rem; }
+    .trend-grid { grid-template-columns: 1fr; }
+}
