@@ -1,38 +1,297 @@
-.App {
-  text-align: center;
+/* src/Home.css */
+
+/* --- Google Fonts Import --- */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+/* --- Global Variables & Base Styles --- */
+:root {
+    --primary-color: #5E5DF0;  /* ✨ Change: 생동감 있는 파란색으로 변경 */
+    --secondary-color: #8E2DE2; /* 보조 그라데이션 색상 */
+    --accent-yellow: #FFC947; /* ✨ Change: 따뜻하고 부드러운 노란색으로 변경 */
+    --text-dark: #1A1A2E; /* ✨ Change: 깊이감 있는 어두운 텍스트 색상 */
+    --text-medium: #555;
+    --text-light: #FDFDFD;
+    --bg-light: #F7F7F9; /* ✨ Change: 미세하게 톤 다운된 배경 */
+    --bg-white: #FFFFFF;
+    --border-light: #EAEAEA;
+    --header-height: 80px; /* Header 컴포넌트 높이와 일치시키세요 */
+
+    /* ✨ Change: 그림자 효과를 더 자연스럽게 레이어드 스타일로 변경 */
+    --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.04);
+    --shadow-medium: 0 8px 16px rgba(0, 0, 0, 0.08);
+    --shadow-strong: 0 15px 30px rgba(0, 0, 0, 0.12);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+html {
+    scroll-behavior: smooth; /* 부드러운 스크롤 효과 */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.7; /* ✨ Change: 가독성을 위해 행간을 살짝 넓힘 */
+    overflow-x: hidden;
+    padding-top: var(--header-height); /* 고정 Header를 위한 공간 확보 */
 }
 
-.App-link {
-  color: #61dafb;
+.content-wrapper {
+    width: 100%;
+    max-width: 1200px; /* 콘텐츠 최대 너비 통일 */
+    margin: 0 auto;
+    padding: 0 24px; /* 좌우 여백 */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* --- Hero Section --- */
+.hero-section {
+    width: 100vw;
+    min-height: calc(100vh - var(--header-height));
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+    color: var(--text-light);
+    padding: 60px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center; /* ✨ Change: 수직 중앙 정렬 */
+    justify-content: center;
+}
+
+/* ✨ Change: 배경 블러 효과를 더 크고 부드럽게 만들어 몽환적인 느낌 강화 */
+.hero-section::before,
+.hero-section::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+    filter: blur(120px);
+    z-index: 0;
+}
+.hero-section::before {
+    width: 50vw; height: 50vw; background-color: #fff; top: -10%; left: -15%; animation: float1 18s ease-in-out infinite alternate;
+}
+.hero-section::after {
+    width: 60vw; height: 60vw; background-color: #fff; bottom: -15%; right: -20%; animation: float2 22s ease-in-out infinite alternate;
+}
+@keyframes float1 {
+    to { transform: translate(40px, 20px) scale(1.1); }
+}
+@keyframes float2 {
+    to { transform: translate(-30px, -40px) scale(1.05); }
+}
+
+.hero-content-wrapper {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ✨ Change: 유동적인 폰트 크기(clamp)를 사용하여 화면 크기에 따라 부드럽게 조절되도록 설정 */
+.hero-title {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    margin-bottom: 24px;
+    line-height: 1.2;
+    color: white;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.hero-description {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    font-weight: 300;
+    margin-bottom: 48px;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+}
+
+.button-group {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 60px;
+}
+
+.cta-button {
+    padding: 16px 32px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--shadow-medium);
+    display: inline-flex; /* ✨ Change: 아이콘과 텍스트 정렬을 위해 flex 사용 */
+    align-items: center;
+    gap: 12px;
+}
+
+.cta-button.primary {
+    background-color: var(--accent-yellow);
+    color: var(--text-dark);
+}
+
+.cta-button:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: var(--shadow-strong);
+}
+
+.cta-button.secondary {
+    background-color: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.cta-button.secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: white;
+}
+
+.hero-image-container {
+    margin-top: 40px;
+    position: relative;
+    z-index: 1;
+    transform: perspective(1500px) rotateX(10deg) scale(0.9); /* ✨ Change: 3D 효과를 좀 더 부드럽게 조정 */
+    box-shadow: var(--shadow-strong);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.hero-image-container:hover {
+    transform: perspective(1500px) rotateX(0deg) scale(1);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+}
+
+.hero-image {
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* --- Features Section --- */
+.features-section {
+    background-color: var(--bg-white);
+    padding: 100px 0;
+    position: relative;
+    z-index: 2; /* Hero 이미지 위에 위치하도록 */
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.section-title {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 32px;
+    text-align: center;
+    color: var(--text-dark);
+    position: relative;
+    display: block;
+}
+.section-title.premium-title {
+    margin-top: 100px; /* 섹션 간 간격 */
+}
+
+/* ✨ Change: 섹션 제목 밑줄 스타일을 좀 더 세련되게 변경 */
+.section-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -16px;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 5px;
+    background-image: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+    border-radius: 3px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 80px;
+}
+
+.feature-card {
+    background-color: var(--bg-white);
+    padding: 32px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid var(--border-light);
+}
+
+.feature-card:hover {
+    transform: translateY(-12px);
+    box-shadow: var(--shadow-strong);
+    border-color: var(--primary-color);
+}
+
+/* ✨ New: 아이콘 스타일링 추가 */
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+    color: white;
+    box-shadow: 0 6px 12px rgba(94, 93, 240, 0.3);
+}
+.feature-icon span {
+    font-weight: bold;
+}
+
+.feature-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text-dark);
+}
+
+.feature-description {
+    font-size: 1rem;
+    color: var(--text-medium);
+    line-height: 1.6;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+    .hero-image { max-width: 400px; }
+    .features-grid { gap: 32px; }
+}
+
+@media (max-width: 768px) {
+    body { padding-top: 70px; /* 모바일 헤더 높이에 맞게 조정 */ }
+    .content-wrapper { padding: 0 20px; }
+    .hero-section { min-height: auto; padding: 80px 0; }
+    .hero-image-container { transform: none; box-shadow: var(--shadow-strong); }
+    .button-group { flex-direction: column; align-items: center; gap: 16px; margin-bottom: 40px; }
+    .cta-button { width: 100%; max-width: 320px; }
+    .features-section { padding: 80px 0; }
+    .section-title.premium-title { margin-top: 80px; }
+    .features-grid { margin-top: 60px; grid-template-columns: 1fr; max-width: 450px; margin-left: auto; margin-right: auto;}
+}
+
+@media (max-width: 480px) {
+    .hero-description { max-width: 90%; }
+    .hero-image { max-width: 80%; }
+    .cta-button { padding: 14px 24px; font-size: 1rem; }
+    .feature-card { padding: 24px; }
 }
