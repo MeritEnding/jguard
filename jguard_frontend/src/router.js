@@ -8,6 +8,7 @@ import Board_create from './Board_create';
 import Signup_form from './Signup_form';
 import Login from './Login';
 import Board_update from './Board_update';
+import Chungbuk_news from './Chungbuk_news';
 
 const router = createBrowserRouter([
     {
@@ -49,6 +50,11 @@ const router = createBrowserRouter([
         id:10,
         path: '/question/modify/:id',
         element: <Board_update/>
+    },
+    {
+        id:14,
+        path: '/chungbuk_news',
+        element: <Chungbuk_news/>
     }
 
 ]);
