@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -25,8 +26,10 @@ class NaverDatalabClient {
 
     // TODO: 여기에 네이버 개발자 센터에서 발급받은 '데이터랩 (검색어트렌드)' API용 ID/Secret을 입력하세요!
     // 실제 서비스에서는 이 값들을 환경 변수나 설정 파일에서 로드하는 것이 보안상 안전합니다.
-    private static final String NAVER_CLIENT_ID = "api아이디";
-    private static final String NAVER_CLIENT_SECRET = "api키";
+    @Value("${jguard.api.naver.client-id:}")
+    private String naverClientId;
+    @Value("${jguard.api.naver.client-secret:}")
+    private String naverClientSecret;
     private static final String BASE_URL = "https://openapi.naver.com/v1/datalab/search";
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
@@ -66,8 +69,8 @@ class NaverDatalabClient {
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(BASE_URL))
-                    .header("X-Naver-Client-Id", NAVER_CLIENT_ID)
-                    .header("X-Naver-Client-Secret", NAVER_CLIENT_SECRET)
+                    .header("X-Naver-Client-Id", naverClientId)
+                    .header("X-Naver-Client-Secret", naverClientSecret)
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody, StandardCharsets.UTF_8))
                     .build();

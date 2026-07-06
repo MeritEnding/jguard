@@ -2,6 +2,7 @@ package com.jguard.jguard_backend.news;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -19,8 +20,11 @@ import java.nio.charset.StandardCharsets;
 @Component
 class NaverNewsClient {
     // **이 값들은 네이버 '검색 API' -> '뉴스' 서비스를 활성화했을 때 발급받는 ID/Secret 이어야 합니다.**
-    private static final String NAVER_CLIENT_ID = "apiid";    // 실제 발급받은 Client ID로 변경
-    private static final String NAVER_CLIENT_SECRET = "api키"; // 실제 발급받은 Client Secret으로 변경
+    @Value("${jguard.api.naver.client-id:}")
+    private String naverClientId;
+
+    @Value("${jguard.api.naver.client-secret:}")
+    private String naverClientSecret;
 
     // **네이버 뉴스 검색 API의 실제 엔드포인트 URL입니다.**
     private static final String BASE_URL = "https://openapi.naver.com/v1/search/news.json";
@@ -37,8 +41,8 @@ class NaverNewsClient {
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
-                    .header("X-Naver-Client-Id", NAVER_CLIENT_ID) // Client ID 헤더 추가
-                    .header("X-Naver-Client-Secret", NAVER_CLIENT_SECRET) // Client Secret 헤더 추가
+                    .header("X-Naver-Client-Id", naverClientId) // Client ID 헤더 추가
+                    .header("X-Naver-Client-Secret", naverClientSecret) // Client Secret 헤더 추가
                     .build();
 
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
