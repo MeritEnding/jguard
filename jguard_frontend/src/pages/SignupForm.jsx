@@ -1,6 +1,7 @@
 // SignupForm.jsx
 import React, { useState } from 'react';
-import './SignupForm.css'; // CSS는 별도 파일로 분리
+import { signup } from '../api/userApi';
+import './SignupForm.css';
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -26,28 +27,17 @@ const SignupForm = () => {
     setSuccessMessage('');
 
     try {
-      const response = await fetch('/api/user/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+      const response = await signup(formData);
+      setSuccessMessage(response.data);
+      setFormData({
+        username: '',
+        password1: '',
+        password2: '',
+        email: '',
       });
-
-      const result = await response.text(); // 백엔드 응답이 JSON이면 .json()
-      if (response.ok) {
-        setSuccessMessage(result);
-        setFormData({
-          username: '',
-          password1: '',
-          password2: '',
-          email: '',
-        });
-      } else {
-        setErrors([result]);
-      }
     } catch (error) {
-      setErrors(['서버 오류: ' + error.message]);
+      const message = error.response?.data?.message || '서버 오류가 발생했습니다.';
+      setErrors([message]);
     }
   };
 
