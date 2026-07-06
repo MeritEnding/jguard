@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Home from './Home';
 import Board from './Board';
+import News from './News';
 
 import Board_detail from './Board_detail';
 import Board_create from './Board_create';
@@ -18,6 +19,11 @@ const router = createBrowserRouter([
         id: 3,
         path: '/board',
         element: <Board/>
+    },
+    {
+        id: 4,
+        path: '/news',
+        element: <News/>,
     },
     {
         id: 6,
