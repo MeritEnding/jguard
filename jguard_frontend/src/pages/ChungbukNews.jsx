@@ -16,7 +16,7 @@ const SkeletonCard = () => (
   </div>
 );
 
-const Chungcheong = () => {
+const ChungbukNews = () => {
   const [newsList, setNewsList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -115,4 +115,4 @@ const Chungcheong = () => {
   );
 };
 
-export default Chungcheong;
+export default ChungbukNews;

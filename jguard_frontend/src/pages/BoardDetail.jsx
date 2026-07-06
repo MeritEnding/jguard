@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react"; // ✨ useCallback 임포트 추가
 import { useParams, useNavigate } from "react-router-dom";
-import "./Board_detail.css";
+import "./BoardDetail.css";
 import Header from '../components/Header';
 import axiosInstance from "../api/axiosInstance";
 import { jwtDecode } from 'jwt-decode';
 import { FaUser, FaCalendarAlt, FaEdit, FaTrash, FaList, FaPaperPlane, FaRedo } from 'react-icons/fa'; // ✨ 아이콘 추가
 
-const Board_detail = () => {
+const BoardDetail = () => {
     const { id } = useParams();
     const [question, setQuestion] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -199,4 +199,4 @@ const Board_detail = () => {
     );
 };
 
-export default Board_detail;
+export default BoardDetail;
