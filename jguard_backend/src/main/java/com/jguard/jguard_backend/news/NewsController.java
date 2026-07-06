@@ -1,4 +1,3 @@
-// com.jguard.jguard_backend.news.NewsController.java
 package com.jguard.jguard_backend.news;
 
 import com.jguard.jguard_backend.question.Question;

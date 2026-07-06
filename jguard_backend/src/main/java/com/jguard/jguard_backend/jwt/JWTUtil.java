@@ -1,4 +1,3 @@
-// JWTUtil.java
 
 package com.jguard.jguard_backend.jwt;
 
@@ -12,13 +11,12 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
-// test
 @Component
 public class JWTUtil {
 
     private Key key;
 
-    public JWTUtil(@Value("${spring.qmskcasokwdzxfaofssajl.sadwpdowqnenqjkjsd}")String secret) {
+    public JWTUtil(@Value("${jguard.jwt.secret}") String secret) {
 
 
         byte[] byteSecretKey = Decoders.BASE64.decode(secret);
