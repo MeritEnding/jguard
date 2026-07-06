@@ -24,3 +24,7 @@ jguard.jwt.secret=${JWT_SECRET:<JWT_SECRET_BASE64>}
 jguard.api.naver.client-id=${NAVER_CLIENT_ID:}
 jguard.api.naver.client-secret=${NAVER_CLIENT_SECRET:}
 jguard.api.gnews.key=${GNEWS_API_KEY:}
+
+# OpenAI (Q&A 챗봇, 미설정 시 내장 지식베이스로 동작)
+jguard.api.openai.key=${OPENAI_API_KEY:}
+jguard.api.openai.model=${OPENAI_MODEL:gpt-4o-mini}
