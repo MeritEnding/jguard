@@ -107,6 +107,8 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/board/**")).permitAll() // React 프론트엔드 라우트 (로그인 필요)
                         .requestMatchers(new AntPathRequestMatcher("/api/board/detail/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/api/fraud/region")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/fraud/stats")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/risk/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/api/chungbuk_news")).permitAll()
 
                         // 그 외 모든 요청은 인증 필요

@@ -8,7 +8,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/fraud")
 @RequiredArgsConstructor
-@CrossOrigin(origins= "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 public class FraudCaseController {
 
     private final FraudCaseService fraudCaseService;
@@ -16,9 +16,9 @@ public class FraudCaseController {
     @GetMapping("/region")
     public List<FraudCase> getCasesByRegion(
             @RequestParam String city,
-            @RequestParam String district,
-            @RequestParam String neighborhood
-    ){
+            @RequestParam(required = false) String district,
+            @RequestParam(required = false) String neighborhood
+    ) {
         return fraudCaseService.getCasesByRegion(city, district, neighborhood);
     }
 }
