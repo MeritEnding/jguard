@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
+import {
+    BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, CartesianGrid,
+} from 'recharts';
 import 'leaflet/dist/leaflet.css';
 import './RiskAnalysis.css';
-import { FaMapMarkedAlt, FaChevronDown, FaExclamationTriangle } from 'react-icons/fa';
+import { FaMapMarkedAlt, FaChevronDown, FaExclamationTriangle, FaPercentage, FaFire, FaShieldAlt } from 'react-icons/fa';
 
 // Leaflet 기본 마커 아이콘 설정 (필수!)
 import L from 'leaflet';
@@ -130,6 +133,27 @@ const RiskAnalysis = () => {
     
     const currentRegionData = jeonseData.filter(item => item.region === selectedRegion);
 
+    // 요약 통계: 전국 평균, 최고 위험 지역, 80% 이상 위험 항목 수
+    const avgRate = jeonseData.length
+        ? jeonseData.reduce((acc, d) => acc + d.latest3Months, 0) / jeonseData.length
+        : 0;
+    const worst = jeonseData.reduce(
+        (max, d) => (d.latest3Months > (max?.latest3Months ?? -1) ? d : max),
+        null
+    );
+    const dangerCount = jeonseData.filter((d) => d.latest3Months >= 80).length;
+
+    // 지역별 유형 비교 차트 데이터 (아파트 vs 연립/다세대)
+    const compareData = [...new Set(jeonseData.map((d) => d.region))].map((region) => {
+        const apt = jeonseData.find((d) => d.region === region && d.type === '아파트');
+        const villa = jeonseData.find((d) => d.region === region && d.type === '연립/다세대');
+        return {
+            region: region.replace(/(특별자치시|특별시|광역시)$/, ''),
+            아파트: apt?.latest3Months ?? null,
+            '연립/다세대': villa?.latest3Months ?? null,
+        };
+    });
+
     return (
         // ✨ FIX: 최상위 div에 고유 클래스 이름 적용
         <div className="risk-analysis-page">
@@ -137,6 +161,33 @@ const RiskAnalysis = () => {
                 <h1>전세가율 위험도 분석</h1>
                 <p>지도와 데이터를 통해 전국 각 지역의 전세 위험도를 한눈에 파악하세요.</p>
             </div>
+
+            {!loading && !error && (
+                <div className="ra-stat-row">
+                    <div className="ra-stat-tile">
+                        <span className="ra-stat-icon brand"><FaPercentage /></span>
+                        <div>
+                            <span className="ra-stat-label">전국 평균 전세가율 (3개월)</span>
+                            <strong className="ra-stat-value">{avgRate.toFixed(1)}%</strong>
+                        </div>
+                    </div>
+                    <div className="ra-stat-tile">
+                        <span className="ra-stat-icon danger"><FaFire /></span>
+                        <div>
+                            <span className="ra-stat-label">최고 위험</span>
+                            <strong className="ra-stat-value">{worst?.region} {worst?.type} ({worst?.latest3Months.toFixed(1)}%)</strong>
+                        </div>
+                    </div>
+                    <div className="ra-stat-tile">
+                        <span className="ra-stat-icon warn"><FaShieldAlt /></span>
+                        <div>
+                            <span className="ra-stat-label">전세가율 80% 이상</span>
+                            <strong className="ra-stat-value">{dangerCount}개 항목</strong>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <main className="risk-analysis-main">
                 <div className="map-column">
                     <MapContainer center={[36.5, 127.8]} zoom={7} className="leaflet-map-container">
@@ -203,6 +254,28 @@ const RiskAnalysis = () => {
                     </div>
                 </div>
             </main>
+
+            {!loading && !error && (
+                <section className="ra-compare-card">
+                    <h2>지역별 주택 유형 전세가율 비교</h2>
+                    <p>최근 3개월 기준. 연립/다세대는 아파트보다 시세 파악이 어려워 전세가율이 높을수록 깡통전세 위험이 큽니다.</p>
+                    <ResponsiveContainer width="100%" height={320}>
+                        <BarChart data={compareData} margin={{ top: 12, right: 16, left: -8, bottom: 0 }}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                            <XAxis dataKey="region" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--text-muted)' }} />
+                            <YAxis domain={[0, 100]} unit="%" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--text-muted)' }} />
+                            <Tooltip
+                                cursor={{ fill: 'rgba(79, 70, 229, 0.06)' }}
+                                contentStyle={{ borderRadius: 12, border: '1px solid var(--border)', boxShadow: 'var(--shadow-md)', fontSize: 13 }}
+                                formatter={(v, name) => (v === null ? ['데이터 없음', name] : [`${v}%`, name])}
+                            />
+                            <Legend wrapperStyle={{ fontSize: 13 }} />
+                            <Bar dataKey="아파트" fill="#4F46E5" radius={[4, 4, 0, 0]} maxBarSize={28} />
+                            <Bar dataKey="연립/다세대" fill="#F59E0B" radius={[4, 4, 0, 0]} maxBarSize={28} />
+                        </BarChart>
+                    </ResponsiveContainer>
+                </section>
+            )}
         </div>
     );
 }
