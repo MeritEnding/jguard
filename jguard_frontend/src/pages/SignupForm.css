@@ -1,0 +1,88 @@
+/* 회원가입 페이지 */
+
+.signup-container {
+    max-width: 460px;
+    margin: 0 auto;
+    padding: 56px 24px 96px;
+}
+
+.signup-title {
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 28px;
+}
+
+.signup-form {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-form label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    margin-bottom: 8px;
+}
+
+.signup-form input {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    outline: none;
+    margin-bottom: 20px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.signup-form input:focus {
+    border-color: var(--brand-500);
+    box-shadow: 0 0 0 4px rgba(86, 97, 236, 0.14);
+}
+
+.signup-form button {
+    padding: 14px;
+    margin-top: 4px;
+    border-radius: var(--radius-md);
+    background: var(--grad-brand);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.02rem;
+    box-shadow: var(--shadow-brand);
+    transition: transform 0.2s var(--ease-out);
+}
+
+.signup-form button:hover {
+    transform: translateY(-2px);
+}
+
+.error-box {
+    background: var(--danger-bg);
+    border: 1px solid #F3C2CB;
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    margin-bottom: 20px;
+}
+
+.error-message {
+    color: var(--danger-600);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.success-box {
+    background: var(--safe-bg);
+    border: 1px solid #B8E8D4;
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    color: var(--safe-600);
+    font-weight: 700;
+    text-align: center;
+}

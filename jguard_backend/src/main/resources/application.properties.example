@@ -1,0 +1,30 @@
+spring.application.name=jguard_backend
+
+# DATABASE
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+spring.datasource.url=jdbc:h2:~/local
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=<DB_PASSWORD>
+
+# JPA
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.properties.hibernate.show_sql=true
+
+logging.level.org.springframework.security=DEBUG
+logging.level.com.jguard.jguard_backend=DEBUG
+
+# JWT (운영 환경에서는 JWT_SECRET 환경변수로 주입)
+jguard.jwt.secret=${JWT_SECRET:<JWT_SECRET_BASE64>}
+
+# 외부 API 키 (환경변수로 주입)
+jguard.api.naver.client-id=${NAVER_CLIENT_ID:}
+jguard.api.naver.client-secret=${NAVER_CLIENT_SECRET:}
+jguard.api.gnews.key=${GNEWS_API_KEY:}
+
+# OpenAI (Q&A 챗봇, 미설정 시 내장 지식베이스로 동작)
+jguard.api.openai.key=${OPENAI_API_KEY:}
+jguard.api.openai.model=${OPENAI_MODEL:gpt-4o-mini}

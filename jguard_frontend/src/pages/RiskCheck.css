@@ -1,0 +1,270 @@
+/* AI 위험 진단 페이지 */
+
+.riskcheck-page {
+    padding-bottom: 96px;
+}
+
+.riskcheck-content {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* --- 입력 폼 --- */
+.riskcheck-form {
+    padding: 40px 44px;
+}
+
+.form-mascot-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--brand-50);
+    border: 1px solid var(--brand-100);
+    border-radius: var(--radius-lg);
+    padding: 14px 20px;
+    margin-bottom: 28px;
+}
+
+.form-mascot-row img {
+    width: 64px;
+    flex-shrink: 0;
+}
+
+.form-mascot-row p {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--brand-700);
+}
+
+.result-mascot {
+    width: 110px;
+    flex-shrink: 0;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+}
+
+.check-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--bg-subtle);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+    margin: 8px 0 24px;
+}
+
+.check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--text-body);
+}
+
+.check-item input[type='checkbox'] {
+    width: 18px;
+    height: 18px;
+    margin-top: 3px;
+    accent-color: var(--brand-600);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.form-error {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--danger-bg);
+    color: var(--danger-600);
+    font-weight: 600;
+    font-size: 0.92rem;
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    margin-bottom: 20px;
+}
+
+.riskcheck-submit {
+    width: 100%;
+}
+
+/* --- 결과 --- */
+.riskcheck-result {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.result-score-card {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 36px 40px;
+}
+
+.result-ring {
+    flex-shrink: 0;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+.result-ring strong {
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.result-ring span {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-faint);
+    margin-top: 14px;
+}
+
+.result-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.result-level {
+    align-self: flex-start;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 5px 14px;
+    border-radius: var(--radius-pill);
+}
+
+.result-summary h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+
+.result-summary p {
+    color: var(--text-body);
+}
+
+.result-model {
+    font-size: 0.8rem;
+    color: var(--text-faint);
+}
+
+/* 요인별 진단 */
+.result-factors,
+.result-recs {
+    padding: 30px 34px;
+}
+
+.result-factors h3,
+.result-recs h3 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-bottom: 18px;
+}
+
+.result-factors ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.factor-row {
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    border-left: 4px solid var(--border-strong);
+    background: var(--bg-subtle);
+}
+
+.factor-row.danger { border-left-color: var(--danger-500); background: var(--danger-bg); }
+.factor-row.warn   { border-left-color: var(--warn-500);   background: var(--warn-bg); }
+.factor-row.safe   { border-left-color: var(--safe-500);   background: var(--safe-bg); }
+
+.factor-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.factor-name {
+    font-weight: 800;
+    color: var(--text-strong);
+}
+
+.factor-value {
+    font-weight: 800;
+    font-size: 0.92rem;
+}
+
+.factor-value.danger { color: var(--danger-600); }
+.factor-value.warn   { color: var(--warn-600); }
+.factor-value.safe   { color: var(--safe-600); }
+
+.factor-row p {
+    font-size: 0.9rem;
+    color: var(--text-body);
+}
+
+/* 권고 */
+.result-recs ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.result-recs li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 0.95rem;
+}
+
+.result-recs li svg {
+    color: var(--safe-500);
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.result-actions {
+    text-align: center;
+}
+
+.result-disclaimer {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-faint);
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+@media (max-width: 720px) {
+    .riskcheck-form {
+        padding: 28px 24px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .result-score-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .result-summary {
+        align-items: center;
+    }
+}

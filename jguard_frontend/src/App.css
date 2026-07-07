@@ -1,38 +1,345 @@
-.App {
-  text-align: center;
+/* ==========================================================================
+   공통 UI 컴포넌트 킷 — 페이지 전반에서 재사용하는 클래스
+   (디자인 토큰은 index.css 참조)
+   ========================================================================== */
+
+/* --- 레이아웃 --- */
+.container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 24px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app-main {
+    min-height: calc(100vh - var(--header-height));
+    display: flex;
+    flex-direction: column;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.app-main > * {
+    flex: 1;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* --- 페이지 헤드 (각 페이지 상단 타이틀 영역) --- */
+.page-head {
+    text-align: center;
+    padding: 64px 24px 48px;
 }
 
-.App-link {
-  color: #61dafb;
+.page-head .page-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--brand-600);
+    background: var(--brand-50);
+    border: 1px solid var(--brand-100);
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 16px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.page-head h1 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.page-head p {
+    color: var(--text-muted);
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+/* --- 버튼 --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 13px 26px;
+    border-radius: var(--radius-md);
+    transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out),
+        background-color 0.2s, color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+}
+
+.btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: var(--grad-brand);
+    color: #fff;
+    box-shadow: var(--shadow-brand);
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 34px rgba(79, 70, 229, 0.42);
+}
+
+.btn-outline {
+    background: var(--bg-surface);
+    color: var(--text-strong);
+    border: 1px solid var(--border-strong);
+    box-shadow: var(--shadow-xs);
+}
+
+.btn-outline:hover:not(:disabled) {
+    border-color: var(--brand-400);
+    color: var(--brand-600);
+    transform: translateY(-2px);
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+}
+
+.btn-ghost:hover {
+    color: var(--brand-600);
+    background: var(--brand-50);
+}
+
+.btn-danger {
+    background: var(--danger-600);
+    color: #fff;
+}
+
+.btn-danger:hover:not(:disabled) {
+    background: var(--danger-500);
+    transform: translateY(-2px);
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    border-radius: var(--radius-sm);
+}
+
+.btn-lg {
+    padding: 16px 34px;
+    font-size: 1.08rem;
+    border-radius: 14px;
+}
+
+/* --- 카드 --- */
+.card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.card-hover {
+    transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out),
+        border-color 0.25s;
+}
+
+.card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--brand-200);
+}
+
+/* --- 배지 / 칩 --- */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    line-height: 1.5;
+}
+
+.badge-brand  { background: var(--brand-50);  color: var(--brand-700);  }
+.badge-danger { background: var(--danger-bg); color: var(--danger-600); }
+.badge-warn   { background: var(--warn-bg);   color: var(--warn-600);   }
+.badge-safe   { background: var(--safe-bg);   color: var(--safe-600);   }
+.badge-info   { background: var(--info-bg);   color: var(--info-600);   }
+.badge-muted  { background: var(--bg-subtle); color: var(--text-muted); }
+
+/* --- 폼 --- */
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-field label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-strong);
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea,
+.input {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    background: var(--bg-surface);
+    font-size: 1rem;
+    color: var(--text-strong);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus,
+.input:focus {
+    border-color: var(--brand-500);
+    box-shadow: 0 0 0 4px rgba(86, 97, 236, 0.14);
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+    color: var(--text-faint);
+}
+
+.form-hint {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+/* --- 셀렉트 래퍼 (커스텀 화살표) --- */
+.select-wrapper {
+    position: relative;
+}
+
+.select-wrapper select {
+    width: 100%;
+    padding: 13px 42px 13px 16px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    background: var(--bg-surface);
+    font-size: 1rem;
+    color: var(--text-strong);
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.select-wrapper select:focus {
+    border-color: var(--brand-500);
+    box-shadow: 0 0 0 4px rgba(86, 97, 236, 0.14);
+}
+
+.select-wrapper select:disabled {
+    background: var(--bg-subtle);
+    color: var(--text-faint);
+    cursor: not-allowed;
+}
+
+.select-wrapper::after {
+    content: '';
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--text-muted);
+    border-bottom: 2px solid var(--text-muted);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+}
+
+/* --- 상태 메시지 --- */
+.status-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 56px 24px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+.status-message.error {
+    color: var(--danger-600);
+}
+
+.status-message svg {
+    font-size: 1.8rem;
+    opacity: 0.8;
+}
+
+/* --- 스피너 --- */
+.spinner {
+    width: 22px;
+    height: 22px;
+    border: 3px solid rgba(86, 97, 236, 0.2);
+    border-top-color: var(--brand-600);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --- 스켈레톤 --- */
+.skeleton-line {
+    height: 14px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--bg-subtle) 25%, #E8EBF5 50%, var(--bg-subtle) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite;
+}
+
+.skeleton-line.short  { width: 30%; }
+.skeleton-line.medium { width: 55%; }
+
+@keyframes shimmer {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+}
+
+/* --- 섹션 타이틀 --- */
+.section-title {
+    font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.section-sub {
+    text-align: center;
+    color: var(--text-muted);
+    max-width: 560px;
+    margin: 0 auto 44px;
+}
+
+/* --- 애니메이션 유틸 --- */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up {
+    animation: fadeUp 0.7s var(--ease-out) both;
+}
+
+/* --- 반응형 --- */
+@media (max-width: 768px) {
+    .page-head {
+        padding: 44px 20px 32px;
+    }
 }

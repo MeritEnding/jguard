@@ -1,0 +1,174 @@
+/* 커뮤니티(사기 매물 공유) 목록 페이지 */
+
+.board-page-container {
+    padding-bottom: 96px;
+}
+
+.board-main-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.board-header {
+    text-align: center;
+    padding: 64px 0 40px;
+}
+
+.board-header h1 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.board-header p {
+    color: var(--text-muted);
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+/* --- 테이블 --- */
+.board-table-container {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.board-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.board-table th {
+    background: var(--bg-subtle);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: left;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.board-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+    color: var(--text-body);
+}
+
+.board-table tbody tr {
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.board-table tbody tr:hover {
+    background: var(--brand-50);
+}
+
+.board-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.col-number { width: 90px; }
+.col-author { width: 140px; }
+.col-date   { width: 140px; }
+
+.cell-title {
+    font-weight: 600;
+    color: var(--text-strong);
+}
+
+.answer-count {
+    margin-left: 8px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--brand-600);
+}
+
+.status-cell {
+    text-align: center;
+    padding: 56px 20px !important;
+    color: var(--text-muted);
+    cursor: default;
+}
+
+.status-cell.error {
+    color: var(--danger-600);
+}
+
+/* --- 하단 --- */
+.board-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+}
+
+.total-elements {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+.pagination {
+    display: flex;
+    gap: 6px;
+}
+
+.pagination button {
+    min-width: 38px;
+    height: 38px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-strong);
+    background: var(--bg-surface);
+    color: var(--text-body);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+}
+
+.pagination button:hover:not(:disabled) {
+    border-color: var(--brand-400);
+    color: var(--brand-600);
+}
+
+.pagination button.active {
+    background: var(--grad-brand);
+    border-color: transparent;
+    color: #fff;
+}
+
+.pagination button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.board-register-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border-radius: var(--radius-md);
+    background: var(--grad-brand);
+    color: #fff;
+    font-weight: 700;
+    box-shadow: var(--shadow-brand);
+    transition: transform 0.2s var(--ease-out), box-shadow 0.2s;
+}
+
+.board-register-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(79, 70, 229, 0.4);
+}
+
+@media (max-width: 640px) {
+    .col-number,
+    .col-date {
+        display: none;
+    }
+}

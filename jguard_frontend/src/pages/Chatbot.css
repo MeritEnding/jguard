@@ -1,0 +1,262 @@
+/* AI 챗봇 진단 페이지 (업로드 + 분석 리포트) */
+
+/* --- 초기 업로드 화면 --- */
+.initial-view-container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 96px 24px 120px;
+    text-align: center;
+}
+
+.initial-view-container h1 {
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 18px;
+    background: var(--grad-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.initial-view-container > p {
+    color: var(--text-muted);
+    max-width: 480px;
+    margin: 0 auto 40px;
+}
+
+.file-upload-section {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.file-upload-section input[type='file'] {
+    display: none;
+}
+
+.file-upload-section label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 28px 20px;
+    border: 2px dashed var(--border-strong);
+    border-radius: var(--radius-lg);
+    color: var(--text-muted);
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.file-upload-section label:hover {
+    border-color: var(--brand-400);
+    background: var(--brand-50);
+    color: var(--brand-600);
+}
+
+.file-upload-section button {
+    padding: 15px 24px;
+    border-radius: var(--radius-md);
+    background: var(--grad-brand);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.02rem;
+    box-shadow: var(--shadow-brand);
+    transition: transform 0.2s var(--ease-out), opacity 0.2s;
+}
+
+.file-upload-section button:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.file-upload-section button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.upload-message {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* --- 분석 리포트 --- */
+.report-viewer-container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 56px 24px 96px;
+}
+
+.report-header {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.report-header h1 {
+    font-size: clamp(1.6rem, 3.6vw, 2.2rem);
+    font-weight: 800;
+}
+
+.report-body {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.report-section {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 28px 32px;
+}
+
+.report-section .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.report-section .section-title .icon {
+    font-size: 1.3rem;
+}
+
+.report-section .section-title h2 {
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+/* 요약 그리드 */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+}
+
+.summary-item {
+    background: var(--bg-subtle);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.summary-item .key {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.summary-item .value {
+    font-weight: 700;
+    color: var(--text-strong);
+}
+
+.summary-item .value.important {
+    color: var(--danger-600);
+}
+
+/* 위험 요소 / 권고 리스트 */
+.risk-list,
+.recommendation-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.risk-item,
+.recommendation-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px 18px;
+    border-radius: var(--radius-md);
+}
+
+.risk-item {
+    background: var(--danger-bg);
+}
+
+.recommendation-item {
+    background: var(--safe-bg);
+}
+
+.risk-item .icon,
+.recommendation-item .icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.risk-item .category,
+.recommendation-item .category {
+    display: block;
+    font-weight: 800;
+    color: var(--text-strong);
+    margin-bottom: 4px;
+}
+
+.risk-item .description,
+.recommendation-item .description {
+    font-size: 0.92rem;
+    color: var(--text-body);
+}
+
+/* 위험 수준 평가 */
+.risk-assessment {
+    text-align: center;
+}
+
+.risk-level-display {
+    display: inline-block;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--danger-600);
+    background: var(--danger-bg);
+    padding: 12px 28px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 16px;
+}
+
+.risk-assessment p {
+    color: var(--text-body);
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+/* 푸터 */
+.report-footer {
+    text-align: center;
+    margin-top: 36px;
+}
+
+.report-footer button {
+    padding: 14px 32px;
+    border-radius: var(--radius-md);
+    background: var(--grad-brand);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: var(--shadow-brand);
+    transition: transform 0.2s var(--ease-out);
+}
+
+.report-footer button:hover {
+    transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+    .report-section {
+        padding: 22px;
+    }
+}

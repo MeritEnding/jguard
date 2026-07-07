@@ -1,0 +1,131 @@
+/* 게시글 작성 페이지 */
+
+.create-page-container {
+    padding: 56px 24px 96px;
+}
+
+.create-form-wrapper {
+    max-width: 760px;
+    margin: 0 auto;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    padding: 44px 48px;
+}
+
+.create-form-header {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.create-form-header h1 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.create-form-header p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.create-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 22px;
+}
+
+.create-form label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-strong);
+}
+
+.create-form .form-control {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    background: var(--bg-surface);
+    font-size: 1rem;
+    color: var(--text-strong);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.create-form textarea.form-control {
+    min-height: 280px;
+    resize: vertical;
+    line-height: 1.7;
+}
+
+.create-form .form-control:focus {
+    border-color: var(--brand-500);
+    box-shadow: 0 0 0 4px rgba(86, 97, 236, 0.14);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.form-actions .cancel-btn {
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-strong);
+    background: var(--bg-surface);
+    color: var(--text-muted);
+    font-weight: 700;
+    transition: all 0.2s;
+}
+
+.form-actions .cancel-btn:hover {
+    color: var(--text-strong);
+    border-color: var(--text-faint);
+}
+
+.form-actions .submit-btn {
+    padding: 12px 28px;
+    border-radius: var(--radius-md);
+    background: var(--grad-brand);
+    color: #fff;
+    font-weight: 700;
+    box-shadow: var(--shadow-brand);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s var(--ease-out), box-shadow 0.2s;
+}
+
+.form-actions .submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.form-actions .submit-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.form-status-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 64px 24px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.form-status-container.error {
+    color: var(--danger-600);
+}
+
+@media (max-width: 640px) {
+    .create-form-wrapper {
+        padding: 32px 24px;
+    }
+}

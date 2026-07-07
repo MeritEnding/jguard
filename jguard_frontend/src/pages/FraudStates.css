@@ -1,0 +1,92 @@
+/* 피해 현황 통계 페이지 (지도 + 차트) */
+
+.fraud-layout-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 24px 96px;
+}
+
+.fraud-layout-main-title {
+    text-align: center;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800;
+    padding: 64px 0 48px;
+}
+
+.fraud-layout-content-wrapper {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 24px;
+    align-items: stretch;
+}
+
+.fraud-layout-card,
+.fraud-layout-chart-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 28px;
+}
+
+.fraud-layout-card-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    padding-left: 12px;
+    border-left: 4px solid var(--brand-600);
+}
+
+.fraud-layout-year-select-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.fraud-layout-year-select-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.fraud-layout-year-select {
+    padding: 9px 14px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--bg-surface);
+    font-weight: 600;
+    color: var(--text-strong);
+    cursor: pointer;
+    outline: none;
+}
+
+.fraud-layout-year-select:focus {
+    border-color: var(--brand-500);
+}
+
+.fraud-layout-map-wrapper {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+.fraud-layout-map {
+    height: 440px;
+    width: 100%;
+}
+
+.fraud-layout-popup-content {
+    font-weight: 600;
+}
+
+.fraud-layout-popup-count {
+    color: var(--danger-600);
+    font-weight: 800;
+}
+
+@media (max-width: 992px) {
+    .fraud-layout-content-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
