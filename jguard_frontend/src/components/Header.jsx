@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { logout } from '../api/userApi';
 import './Header.css';
-import { FaBars, FaTimes, FaShieldAlt, FaRobot } from 'react-icons/fa';
+import { FaBars, FaTimes, FaRobot } from 'react-icons/fa';
+import logoMark from '../assets/brand/logo_mark.png';
 
 const NAV_GROUPS = [
     {
@@ -25,6 +26,7 @@ const NAV_GROUPS = [
         label: '뉴스/정보',
         items: [
             { to: '/guide', label: '예방 가이드', desc: '단계별 체크리스트와 트렌드' },
+            { to: '/games', label: '예방 게임', desc: '게임으로 배우는 사기 예방' },
             { to: '/chungbuk_news', label: '지역별 뉴스', desc: '내 지역 전세 소식' },
             { to: '/news', label: '전체 뉴스', desc: '전국 전세사기 최신 뉴스' },
         ],
@@ -71,7 +73,7 @@ const Header = () => {
         <header className={`site-header ${isScrolled ? 'scrolled' : ''} ${isMobileMenuOpen ? 'menu-open' : ''}`}>
             <div className="header-inner">
                 <Link to="/" className="brand" aria-label="JGuard 홈으로">
-                    <span className="brand-mark"><FaShieldAlt /></span>
+                    <img src={logoMark} alt="JGuard 로고" className="brand-mark-img" />
                     <span className="brand-name">JGuard</span>
                 </Link>
 

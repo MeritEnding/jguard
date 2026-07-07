@@ -17,6 +17,9 @@ import FraudStates from './pages/FraudStates';
 import RiskAnalysis from './pages/RiskAnalysis';
 import RiskMap from './pages/RiskMap';
 import RiskCheck from './pages/RiskCheck';
+import Games from './pages/Games';
+import PreventionGame from './pages/PreventionGame';
+import InspectorGame from './pages/InspectorGame';
 
 const router = createBrowserRouter([
     {
@@ -38,6 +41,9 @@ const router = createBrowserRouter([
             { path: '/risk_analysis', element: <RiskAnalysis /> },
             { path: '/risk_map', element: <RiskMap /> },
             { path: '/risk_check', element: <RiskCheck /> },
+            { path: '/games', element: <Games /> },
+            { path: '/games/prevention', element: <PreventionGame /> },
+            { path: '/games/inspector', element: <InspectorGame /> },
         ],
     },
 ]);

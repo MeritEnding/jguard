@@ -2,6 +2,18 @@ import React, { useState } from 'react';
 import { FaRobot, FaExclamationTriangle, FaCheckCircle, FaRedoAlt } from 'react-icons/fa';
 import { predictRisk } from '../api/riskApi';
 import './RiskCheck.css';
+import mascotCheck from '../assets/mascot/check.png';
+import mascotSafe from '../assets/mascot/safe.png';
+import mascotGood from '../assets/mascot/good.png';
+import mascotCaution from '../assets/mascot/caution.png';
+import mascotDanger from '../assets/mascot/danger.png';
+
+const LEVEL_MASCOTS = {
+    '위험': mascotDanger,
+    '주의': mascotCaution,
+    '보통': mascotGood,
+    '안전': mascotSafe,
+};
 
 const SIDO_LIST = [
     '서울', '경기', '인천', '부산', '대구', '광주', '대전', '울산', '세종',
@@ -90,6 +102,10 @@ const RiskCheck = () => {
             <div className="riskcheck-content">
                 {!result ? (
                     <form className="riskcheck-form card" onSubmit={handleSubmit}>
+                        <div className="form-mascot-row">
+                            <img src={mascotCheck} alt="체크리스트를 든 제이가드" />
+                            <p>아는 정보만 입력해도 괜찮아요. 제이가드가 꼼꼼히 확인해볼게요!</p>
+                        </div>
                         <div className="form-grid">
                             <div className="form-field">
                                 <label htmlFor="deposit">전세 보증금 (만원)</label>
@@ -173,6 +189,11 @@ const RiskCheck = () => {
                                 <strong style={{ color: LEVEL_COLORS[result.riskLevel] }}>{result.riskScore}</strong>
                                 <span>/100</span>
                             </div>
+                            <img
+                                src={LEVEL_MASCOTS[result.riskLevel] || mascotGood}
+                                alt={`${result.riskLevel} 등급 마스코트`}
+                                className="result-mascot"
+                            />
                             <div className="result-summary">
                                 <span className="result-level" style={{ backgroundColor: LEVEL_COLORS[result.riskLevel] }}>
                                     위험 등급 · {result.riskLevel}

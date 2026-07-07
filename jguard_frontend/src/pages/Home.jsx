@@ -6,6 +6,9 @@ import {
     FaExclamationTriangle, FaFileContract, FaUserSecret,
 } from 'react-icons/fa';
 import './Home.css';
+import mascotMain from '../assets/mascot/main.png';
+import mascotHero from '../assets/mascot/hero.png';
+import mascotCaution from '../assets/mascot/caution.png';
 
 const FEATURES = [
     {
@@ -152,6 +155,7 @@ const Home = () => {
                         </div>
                         <div className="float-chip chip-1">🔔 등기부등본 확인 필요</div>
                         <div className="float-chip chip-2">✅ 보증보험 가입 가능</div>
+                        <img src={mascotMain} alt="JGuard 마스코트 제이가드" className="hero-mascot" />
                     </div>
                 </div>
 
@@ -179,6 +183,7 @@ const Home = () => {
             {/* --- 위험 신호 --- */}
             <section className="signals-section">
                 <div className="container">
+                    <img src={mascotCaution} alt="" className="section-mascot" />
                     <h2 className="section-title">이런 신호가 보이면 의심하세요</h2>
                     <p className="section-sub">전세사기 피해의 대부분은 계약 전에 막을 수 있었던 신호를 놓치면서 시작됩니다.</p>
                     <div className="signals-grid">
@@ -231,6 +236,7 @@ const Home = () => {
             {/* --- CTA 밴드 --- */}
             <section className="cta-band">
                 <div className="cta-inner">
+                    <img src={mascotHero} alt="망토를 두른 제이가드" className="cta-mascot" />
                     <h2>내 보증금, 지금 바로 점검해 보세요</h2>
                     <p>회원가입 없이도 AI 진단을 무료로 이용할 수 있습니다.</p>
                     <button className="btn btn-lg cta-btn" onClick={() => navigate('/risk_check')}>
