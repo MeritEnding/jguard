@@ -1,0 +1,248 @@
+/* 안심부동산: 계약 심사관 */
+
+.ig-page {
+    padding-bottom: 96px;
+}
+
+.ig-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.ig-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 28px 0 0;
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    transition: color 0.2s;
+}
+
+.ig-back:hover {
+    color: var(--brand-600);
+}
+
+/* --- 메뉴/종료 --- */
+.ig-menu {
+    max-width: 560px;
+    margin: 36px auto 0;
+    padding: 48px 40px;
+    text-align: center;
+}
+
+.ig-menu-mascot {
+    width: 130px;
+    margin: 0 auto 18px;
+}
+
+.ig-menu h1 {
+    font-size: 1.7rem;
+    margin-bottom: 14px;
+}
+
+.ig-menu p {
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    line-height: 1.75;
+}
+
+.ig-report {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.ig-report-item {
+    border-radius: var(--radius-lg);
+    padding: 20px 34px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ig-report-item strong {
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.ig-report-item.safe   { background: var(--safe-bg);   color: var(--safe-600); }
+.ig-report-item.danger { background: var(--danger-bg); color: var(--danger-600); }
+
+/* --- 심사 데스크 --- */
+.ig-desk-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 32px 0 20px;
+}
+
+.ig-desk-header h2 {
+    font-size: 1.4rem;
+}
+
+.ig-case-id {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-faint);
+    margin-left: 10px;
+}
+
+.ig-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    background: var(--bg-subtle);
+    padding: 9px 18px;
+    border-radius: var(--radius-pill);
+    transition: all 0.2s;
+}
+
+.ig-status.found {
+    color: var(--danger-600);
+    background: var(--danger-bg);
+    animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.04); }
+}
+
+/* --- 서류 --- */
+.ig-documents {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+}
+
+.ig-document {
+    padding: 22px 24px;
+}
+
+.ig-document h3 {
+    font-size: 1.02rem;
+    font-weight: 800;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--border-strong);
+}
+
+.ig-document ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ig-document li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    border: 1.5px solid transparent;
+    background: var(--bg-subtle);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.ig-document li:hover {
+    border-color: var(--brand-300);
+}
+
+.ig-document li.selected {
+    border-color: var(--brand-500);
+    background: var(--brand-50);
+    box-shadow: 0 0 0 3px rgba(86, 97, 236, 0.12);
+}
+
+.ig-field-label {
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: var(--text-faint);
+}
+
+.ig-field-value {
+    font-weight: 700;
+    color: var(--text-strong);
+    font-size: 0.95rem;
+    word-break: break-all;
+}
+
+/* --- 도장 --- */
+.ig-stamps {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 32px;
+}
+
+.ig-stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    padding: 16px 40px;
+    border-radius: var(--radius-lg);
+    border: 2.5px solid;
+    background: var(--bg-surface);
+    transition: all 0.15s;
+}
+
+.ig-stamp.approve {
+    color: var(--safe-600);
+    border-color: var(--safe-500);
+}
+
+.ig-stamp.approve:hover {
+    background: var(--safe-bg);
+    transform: translateY(-3px) rotate(-2deg);
+}
+
+.ig-stamp.reject {
+    color: var(--danger-600);
+    border-color: var(--danger-500);
+}
+
+.ig-stamp.reject:hover:not(:disabled) {
+    background: var(--danger-bg);
+    transform: translateY(-3px) rotate(2deg);
+}
+
+.ig-stamp:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* --- 피드백 --- */
+.ig-feedback {
+    margin-top: 32px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+.ig-feedback img {
+    width: 84px;
+}
+
+.ig-feedback p {
+    flex: 1;
+    font-weight: 700;
+    font-size: 1.02rem;
+    min-width: 200px;
+}
+
+.ig-feedback.safe   { border-left: 5px solid var(--safe-500); }
+.ig-feedback.danger { border-left: 5px solid var(--danger-500); }
